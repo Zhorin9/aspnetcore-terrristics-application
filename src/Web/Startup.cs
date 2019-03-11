@@ -25,9 +25,14 @@ namespace TerrristicsApp
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
+            app.UseStaticFiles();
+            app.UseNodeModules(env);
+
+            app.UseMvc(cfg =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                cfg.MapRoute("Default",
+                  "{controller}/{action}/{id?}",
+                  new { controller = "Home", Action = "Index" });
             });
         }
     }

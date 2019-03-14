@@ -4,8 +4,14 @@ using System;
 
 namespace Web.Data.Entities
 {
-    public class ApplicationContext : DbContext
+    public class AppDbContext : DbContext
     {
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            :base(options)
+        {
+
+        }
+
         public DbSet<SensorBlock> SensorBlocks { get; set; }
         public DbSet<SensorKind> SensorKinds { get; set; }
         public DbSet<InputSensorData> InputSensorData { get; set; }

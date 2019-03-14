@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Web.Identity;
 
 namespace Web.Data.Entities
 {

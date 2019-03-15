@@ -50,6 +50,10 @@ namespace Web.Data.Entities
             builder.Property(isd => isd.CreationDate)
                 .HasColumnType("date")
                 .HasDefaultValue(DateTime.Now);
+
+            //Decimal(5,2) is precision to 999.99
+            builder.Property(isd => isd.Value)
+                .HasColumnType("decimal(5,2)");
             
             builder.HasOne(isd => isd.SensorBlock)
                 .WithMany(isd => isd.Inputs)

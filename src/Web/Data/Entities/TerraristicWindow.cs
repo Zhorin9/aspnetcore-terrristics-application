@@ -10,7 +10,7 @@ namespace Web.Data.Entities
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }
         public Guid ApiKey { get; set; }
-        public ApplicationUser User { get; set; }
+        public string UserId { get; set; }
         public IEnumerable<SensorBlock> SensorBlocks { get; set; }
     }
 }

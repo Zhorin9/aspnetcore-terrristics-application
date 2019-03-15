@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +35,11 @@ namespace TerrristicsApp
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(_config.GetConnectionString("AppIdentityDbContext")));
 
+            services.AddIdentity<ApplicationUser, IdentityRole>(cfg =>
+            {
+                cfg.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<AppIdentityDbContext>();
+
             services.AddMvc();
         }
 
@@ -47,6 +53,8 @@ namespace TerrristicsApp
 
             app.UseStaticFiles();
             app.UseNodeModules(env);
+
+            app.UseAuthentication();
 
             app.UseMvc(cfg =>
             {

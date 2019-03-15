@@ -10,7 +10,7 @@ namespace Web.Data.Entities
         public byte PositionId { get; set; }
         public int SensorKindId { get; set; }
         public SensorKind SensorKind { get; set; }
-        public ApplicationUser User { get; set; }
+        public string UserId { get; set; }
         public int ParrentWindowId { get; set; }
         public TerraristicWindow ParrentWindow { get; set; }
         public IEnumerable<InputSensorData> Inputs { get; set; }

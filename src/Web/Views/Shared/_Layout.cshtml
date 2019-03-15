@@ -8,9 +8,37 @@
     <link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body>
-    <header class="container">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark rounded">
+            <h1 class="navbar-brand">Twoje Terrarium</h1>
+           
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li>
+                        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Strona główna</a>
+                    </li>
+                    <li>
+                        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Terraria</a>
+                    </li>
+                    <li>
+                        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Sensory</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li>
+                        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Strona główna</a>
+                    </li>
+                    <li>
+                        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Terraria</a>
+                    </li>
+                    <li>
+                        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Sensory</a>
+                    </li>
+                </ul>
+            </div>
 
-    </header>
+        </nav>
+    </div>
     <div>
         @RenderBody()
     </div>

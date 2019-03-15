@@ -1,4 +1,4 @@
-﻿namespace Web.Data.Entities
+﻿namespace Web.Data
 {
     public class BaseEntity
     {

@@ -2,48 +2,73 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width " />
     <title>@ViewData["Title"]</title>
     <link href="~/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark rounded">
-            <h1 class="navbar-brand">Twoje Terrarium</h1>
-           
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li>
-                        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Strona główna</a>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Zarządzanie terrarium <i class="fas fa-frog"></i></a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navMenu" class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li>
+                    <a class="nav-link active" asp-controller="Home" asp-action="Index">Strona główna</a>
+                </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarTerLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Terraria</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" asp-controller="Home" asp-action="Index">Moje terraria</a>
+                            <a class="dropdown-item" asp-controller="Home" asp-action="Index">Publiczne terraria</a>
+                        </div>
                     </li>
+                }
+                else
+                {
                     <li>
-                        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Terraria</a>
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Terraria</a>
                     </li>
-                    <li>
-                        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Sensory</a>
+                }
+                <li>
+                    <a class="nav-link" asp-controller="Home" asp-action="Index">Sensory</a>
+                </li>
+            </ul>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarTerLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Konto <i class="fas fa-user"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" asp-controller="Home" asp-action="Index">Moje konto</a>
+                            <a class="dropdown-item" asp-controller="Home" asp-action="Index">Mój profil</a>
+                            <a class="dropdown-item" asp-controller="Home" asp-action="Index"><i class="fas fa-sign-out-alt"></i> Wyloguj</a>
+                        </div>
                     </li>
+
                 </ul>
+            }
+            else
+            {
                 <ul class="navbar-nav ml-auto">
                     <li>
-                        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Strona główna</a>
-                    </li>
-                    <li>
-                        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Terraria</a>
-                    </li>
-                    <li>
-                        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Sensory</a>
+                        <a class="nav-link " asp-controller="Home" asp-action="Index">Zaloguj się <i class="fas fa-sign-in-alt"></i></a>
                     </li>
                 </ul>
-            </div>
+            }
+        </div>
 
-        </nav>
-    </div>
+    </nav>
     <div>
         @RenderBody()
     </div>
     <script type="text/javascript" src="~/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    @RenderSection("scripts",false)
+    @RenderSection("scripts", false)
 </body>
 </html>

@@ -1,2 +1,49 @@
-﻿body {
+﻿html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
+
+.fill-to-bottom {
+    flex-grow: 1;
+}
+
+.bg-gray {
+    background-color: #a8b6a8;
+}
+
+.bg-green {
+    background-color: #1b5727;
+}
+
+.bg-dropdown-list {
+    background-color: #69aa47;
+    color: #fff;
+}
+
+.home-top-index {
+    background-image: url('../img/homebackground.jpg');
+    height: 500px;
+    line-height: 400px;
+    width: 100%;
+    display: table;
+    background-size: cover;
+    text-align: center;
+    color: #fff;
+}
+
+.home-top-index-text {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+    .home-top-index-text button {
+        background-color: #1b5727;
+        border: #1e7d31 solid 1px;
+        color: #fff;
+        font-size: larger;
+    }
+        .home-top-index-text button:hover {
+            color: #808080;
+        }
+

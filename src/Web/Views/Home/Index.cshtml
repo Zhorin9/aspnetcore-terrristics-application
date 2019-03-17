@@ -4,9 +4,11 @@
         <h1 class="font-weight-bold">Zarządzaj swoim terraium</h1>
         Kotroluj stan swojego terrarium z dowolnego miejsca poprzez przeglądarkę internetową.
         <div>
-            <button class="btn mt-3" asp-controller="Home" asp-action="Index">
-                Rozpocznij za darmo
-            </button>
+            <form method="get" asp-controller="Home" asp-action="Index">
+                <button class="btn mt-3">
+                    Rozpocznij za darmo
+                </button>
+            </form>
         </div>
     </div>
 </div>

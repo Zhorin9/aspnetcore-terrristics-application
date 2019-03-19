@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Web.Data;
+using Web.Identity;
 
 namespace TerrristicsApp
 {
@@ -14,7 +17,35 @@ namespace TerrristicsApp
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            var host = CreateWebHostBuilder(args).Build();
+
+            SeedDb(host);
+
+            host.Run();
+        }
+
+        private static void SeedDb(IWebHost host)
+        {
+            var scopeFactory = host.Services.GetService<IServiceScopeFactory>();
+            var loggerFactory = host.Services.GetRequiredService<ILoggerFactory>();
+            using (var scope = scopeFactory.CreateScope())
+            {
+                try
+                {
+                    //Seed identity db context with main user
+                    var idendtitySeeder = scope.ServiceProvider.GetService<AppIdentityDbContextSeed>();
+                    idendtitySeeder.SeedAsync().Wait();
+
+                    //Seed application database with sensor dictionary
+                    var applicationSeeder = scope.ServiceProvider.GetService<AddDbContextSeed>();
+                    applicationSeeder.SeedAsync().Wait();
+                }
+                catch(Exception ex)
+                {
+                    var logger = loggerFactory.CreateLogger<Program>();
+                    logger.LogError(ex, "Problem with seeding the DB");
+                }
+            }
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

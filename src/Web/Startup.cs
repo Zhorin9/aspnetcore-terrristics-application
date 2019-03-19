@@ -40,6 +40,9 @@ namespace TerrristicsApp
                 cfg.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<AppIdentityDbContext>();
 
+            services.AddTransient<AppIdentityDbContextSeed>();
+            services.AddTransient<AddDbContextSeed>();
+
             services.AddMvc();
         }
 

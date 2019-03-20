@@ -22,7 +22,7 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarTerLink" 
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarTerLink"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Terraria</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" asp-controller="Home" asp-action="Index">Moje terraria</a>
@@ -48,7 +48,11 @@
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" asp-controller="Home" asp-action="Index">Moje konto</a>
                             <a class="dropdown-item" asp-controller="Home" asp-action="Index">Mój profil</a>
-                            <a class="dropdown-item" asp-controller="Home" asp-action="Index"><i class="fas fa-sign-out-alt"></i> Wyloguj</a>
+                            <form asp-controller="Account" asp-action="SignOut" method="post">
+                                <button class="dropdown-item" type="submit">
+                                    <i class="fas fa-sign-out-alt"></i> Wyloguj
+                                </button>
+                            </form>
                         </div>
                     </li>
 
@@ -58,20 +62,18 @@
             {
                 <ul class="navbar-nav ml-auto">
                     <li>
-                        <a class="nav-link " asp-controller="Home" asp-action="Index">Zaloguj się <i class="fas fa-sign-in-alt"></i></a>
+                        <a class="nav-link " asp-controller="Account" asp-action="SignIn">Zaloguj się <i class="fas fa-sign-in-alt"></i></a>
                     </li>
                 </ul>
             }
         </div>
 
     </nav>
-    <div>
+    <div style="width:100%">
         @RenderBody()
     </div>
-    <div class="fill-to-bottom bg-gray"></div>
-
     <footer class="fixed-bottom bg-green">
-        <div class="text-center py-md-3">
+        <div class="text-center text-white py-md-3">
             © 2018 Copyright: Przemysław Jaros
         </div>
     </footer>

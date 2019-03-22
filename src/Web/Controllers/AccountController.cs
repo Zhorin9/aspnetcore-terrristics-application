@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Web.Identity;
 using Web.ViewModels;
+using Web.ViewModels.Account;
 
 namespace Web.Controllers
 {

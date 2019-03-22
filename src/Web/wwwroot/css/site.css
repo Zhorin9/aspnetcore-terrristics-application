@@ -13,11 +13,17 @@
 }
 
 .bg-green {
-    background-color: #1b5727;
+    background-color: #009c1f;
 }
 
 .bg-dropdown-list {
     background-color: #69aa47;
+    color: #fff;
+}
+
+.btn-green {
+    background-color: #009c1f;
+    border: #1e7d31 solid 1px;
     color: #fff;
 }
 
@@ -38,12 +44,24 @@
     line-height: normal;
 }
     .home-top-index-text button {
-        background-color: #1b5727;
+        background-color: #009c1f;
         border: #1e7d31 solid 1px;
         color: #fff;
         font-size: larger;
     }
         .home-top-index-text button:hover {
-            color: #808080;
+            color: rgba(255,255,255,.75);
         }
 
+.form-validation-warning span {
+    color: #19d63f;
+    font-weight:bold;
+}
+
+.card-green{
+    border-radius: 50px;
+}
+    .card-green h5 {
+        background-color: #009c1f;
+        color: #fff;
+    }

@@ -1,0 +1,28 @@
+﻿@model Web.ViewModels.Account.RegisterViewModel
+
+<div class="row">
+    <div class="col-md-3">
+        <form asp-controller="Account" asp-action="Register" method="post" class="form-validation-warning">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword"></label>
+                <input asp-for="ConfirmPassword"/>
+                <span asp-validation-for="ConfirmPassword"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-green">Zarejestruj</button>
+            </div>
+        </form>
+    </div>
+</div>

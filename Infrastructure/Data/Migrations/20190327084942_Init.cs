@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Web.Data.Migrations
+namespace Infrastructure.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,9 +30,9 @@ namespace Web.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 200, nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2019, 3, 15, 11, 25, 6, 91, DateTimeKind.Local)),
-                    ModificationDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2019, 3, 15, 11, 25, 6, 91, DateTimeKind.Local)),
-                    ApiKey = table.Column<Guid>(nullable: false, defaultValue: new Guid("ce2515c6-651f-44f9-8305-0be32ea323d1")),
+                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2019, 3, 27, 9, 49, 42, 43, DateTimeKind.Local)),
+                    ModificationDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2019, 3, 27, 9, 49, 42, 43, DateTimeKind.Local)),
+                    ApiKey = table.Column<Guid>(nullable: false, defaultValue: new Guid("5d44a131-3e39-41bc-b1a5-b902943ffbe7")),
                     UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -77,7 +77,7 @@ namespace Web.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Value = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2019, 3, 15, 11, 25, 6, 77, DateTimeKind.Local)),
+                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2019, 3, 27, 9, 49, 42, 23, DateTimeKind.Local)),
                     SensorBlockId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

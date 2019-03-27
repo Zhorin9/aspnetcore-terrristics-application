@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AppCore.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
-using Web.Data.Entities;
 
-namespace Web.Data
+namespace Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {

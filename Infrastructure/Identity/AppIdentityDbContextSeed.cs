@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Web.Identity
+namespace Infrastructure.Identity
 {
     public class AppIdentityDbContextSeed
     {

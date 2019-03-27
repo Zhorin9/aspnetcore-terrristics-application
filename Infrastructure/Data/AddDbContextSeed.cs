@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using AppCore.Entities;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Web.Data.Entities;
 
-namespace Web.Data
+namespace Infrastructure.Data
 {
     public class AddDbContextSeed
     {

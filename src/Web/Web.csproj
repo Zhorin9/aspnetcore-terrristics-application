@@ -16,6 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\AppCore\AppCore.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Resources\ModelValidation.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

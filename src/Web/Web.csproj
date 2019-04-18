@@ -6,7 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\" />
+    <None Remove="ClientApp\app\shared\dataService.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\img\" />
     <Folder Include="wwwroot\libs\" />
   </ItemGroup>
@@ -20,6 +23,10 @@
   <ItemGroup>
     <ProjectReference Include="..\AppCore\AppCore.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\shared\dataService.ts" />
   </ItemGroup>
 
   <ItemGroup>

@@ -11,7 +11,7 @@ namespace Infrastructure.Data
 {
     public class AppRepository<T> : IAsyncAppRepository<T> where T : BaseEntity
     {
-        private readonly AppDbContext _context;
+        protected readonly AppDbContext _context;
 
         public AppRepository(AppDbContext context)
         {

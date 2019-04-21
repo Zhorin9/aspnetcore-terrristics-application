@@ -1,4 +1,6 @@
 ﻿using System.Globalization;
+using System.Text;
+using AppCore.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace TerrristicsApp
 {
@@ -29,6 +32,18 @@ namespace TerrristicsApp
             services.AddDbContext<AppDbContext>(c =>
                c.UseSqlServer(_config.GetConnectionString("AppDbContext")));
 
+            services.AddAuthentication()
+                .AddCookie()
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidIssuer = _config["Tokens:Issuer"],
+                        ValidAudience = _config["Tokens:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]))
+                    };
+                });
+
             //Add DbContext for users identity
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(_config.GetConnectionString("AppIdentityDbContext")));
@@ -40,6 +55,8 @@ namespace TerrristicsApp
 
             services.AddTransient<AppIdentityDbContextSeed>();
             services.AddTransient<AddDbContextSeed>();
+            services.AddScoped(typeof(IAsyncAppRepository<>), typeof(AppRepository<>));
+            services.AddScoped<ITerraristicWindowRepository, TerraristicWindowRepository>();
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 

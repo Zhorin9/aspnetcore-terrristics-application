@@ -6,21 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ClientApp\app\**" />
-    <Content Remove="ClientApp\app\**" />
-    <EmbeddedResource Remove="ClientApp\app\**" />
-    <None Remove="ClientApp\app\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\" />
     <Folder Include="wwwroot\img\" />
     <Folder Include="wwwroot\libs\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
     <PackageReference Include="OdeToCode.UseNodeModules" Version="1.0.6" />
   </ItemGroup>
 

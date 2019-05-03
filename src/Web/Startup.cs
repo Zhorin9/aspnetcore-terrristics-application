@@ -72,9 +72,12 @@ namespace TerrristicsApp
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
 
             app.UseStaticFiles();
-            app.UseNodeModules(env);
 
             var supportedCultures = new[]
             {

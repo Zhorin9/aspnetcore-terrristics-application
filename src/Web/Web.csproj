@@ -6,10 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\app\shared\dataService.ts" />
+    <Compile Remove="ClientApp\app\**" />
+    <Content Remove="ClientApp\app\**" />
+    <EmbeddedResource Remove="ClientApp\app\**" />
+    <None Remove="ClientApp\app\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\" />
     <Folder Include="wwwroot\img\" />
     <Folder Include="wwwroot\libs\" />
   </ItemGroup>
@@ -23,10 +27,6 @@
   <ItemGroup>
     <ProjectReference Include="..\AppCore\AppCore.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app\shared\dataService.ts" />
   </ItemGroup>
 
   <ItemGroup>

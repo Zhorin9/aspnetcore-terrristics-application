@@ -17,17 +17,23 @@
 </template>
 
 <script>
-// import image from "@/assets/homeBackground.jpg";
 
 export default {
   name: 'HomePage',
   props: {
     msg: String,
   },
+  //Metoda uruchamiana na starcie
+  //lifecycle hooks
+  created(){
+    console.log("Dupa");
+  },
+  //poza importem musimy dodać components wraz z określonym
+  //child componentem 
+  components:{}
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .home-top-index {
     background-image: url('../assets/homeBackground.jpg');

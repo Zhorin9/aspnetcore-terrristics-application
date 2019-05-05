@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using VueCliMiddleware;
 
 namespace TerrristicsApp
 {
@@ -58,7 +59,7 @@ namespace TerrristicsApp
             services.AddScoped(typeof(IAsyncAppRepository<>), typeof(AppRepository<>));
             services.AddScoped<ITerraristicWindowRepository, TerraristicWindowRepository>();
 
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            //TODO To remove services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             services.AddMvc()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
@@ -76,27 +77,39 @@ namespace TerrristicsApp
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
             app.UseStaticFiles();
 
-            var supportedCultures = new[]
-            {
-                new CultureInfo("pl-PL"),
-            };
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture("pl-PL"),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures
-            });
+            //TODO To remove var supportedCultures = new[]
+            //{
+            //    new CultureInfo("pl-PL"),
+            //};
+            //app.UseRequestLocalization(new RequestLocalizationOptions
+            //{
+            //    DefaultRequestCulture = new RequestCulture("pl-PL"),
+            //    SupportedCultures = supportedCultures,
+            //    SupportedUICultures = supportedCultures
+            //});
 
             app.UseAuthentication();
-
             app.UseMvc(cfg =>
             {
                 cfg.MapRoute("Default",
                   "{controller}/{action}/{id?}",
                   new { controller = "Home", Action = "Index" });
+            });
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "client-app";
+
+                if (env.IsDevelopment())
+                {
+                    // run npm process with client app
+                    spa.UseVueCli(npmScript: "serve", port: 8080);
+                    // if you just prefer to proxy requests from client app, use proxy to SPA dev server instead:
+                    // app should be already running before starting a .NET client
+                    // spa.UseProxyToSpaDevelopmentServer("http://localhost:8080"); // your Vue app port
+                }
             });
         }
     }

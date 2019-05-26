@@ -30,7 +30,9 @@ export default {
   },
   //poza importem musimy dodać components wraz z określonym
   //child componentem 
-  components:{}
+  components:{
+    
+  }
 };
 </script>
 
@@ -38,7 +40,7 @@ export default {
 .home-top-index {
     background-image: url('../assets/homeBackground.jpg');
     /* background-color: #1e7d31; */
-    height: 500px;
+    height: 700px;
     line-height: 400px;
     width: 100%;
     display: table;

@@ -1,4 +1,4 @@
 ﻿module.exports = {
   outputDir: '../wwwroot/dist',
-  filenameHashing: false
+  filenameHashing: false,
 }

@@ -1,18 +1,21 @@
 <template>
   <div id="app">
+    <navigation/>
     <main>
-      <HomePage/>
+      <router-view/>
     </main>
+    <VueFooter/>
   </div>
 </template>
 
 <script>
-import HomePage from './home/HomePage.vue';
-
+import Navigation from './components/Navigation.vue';
+import VueFooter from './components/VueFooter.vue';
 export default {
   name: 'app',
   components: {
-    HomePage,
+    Navigation,
+    VueFooter
   },
 };
 </script>
@@ -24,6 +27,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+.dropdown-menu {
+  background-color:#336528 !important;
+  border: 1px solid #009c1f!important;
+}
+html, 
+body {
+    height: 100%;
 }
 </style>

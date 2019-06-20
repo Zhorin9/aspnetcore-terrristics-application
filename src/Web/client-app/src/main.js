@@ -15,8 +15,8 @@ Vue.use(BootstrapVue);
 Vue.config.productionTip = false;
 
 // Setup axios as the Vue default $http library
-axios.defaults.baseURL = 'http://localhost:5000'
-Vue.prototype.$http = axios
+axios.defaults.baseURL = 'http://localhost:5000';
+Vue.prototype.$http = axios;
 
 new Vue({
   render: h => h(App),

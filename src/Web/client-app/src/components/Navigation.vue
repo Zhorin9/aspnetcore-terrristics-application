@@ -12,7 +12,9 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-item-dropdown right>
             <template slot="button-content">User</template>
-            <b-dropdown-item >Zaloguj</b-dropdown-item >
+            <b-dropdown-item :to="{name: 'LoginPage'}">
+              Zaloguj
+            </b-dropdown-item >
             <b-dropdown-item >Wyloguj</b-dropdown-item >
         </b-nav-item-dropdown>
       </b-navbar-nav>
@@ -30,16 +32,20 @@ export default {
 .nav-green {
   background-image: linear-gradient(30deg,#040E0D,#1E6036);
 }
-.dropdown-item:hover, .dropdown-item {
+.b-nav-dropdown{
+  background-color: #1a5330;
+  border-radius: 50%;
+}
+.dropdown-item {
     color: #fff;
     text-decoration: none;
 }
-.dropdown-item:hover, .dropdown-item:hover {
-    color: #fff;
-    background-color: #697b38;
+.dropdown-item:hover, .dropdown-item:focus{
+    background-color: #164629 !important;
 }
-.dropdown-item:hover, .dropdown-item:focus {
+.dropdown-item.active{
     color: #fff;
-    background-color: #697b38;
+    background-color: #0e2d1d !important;
+    opacity: 0.5;
 }
 </style>

@@ -7,9 +7,11 @@ export const userService = {
 };
 
 //Save current JwT Token in storage
-function login(email, password, rememberMe){
-    const headers = { 'Content-Type': 'application/json' };
-
+function login(email, password){
+    const headers = { 
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',    
+    };
     axios.post('/account/createToken',
     { Email: email, Password: password }, 
     { headers: headers })

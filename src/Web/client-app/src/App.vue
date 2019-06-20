@@ -29,11 +29,12 @@ export default {
   color: #2c3e50;
 }
 .dropdown-menu {
-  background-color:#336528 !important;
-  border: 1px solid #009c1f!important;
+  background-color:#0e2d1d !important;
+  border: 1px solid #071812!important;
 }
 html, 
 body {
     height: 100%;
+    background-image: linear-gradient(80deg,#040E0D,#1E6036);
 }
 </style>

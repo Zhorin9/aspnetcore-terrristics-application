@@ -20,8 +20,8 @@ export const router = new Router({
       component: TerraristicWindow,
     },
     {
-      path: '/login', 
-      name: 'Login',
+      path: '/LoginPage', 
+      name: 'LoginPage',
       component: LoginPage,
     }
   ],

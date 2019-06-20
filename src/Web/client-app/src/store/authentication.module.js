@@ -1,4 +1,4 @@
-import { userService } from '../services/user.service.js';
+import { userService } from '../services/user.service';
 import { router } from '../router';
 
 const user = JSON.parse(localStorage.getItem('user'));
@@ -10,10 +10,10 @@ export const authentication = {
     namespaced: true,
     state: initialState,
     actions: {
-        login({ dispatch, commit }, { username, password }) {
-            commit('loginRequest', { username });
+        login({ dispatch, commit }, { email, password }) {
+            commit('loginRequest', { email });
 
-            userService.login(username, password)
+            userService.login(email, password)
                 .then(
                     user => {
                         commit('loginSuccess', user);

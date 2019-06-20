@@ -60,7 +60,12 @@ namespace TerrristicsApp
             services.AddScoped<ITerraristicWindowRepository, TerraristicWindowRepository>();
 
             //TODO To remove services.AddLocalization(options => options.ResourcesPath = "Resources");
-
+            services.AddCors(o => o.AddPolicy("AllowOrigin", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
             services.AddMvc()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                 .AddDataAnnotationsLocalization();
@@ -91,6 +96,7 @@ namespace TerrristicsApp
             //});
 
             app.UseAuthentication();
+            app.UseCors("AllowOrigin");
             app.UseMvc(cfg =>
             {
                 cfg.MapRoute("Default",

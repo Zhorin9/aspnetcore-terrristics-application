@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ using Web.ViewModels.Account;
 
 namespace Web.Controllers
 {
+    [EnableCors("AllowOrigin")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public class AccountController : Controller
     {

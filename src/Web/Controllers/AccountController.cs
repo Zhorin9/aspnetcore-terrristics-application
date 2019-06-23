@@ -116,14 +116,14 @@ namespace Web.Controllers
                         var results = new
                         {
                             token = new JwtSecurityTokenHandler().WriteToken(token),
-                            expiration = token.ValidTo
+                            expiration = token.ValidTo.ToString()
                         };
 
-                        return Created("", results);
+                        return Ok(results);
                     }
                 }
             }
-            return BadRequest();
+            return BadRequest( new { message = "Email or password is incorrect" });
         }
     }
 }

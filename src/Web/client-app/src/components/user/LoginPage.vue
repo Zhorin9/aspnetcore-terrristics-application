@@ -1,21 +1,24 @@
 <template>
-    <div class="col-6 d-block login-container">
+    <div class="col-3 d-block p-5 login-container">
         <h2>Zaloguj się</h2>
         <form @submit.prevent="handleSubmit">
-            <div class="form-groups">
-                <label for="email">Email</label>
+            <li v-if="badLogin" class="text-left">Nie udało się zalogować</li>
+            <li v-if="badLogin" class="text-left">Sprawdź czy wprowadziłeś poprawne dane</li>
+            <div class="form-groups form-label">
+                <label for="email">Adres e-mail</label>
                 <input type="text" v-model="email" name="email" class="form-control" :class="{ 'is-invalid': submitted && errors.includes('email') }" />
-                <div v-show="errors.includes('email')" class="invalid-feedback">Adres email jest niepoprawny.</div>
+                <div v-show="errors.includes('email') && email" class="invalid-feedback">Adres email jest niepoprawny.</div>
             </div>
-            <div class="form-group">
-                <label htmlFor="password">Password</label>
+            <div class="form-group form-label">
+                <label htmlFor="password">Hasło</label>
                 <input type="password" v-model="password" name="password" class="form-control" :class="{ 'is-invalid': submitted && !password }" />
                 <div v-show="submitted && !password" class="invalid-feedback">Hasło jest wymagane</div>
-                <span v-show="errors.includes('password')" class="invalid-feedback"></span>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-green" :disabled="isDisabled">Zaloguj się</button>
-                <router-link to="/register" class="btn btn-green">Zarejestruj</router-link>
+            </div>
+            <div class="form-group">
+                <router-link to="/register" class="btn btn-green router-left">Zarejestruj</router-link>
             </div>
         </form>
     </div>
@@ -39,8 +42,9 @@ export default {
             return !this.password ||
                 !this.email;
         },
-        loggingIn () {
-            return this.$store.state.authentication.user;
+        badLogin () {
+            this.$forceUpdate();
+            return this.$store.state.alert.message;
         }
     },
     created () {
@@ -76,10 +80,13 @@ export default {
     padding: 20px;
     color: #fff;
 }
+.form-label{
+    text-align: left;
+    margin-top: 8px;
+    font-weight: bold;
+}
 .form-control{
     background-color: #081b14;
-    margin: 5px 5px 5px 15%;
-    width: 70%;
 }
 .form-control:focus {
     color: #fff;
@@ -91,18 +98,23 @@ export default {
 }
 .form-control.is-invalid {
     border: 2px solid #b42424;
+    background-color: #081b14;
 }
 
 .btn-green {
-    margin: 5px;
+    display: block;
     color: #fff;
     background-color: #061611;
     border-color: #5b8111;
 }
 .btn-green:disabled {
+    display: block;
     color: #fff;
     background-color: #061611;
     border-color: #27350d;;
+}
+.router-left{
+    float: left;
 }
 </style>
 

@@ -1,3 +1,24 @@
+import types from "./types";
+
+const state = {
+    FailedLogin: {}
+};
+
+const getters = {
+
+};
+
+const mutations = {
+    [types.mutations.ALERT_FAILED_LOGIN](state, payload){
+        state.FailedLogin = payload.value;
+    },
+};
+
+export default {
+    state,
+    getters,
+}
+
 export const alert = {
     namespaced: true,
     state: {

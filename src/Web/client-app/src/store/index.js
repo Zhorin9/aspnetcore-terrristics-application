@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import { authentication } from './authentication.module';
+import authentication from './authentication.module';
 import { users } from './users.module';
 import { alert } from './alert.module';
 

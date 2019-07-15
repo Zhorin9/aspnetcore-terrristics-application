@@ -26,6 +26,7 @@
 
 <script>
 import { isEmail } from '../../helpers/validators';
+import types from "../../store/types";
 
 export default {
     name: 'LoginPage',
@@ -49,7 +50,7 @@ export default {
     },
     created () {
         // reset login status
-        this.$store.dispatch('authentication/logout');
+        this.$store.dispatch(types.actions.AUTHENTICATION_LOGOUT);
     },
     methods: {
         handleSubmit(e) {
@@ -60,7 +61,7 @@ export default {
             }
             const { email, password } = this;
             if (email && password) {
-                this.$store.dispatch('authentication/login', { email, password });
+                this.$store.dispatch(types.actions.AUTHENTICATION_LOGIN, { email, password });
             }
         },
         validate() {
@@ -68,7 +69,7 @@ export default {
             if(!isEmail(this.email)){
                 this.errors.push('email');
             }
-            
+
             return this.errors.length;
         }
     }

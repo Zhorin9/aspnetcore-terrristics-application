@@ -12,6 +12,9 @@ const mutations = {
     [types.mutations.ALERT_FAILED_LOGIN](state, payload){
         state.FailedLogin = payload.value;
     },
+    [types.mutations.ALERT_SUCCESS_LOGIN](){
+        state.FailedLogin = {};
+    },
 };
 
 export default {

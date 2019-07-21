@@ -6,13 +6,23 @@
             <li v-if="badLogin" class="text-left">Sprawdź czy wprowadziłeś poprawne dane</li>
             <div class="form-groups form-label">
                 <label for="email">Adres e-mail</label>
-                <input type="text" v-model="email" name="email" class="form-control" :class="{ 'is-invalid': submitted && errors.includes('email') }" />
-                <div v-show="errors.includes('email') && email" class="invalid-feedback">Adres email jest niepoprawny.</div>
+                <input
+                    v-model="email"
+                    v-validate="'required|email'"
+                    data-vv-as="Adres Email"
+                    name="login.email"
+                    class="form-control" :class="{ 'is-invalid': errors.collect('login.email').length > 0 }" />
+                <validation-messages :errors-list="errors.collect('login.email')"/>
             </div>
             <div class="form-group form-label">
                 <label htmlFor="password">Hasło</label>
-                <input type="password" v-model="password" name="password" class="form-control" :class="{ 'is-invalid': submitted && !password }" />
-                <div v-show="submitted && !password" class="invalid-feedback">Hasło jest wymagane</div>
+                <input v-model="password"
+                       v-validate="'required'"
+                       data-vv-as="Hasło"
+                       type="password"
+                       name="login.password"
+                       class="form-control" :class="{ 'is-invalid': errors.first('login.password') }" />
+                <validation-messages :errors-list="errors.collect('login.password')"/>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-green" :disabled="isDisabled">Zaloguj się</button>
@@ -25,7 +35,6 @@
 </template>
 
 <script>
-import { isEmail } from '../../helpers/validators';
 import types from "../../store/types";
 
 export default {
@@ -34,8 +43,7 @@ export default {
         return {
             email: "",
             password: "",
-            submitted: false,
-            errors: [],
+            submitted: false
         };
     },
     computed: {
@@ -56,21 +64,13 @@ export default {
         handleSubmit(e) {
             this.submitted = true;
 
-            if(this.validate()){
+            if (this.validate()) {
                 return;
             }
-            const { email, password } = this;
+            const {email, password} = this;
             if (email && password) {
-                this.$store.dispatch(types.actions.AUTHENTICATION_LOGIN, { email, password });
+                this.$store.dispatch(types.actions.AUTHENTICATION_LOGIN, {email, password});
             }
-        },
-        validate() {
-            this.errors = [];
-            if(!isEmail(this.email)){
-                this.errors.push('email');
-            }
-
-            return this.errors.length;
         }
     }
 }
@@ -88,6 +88,10 @@ export default {
 }
 .form-control{
     background-color: #081b14;
+    border-left: 3px solid #5b8111;
+    border-right: none;
+    border-top: none;
+    border-bottom: 1px solid #5b8111;
 }
 .form-control:focus {
     color: #fff;
@@ -97,11 +101,6 @@ export default {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     box-shadow: 0 0 0 0.2rem rgba(37, 123, 28, 0.25);
 }
-.form-control.is-invalid {
-    border: 2px solid #b42424;
-    background-color: #081b14;
-}
-
 .btn-green {
     display: block;
     color: #fff;

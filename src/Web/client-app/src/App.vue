@@ -40,4 +40,12 @@
         height: 100%;
         background-image: linear-gradient(80deg, #040E0D, #1E6036);
     }
+
+    .form-control.is-invalid {
+        border-left: 3px solid #b4241f;
+        border-right: none;
+        border-top: none;
+        border-bottom: 1px solid #b4241f;
+        background-image: none;
+    }
 </style>

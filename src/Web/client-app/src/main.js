@@ -14,6 +14,16 @@ import App from './App.vue';
 Vue.use(BootstrapVue);
 Vue.config.productionTip = false;
 
+//Set global validation message component
+import ValidationMessages from "./components/common/ValidationMessages";
+Vue.component('validation-messages', ValidationMessages);
+
+//Set vee-validate
+import VeeValidate, { Validator } from 'vee-validate';
+import pl from 'vee-validate/dist/locale/pl';
+Vue.use(VeeValidate);
+Validator.localize('pl', pl);
+
 // Setup axios as the Vue default $http library
 axios.defaults.baseURL = 'http://localhost:5000';
 Vue.prototype.$http = axios;

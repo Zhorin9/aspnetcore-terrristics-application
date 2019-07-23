@@ -24,7 +24,7 @@ const getters = {
 
 const actions = {
     [types.actions.AUTHENTICATION_LOGIN]({dispatch, commit}, user) {
-        commit(types.mutations.AUTHENTICATION_UPDATE_LOG_PROCESS);
+        commit(types.mutations.AUTHENTICATION_UPDATE_LOG_PROCESS, user.email);
 
         userService.login(user.email, user.password)
             .then(
@@ -53,17 +53,18 @@ const actions = {
 };
 
 const mutations = {
-    [types.mutations.AUTHENTICATION_UPDATE_LOG_PROCESS]() {
+    [types.mutations.AUTHENTICATION_UPDATE_LOG_PROCESS](state, email) {
         state.LogProcess = true;
+        state.Email = email;
     },
-    [types.mutations.AUTHENTICATION_LOGOUT]() {
+    [types.mutations.AUTHENTICATION_LOGOUT]: state => {
         state.Email = "";
         state.Token = "";
         state.TokenExpiration = "";
         state.LogProcess = false;
         state.LoggedCorrect = false;
     },
-    [types.mutations.AUTHENTICATION_SET_STATE_TO_LOGGED]() {
+    [types.mutations.AUTHENTICATION_SET_STATE_TO_LOGGED]: state => {
         state.LoggedCorrect = true;
         state.LogProcess = false;
     },
@@ -72,7 +73,7 @@ const mutations = {
         state.TokenExpiration = user.TokenExpiration;
         state.LoggedCorrect = true;
     },
-    [types.mutations.AUTHENTICATION_LOGIN_FAILED](){
+    [types.mutations.AUTHENTICATION_LOGIN_FAILED]: state => {
         state.LogProcess = false;
         state.LoggedCorrect = false;
     }

@@ -3,8 +3,10 @@
         <div v-if="!waitingForResponse">
             <h2>Zaloguj się</h2>
             <form @submit.prevent="handleSubmit">
-                <div v-if="!loggedCorrect" class="text-left text-danger">Nie udało się zalogować</div>
-                <div v-if="!loggedCorrect" class="text-left text-danger">Sprawdź czy wprowadziłeś poprawne dane</div>
+                <div class="text-left text-danger" v-if="!loggedCorrect && submitted">
+                    <div>Nie udało się zalogować</div>
+                    <div>Sprawdź czy wprowadziłeś poprawne dane</div>
+                </div>
                 <div class="form-groups form-label">
                     <label>Adres e-mail </label>
                     <input
@@ -55,7 +57,8 @@
         data() {
             return {
                 email: "",
-                password: ""
+                password: "",
+                submitted: false
             };
         },
         computed: {
@@ -78,6 +81,7 @@
                 const {email, password} = this;
                 if (email && password) {
                     this.$store.dispatch(types.actions.AUTHENTICATION_LOGIN, {email, password});
+                    this.submitted = true;
                 }
             }
         }

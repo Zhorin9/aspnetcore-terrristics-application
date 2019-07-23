@@ -8,23 +8,22 @@
             <b-navbar-nav>
                 <b-nav-item to="/TerraristicWindow">Okna</b-nav-item>
             </b-navbar-nav>
-            <div v-if="loggedIn">
-                <b-navbar-nav>
-                    <b-nav-item-dropdown>
-                        <template slot="button-content">User</template>
-                        <b-dropdown-item :to="{name: 'LoginPage'}">
-                            Zaloguj
-                        </b-dropdown-item>
-                        <b-dropdown-item>Wyloguj</b-dropdown-item>
-                    </b-nav-item-dropdown>
-                </b-navbar-nav>
-            </div>
-            <div v-else class="ml-auto">
-                <b-navbar-nav>
-                    <b-nav-item right to="/LoginPage">Zaloguj</b-nav-item>
-                    <b-nav-item right to="/RegisterPage">Zarejestruj się</b-nav-item>
-                </b-navbar-nav>
-            </div>
+
+            <b-navbar-nav v-if="loggedIn" class="ml-auto">
+                <b-nav-item-dropdown right>
+                    <template slot="button-content">{{getUserEmail}}</template>
+                    <b-dropdown-item :to="{name: 'HomePage'}">
+                        Costam
+                    </b-dropdown-item>
+                    <b-dropdown-item @click="logOut">Wyloguj</b-dropdown-item>
+                </b-nav-item-dropdown>
+            </b-navbar-nav>
+
+            <b-navbar-nav v-else class="ml-auto">
+                <b-nav-item right to="/LoginPage">Zaloguj</b-nav-item>
+                <b-nav-item right to="/RegisterPage">Zarejestruj się</b-nav-item>
+            </b-navbar-nav>
+
         </b-navbar>
     </nav>
 </template>
@@ -35,16 +34,19 @@
 
     export default {
         name: 'Navigation',
-        data() {
-            return {
-                test: this.$store.state.authentication,
-            }
-        },
         computed: {
             ...mapGetters({
                 loggedIn: types.getters.AUTHENTICATION_IS_USER_LOGGED_CORRECT,
                 getUserEmail: types.getters.AUTHENTICATION_GET_CURRENT_USER
             }),
+        },
+        methods: {
+            logOut() {
+                this.$store.commit(types.mutations.AUTHENTICATION_LOGOUT);
+                this.$route.push({
+                    name: 'HomePage'
+                });
+            },
         }
     };
 </script>
@@ -56,7 +58,8 @@
 
     .b-nav-dropdown {
         background-color: #1a5330;
-        border-radius: 50%;
+        border-radius: 5px;
+        border: #204619 1px solid;
     }
 
     .dropdown-item {

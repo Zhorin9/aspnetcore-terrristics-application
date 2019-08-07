@@ -1,22 +1,22 @@
 <template>
     <div id="app">
-        <navigation/>
+        <the-navigation/>
         <main>
             <router-view/>
         </main>
-        <VueFooter/>
+        <the-footer/>
     </div>
 </template>
 
 <script>
-    import Navigation from './components/Navigation.vue';
-    import VueFooter from './components/VueFooter.vue';
+    import TheNavigation from './components/TheNavigation.vue';
+    import TheFooter from './components/TheFooter.vue';
 
     export default {
         name: 'app',
         components: {
-            Navigation,
-            VueFooter
+            TheNavigation,
+            TheFooter
         },
     };
 </script>

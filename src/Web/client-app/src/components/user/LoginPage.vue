@@ -50,7 +50,6 @@
     import LoadingPage from "../common/LoadingPage";
 
     export default {
-        name: 'LoginPage',
         components: {
             LoadingPage
         },

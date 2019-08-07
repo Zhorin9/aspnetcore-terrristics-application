@@ -1,22 +1,34 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import HomePage from '../components/HomePage.vue';
+import TheHomePage from '../components/TheHomePage.vue';
 import LoginPage from '../components/user/LoginPage.vue';
+import TheUserWindow from "../components/TheUserWindow";
+import ThePublicWindow from "../components/ThePublicWindow";
 
 Vue.use(Router);
 
 export const router = new Router({
-  routes: [
-    {
-        path: '/',
-        name: 'Home',
-        component: HomePage,
-    },
-    {
-      path: '/LoginPage',
-      name: 'LoginPage',
-      component: LoginPage,
-    }
-  ],
+    routes: [
+        {
+            path: '/',
+            name: 'TheHome',
+            component: TheHomePage,
+        },
+        {
+            path: '/mojeOkna',
+            name: 'TheUserWindow',
+            component: TheUserWindow,
+        },
+        {
+            path: '/okna',
+            name: 'ThePublicWindow',
+            component: ThePublicWindow,
+        },
+        {
+            path: '/zaloguj',
+            name: 'LoginPage',
+            component: LoginPage,
+        },
+    ],
 });

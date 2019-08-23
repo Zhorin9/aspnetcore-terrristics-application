@@ -21,7 +21,7 @@
             </b-navbar-nav>
 
             <b-navbar-nav v-else class="ml-auto">
-                <b-nav-item right to="/LoginPage">Zaloguj</b-nav-item>
+                <b-nav-item right :to="{name: 'LoginPage'}">Zaloguj</b-nav-item>
                 <b-nav-item right to="/RegisterPage">Zarejestruj się</b-nav-item>
             </b-navbar-nav>
 

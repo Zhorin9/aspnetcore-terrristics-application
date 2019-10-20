@@ -2,11 +2,6 @@
     <div class="row p-3">
         <div class="col-md-7 row">
             <window-block v-for="" @edit-window-block="editWindowBlock"/>
-            <window-block v-for=""/>
-            <window-block v-for=""/>
-            <window-block v-for=""/>
-            <window-block v-for=""/>
-            <window-block v-for=""/>
         </div>
         <div class="col-md-4">
             <add-block/>

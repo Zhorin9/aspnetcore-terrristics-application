@@ -1,5 +1,5 @@
 <template>
-    <div class="col-3 d-block p-5 login-container">
+    <div class="col-3 d-block p-5 login-container m-5">
         <div v-if="!waitingForResponse">
             <h2>Zaloguj się</h2>
             <form @submit.prevent="handleSubmit">
@@ -30,7 +30,8 @@
                     <validation-messages :errors-list="errors.collect('login.password')"/>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-green" :disabled="isDisabled">Zaloguj się</button>
+                    <button type="submit" class="btn btn-green" :disabled="isDisabled">Zaloguj się
+                    </button>
                 </div>
                 <div class="form-group">
                     <router-link to="/register" class="btn btn-green router-left">Zarejestruj
@@ -89,8 +90,10 @@
 
 <style scoped>
     .login-container {
+        background-color: #e8f2d9;
         padding: 20px;
-        color: #fff;
+        color: #4c4c4d;
+        border: 3px solid #4c4c4d;
     }
 
     .form-label {
@@ -100,7 +103,6 @@
     }
 
     .form-control {
-        background-color: #081b14;
         border-left: 3px solid #5b8111;
         border-right: none;
         border-top: none;
@@ -108,8 +110,8 @@
     }
 
     .form-control:focus {
-        color: #fff;
-        background-color: #1f2d0f9c;
+        color: #4c4c4d;
+        background-color: #e8f2d9;
         border-color: #316849;
         outline: 0;
         -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
@@ -119,7 +121,7 @@
     .btn-green {
         display: block;
         color: #fff;
-        background-color: #061611;
+        background-color: #397334;
         border-color: #5b8111;
     }
 

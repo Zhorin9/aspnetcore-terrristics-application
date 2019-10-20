@@ -23,11 +23,8 @@
 
 <style>
     #app {
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-align: center;
         color: #2c3e50;
+        line-height: 1.47;
     }
 
     .dropdown-menu {
@@ -38,7 +35,7 @@
     html,
     body {
         height: 100%;
-        background-image: linear-gradient(80deg, #040E0D, #1E6036);
+        background-color: #ffffff;
     }
 
     .form-control.is-invalid {

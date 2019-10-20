@@ -10,8 +10,8 @@ namespace AppCore.Entities
         public int SensorKindId { get; set; }
         public SensorKind SensorKind { get; set; }
         public string UserId { get; set; }
-        public int ParrentWindowId { get; set; }
-        public TerraristicWindow ParrentWindow { get; set; }
+        public int ParentWindowId { get; set; }
+        public TerraristicWindow ParentWindow { get; set; }
         public IEnumerable<InputSensorData> Inputs { get; set; }
         public IEnumerable<OutputSensorData> Outputs { get; set; }
     }

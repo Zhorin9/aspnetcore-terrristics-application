@@ -92,9 +92,9 @@ namespace Infrastructure.Data
             builder.HasMany(s => s.Outputs)
                 .WithOne(s => s.SensorBlock);
 
-            builder.HasOne(s => s.ParrentWindow)
+            builder.HasOne(s => s.ParentWindow)
                 .WithMany(s => s.SensorBlocks)
-                .HasForeignKey(s => s.ParrentWindowId);
+                .HasForeignKey(s => s.ParentWindowId);
         }
 
         private void ConfigureTerraristicWindow(EntityTypeBuilder<TerraristicWindow> builder)
@@ -116,7 +116,7 @@ namespace Infrastructure.Data
                 .HasDefaultValue(DateTime.Now);
 
             builder.HasMany(tw => tw.SensorBlocks)
-                .WithOne(tw => tw.ParrentWindow);
+                .WithOne(tw => tw.ParentWindow);
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿using AppCore.Entities;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AppCore.Entities;
 using AppCore.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
 
-namespace Infrastructure.Data
+namespace Infrastructure.Data.Repositories
 {
     public class TerraristicWindowRepository : AppRepository<TerraristicWindow>, ITerraristicWindowRepository
     {

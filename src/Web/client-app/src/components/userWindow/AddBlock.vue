@@ -4,13 +4,22 @@
             Zarządzanie oknami
         </div>
         <div class="card-body">
-            <button class="btn btn-primary text-white">Dodaj nowe okno</button>
+            <b-button v-b-modal.add-window-modal class="btn btn-primary text-white">
+                Dodaj nowe okno
+            </b-button>
         </div>
+        <add-window-modal/>
     </div>
 </template>
 
 <script>
-    export default {}
+    import AddWindowModal from "./modal/AddWindowModal";
+
+    export default {
+        components: {
+            AddWindowModal
+        }
+    }
 </script>
 
 <style scoped>
@@ -35,9 +44,5 @@
         background-color: #e3be20;
         box-shadow: 0 0 0 0.2rem #d5ab43;
         border-color: #d5ab43;
-    }
-
-    .card-header-background {
-        background: #2b4229;
     }
 </style>

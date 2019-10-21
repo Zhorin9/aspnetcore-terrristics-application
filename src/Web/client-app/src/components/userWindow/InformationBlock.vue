@@ -41,8 +41,4 @@
     }
 </script>
 
-<style scoped>
-    .card-header-background {
-        background: #2b4229;
-    }
-</style>
+<style></style>

@@ -1,13 +1,15 @@
 <template>
-    <div class="row p-3">
-        <div class="col-md-7 row">
-            <window-block v-for="" @edit-window-block="editWindowBlock"/>
+    <div class="p-3">
+        <div class="row">
+            <div class="col-md-7 row">
+                <window-block @edit-window-block="editWindowBlock"/>
+            </div>
+            <div class="offset-1 col-md-3">
+                <add-block/>
+                <information-block/>
+            </div>
+            <!--        <edit-window-modal/>-->
         </div>
-        <div class="col-md-4">
-            <add-block/>
-            <information-block/>
-        </div>
-        <edit-window-modal/>
     </div>
 </template>
 
@@ -37,13 +39,5 @@
 </script>
 
 <style>
-    .card-green {
-        border: 2px solid #507000 !important;
-        border-radius: 3px;
-        background: #182217 !important;
-        color: white;
-        text-align: left;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
+
 </style>

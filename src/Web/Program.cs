@@ -1,13 +1,13 @@
-﻿using Infrastructure.Data;
+﻿using System;
+using Infrastructure.Data;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
 
-namespace TerrristicsApp
+namespace Web
 {
     public class Program
     {

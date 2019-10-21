@@ -1,6 +1,6 @@
 <template>
     <b-modal
-        id="edit-window-modal"
+        id="addWindowModal"
         title="Edycja danych na temat terrarium"
         lazy="false">
 

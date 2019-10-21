@@ -1,12 +1,11 @@
-﻿using System.Globalization;
-using System.Text;
+﻿using System.Text;
 using AppCore.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Data.Repositories;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using VueCliMiddleware;
 
-namespace TerrristicsApp
+namespace Web
 {
     public class Startup
     {
@@ -58,6 +57,7 @@ namespace TerrristicsApp
             services.AddTransient<AddDbContextSeed>();
             services.AddScoped(typeof(IAsyncAppRepository<>), typeof(AppRepository<>));
             services.AddScoped<ITerraristicWindowRepository, TerraristicWindowRepository>();
+            services.AddScoped<ISensorKindRepository, SensorKindRepository>();
 
             //TODO To remove services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddCors(o => o.AddPolicy("AllowOrigin", builder =>

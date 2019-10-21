@@ -23,8 +23,11 @@
 
 <style>
     #app {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
         color: #2c3e50;
-        line-height: 1.47;
     }
 
     .dropdown-menu {
@@ -35,7 +38,8 @@
     html,
     body {
         height: 100%;
-        background-color: #ffffff;
+        background-image: linear-gradient(80deg, #040E0D, #1E6036);
+        color: white;
     }
 
     .form-control.is-invalid {
@@ -44,5 +48,31 @@
         border-top: none;
         border-bottom: 1px solid #b4241f;
         background-image: none;
+    }
+
+    .card-green {
+        border: none;
+        border-radius: 3px;
+        background: #204638 !important;
+        color: white;
+        text-align: left;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .card-header-background {
+        background: #0a281d !important;
+    }
+
+    .modal-header{
+        background: #0a281d !important;
+    }
+
+    .modal-content {
+        background: #204638 !important;
+    }
+
+    textarea {
+        resize: none;
     }
 </style>

@@ -55,7 +55,7 @@
         border-radius: 0.2rem;
     }
     .card-header-background {
-        background: #2b4229;
+        background: #0a281d !important;
     }
 
     .cursor-pointer {

@@ -23,8 +23,6 @@ namespace Web.ApiControllers.Common
         public async Task<IActionResult> GetSensors()
         {
             IEnumerable<SensorKind> sensors = await _sensorKindRepository.ListAllAsync();
-
-            
             return Ok(sensors);
         }
     }

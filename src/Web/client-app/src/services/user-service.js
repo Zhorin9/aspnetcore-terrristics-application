@@ -1,4 +1,6 @@
 import axios from 'axios';
+import {GetHeader} from "./service-helper";
+import endpoints from "../utils/endpoints";
 
 export const userService = {
     login,
@@ -6,18 +8,14 @@ export const userService = {
 };
 
 //Save current JwT Token in storage
-function login(email, password){
-    const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-    };
-    return axios.post('/account/createToken',
-            { Email: email, Password: password },
-            { headers: headers })
+function login(email, password) {
+    return axios.post(endpoints.getJwtToken,
+        {Email: email, Password: password},
+        {headers: GetHeader})
         .then(response => {
             let data = response.data;
-            if(data.token){
-                var user = { Email: email, Token: data.token, TokenExpiration: data.expiration};
+            if (data.token) {
+                var user = {Email: email, Token: data.token, TokenExpiration: data.expiration};
             }
             return user;
         })
@@ -28,8 +26,9 @@ function login(email, password){
 function logout() {
 
 }
-function handleError(data){
-    if(data.response.status === 401){
+
+function handleError(data) {
+    if (data.response.status === 401) {
         // auto logout if 401 response returned from api
         logout();
         location.reload(true);

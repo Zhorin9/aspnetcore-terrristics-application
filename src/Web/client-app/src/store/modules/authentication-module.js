@@ -1,6 +1,6 @@
-import {userService} from '../services/user.service';
-import types from "./types";
-import {router} from '../router/index.js';
+import {userService} from '../../services/user-service';
+import types from "../types";
+import {router} from '../../router/index.js';
 
 const state = {
     LogProcess: false,
@@ -19,6 +19,9 @@ const getters = {
     },
     [types.getters.AUTHENTICATION_IS_LOG_PROCESS](){
         return state.LogProcess;
+    },
+    [types.getters.AUTHENTICATION_GET_JWT_TOKEN](){
+        return state.Token;
     }
 };
 

@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import authentication from './authentication.module';
-import { users } from './users.module';
-import { alert } from './alert.module';
+import authentication from './modules/authentication-module';
+import users from './modules/users-module';
+import alert from './modules/alert-module';
 
 Vue.use(Vuex);
 

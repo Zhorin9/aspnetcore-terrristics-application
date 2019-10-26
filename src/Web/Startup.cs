@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using AppCore.Interfaces;
+using AutoMapper;
 using Infrastructure.Data;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Identity;
@@ -24,8 +25,6 @@ namespace Web
             _config = config;
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             //Add DbContext for application
@@ -53,22 +52,29 @@ namespace Web
                 cfg.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<AppIdentityDbContext>();
 
-            services.AddTransient<AppIdentityDbContextSeed>();
-            services.AddTransient<AddDbContextSeed>();
-            services.AddScoped(typeof(IAsyncAppRepository<>), typeof(AppRepository<>));
-            services.AddScoped<ITerraristicWindowRepository, TerraristicWindowRepository>();
-            services.AddScoped<ISensorKindRepository, SensorKindRepository>();
 
-            //TODO To remove services.AddLocalization(options => options.ResourcesPath = "Resources");
+            ServiceRegistration(services);
+
             services.AddCors(o => o.AddPolicy("AllowOrigin", builder =>
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
+
             services.AddMvc()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                 .AddDataAnnotationsLocalization();
+        }
+
+        private static void ServiceRegistration(IServiceCollection services)
+        {
+            services.AddTransient<AppIdentityDbContextSeed>();
+            services.AddTransient<AddDbContextSeed>();
+            services.AddScoped(typeof(IAsyncAppRepository<>), typeof(AppRepository<>));
+
+            services.AddScoped<ITerraristicWindowRepository, TerraristicWindowRepository>();
+            services.AddScoped<ISensorKindRepository, SensorKindRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,19 +88,8 @@ namespace Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
             app.UseStaticFiles();
-
-            //TODO To remove var supportedCultures = new[]
-            //{
-            //    new CultureInfo("pl-PL"),
-            //};
-            //app.UseRequestLocalization(new RequestLocalizationOptions
-            //{
-            //    DefaultRequestCulture = new RequestCulture("pl-PL"),
-            //    SupportedCultures = supportedCultures,
-            //    SupportedUICultures = supportedCultures
-            //});
-
             app.UseAuthentication();
             app.UseCors("AllowOrigin");
             app.UseMvc(cfg =>
@@ -110,11 +105,7 @@ namespace Web
 
                 if (env.IsDevelopment())
                 {
-                    // run npm process with client app
                     spa.UseVueCli(npmScript: "serve", port: 8080);
-                    // if you just prefer to proxy requests from client app, use proxy to SPA dev server instead:
-                    // app should be already running before starting a .NET client
-                    // spa.UseProxyToSpaDevelopmentServer("http://localhost:8080"); // your Vue app port
                 }
             });
         }

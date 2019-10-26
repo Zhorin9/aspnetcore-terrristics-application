@@ -33,46 +33,60 @@ namespace Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateToken([FromBody] LoginViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user != null)
-                {
-                    var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
-
-                    if (result.Succeeded)
-                    {
-                        //Create JwToken
-                        var claims = new[]
-                        {
-                            new Claim(JwtRegisteredClaimNames.Sub,user.Id),
-                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                            new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
-                        };
-
-                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
-                        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-                        var token = new JwtSecurityToken(
-                            //Who created the token
-                            _config["Tokens:Issuer"],
-                            //who can use the token
-                            _config["Tokens:Audience"],
-                            claims,
-                            expires: DateTime.UtcNow.AddMinutes(30),
-                            signingCredentials: creds
-                            );
-                        var results = new
-                        {
-                            token = new JwtSecurityTokenHandler().WriteToken(token),
-                            expiration = token.ValidTo.ToString()
-                        };
-
-                        return Ok(results);
-                    }
-                }
+                return BadRequest(new {message = "Email or password is incorrect"});
             }
-            return BadRequest( new { message = "Email or password is incorrect" });
+
+            ApplicationUser user = await FindByEmailAsync(model);
+
+            if (user == null)
+            {
+                return BadRequest(new {message = "Email or password is incorrect"});
+            }
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new {message = "Email or password is incorrect"});
+            }
+
+            var claims = CreateClaims(user);
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                //Who created the token
+                _config["Tokens:Issuer"],
+                //who can use the token
+                _config["Tokens:Audience"],
+                claims,
+                expires: DateTime.UtcNow.AddMinutes(30),
+                signingCredentials: credentials
+            );
+            var results = new
+            {
+                token = new JwtSecurityTokenHandler().WriteToken(token),
+                expiration = token.ValidTo.ToString()
+            };
+
+            return Ok(results);
+
+        }
+
+        private async Task<ApplicationUser> FindByEmailAsync(LoginViewModel model)
+        {
+            return await _userManager.FindByEmailAsync(model.Email);
+        }
+
+        private static Claim[] CreateClaims(ApplicationUser user)
+        {
+            return new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub,user.Id),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
+            };
         }
     }
 }

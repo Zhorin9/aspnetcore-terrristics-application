@@ -2,28 +2,32 @@
 using System.Threading.Tasks;
 using AppCore.Entities;
 using AppCore.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.eShopWeb.Web.Controllers.Api;
+using Web.ViewModels.Api;
 
 namespace Web.ApiControllers.Common
 {
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class DictionaryApiController : BaseApiController
+    public class DictionaryController : BaseApiController
     {
         private readonly ISensorKindRepository _sensorKindRepository;
 
-        public DictionaryApiController(ISensorKindRepository sensorKindRepository)
+        public DictionaryController(ISensorKindRepository sensorKindRepository, IMapper mapper) : base(mapper)
         {
             _sensorKindRepository = sensorKindRepository;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetSensors()
+        public async Task<IActionResult> GetSensorKinds()
         {
             IEnumerable<SensorKind> sensors = await _sensorKindRepository.ListAllAsync();
-            return Ok(sensors);
+            List<SensorKindViewModel> sensorKindViewModels = Mapper.Map<IEnumerable<SensorKind>, List<SensorKindViewModel>>(sensors);
+
+            return Ok(sensorKindViewModels);
         }
     }
 }

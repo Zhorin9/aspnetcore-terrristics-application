@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using VueCliMiddleware;
+using Web.Mappings;
 
 namespace Web
 {
@@ -52,7 +53,7 @@ namespace Web
                 cfg.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<AppIdentityDbContext>();
 
-
+            AutoMapperRegistration(services);
             ServiceRegistration(services);
 
             services.AddCors(o => o.AddPolicy("AllowOrigin", builder =>
@@ -75,6 +76,12 @@ namespace Web
 
             services.AddScoped<ITerraristicWindowRepository, TerraristicWindowRepository>();
             services.AddScoped<ISensorKindRepository, SensorKindRepository>();
+        }
+
+        private void AutoMapperRegistration(IServiceCollection services)
+        {
+            IMapper mapper = MappingConfiguration.GetMapperConfiguration().CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

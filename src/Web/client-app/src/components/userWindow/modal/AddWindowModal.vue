@@ -22,6 +22,13 @@
                 <textarea v-model="description" placeholder="Dodatkowy opis"
                           class="form-control"></textarea>
             </div>
+            <div class="form-group form-label col-6">
+                <label>Czujniki do pomiarów</label>
+                <input-sensors-multiselect :selected-sensors="inputSensors" ></input-sensors-multiselect>
+            </div>
+            <div>
+
+            </div>
         </form>
 
         <template v-slot:modal-footer="{ ok, cancel }">
@@ -38,10 +45,11 @@
 <script>
     import {GetWindowFormData} from "../../../utils/object-generator";
     import {mapGetters} from "vuex";
-    import types from "../../../store/types";
+    import InputSensorsMultiselect from "../../common/Multiselects/InputSensorsMultiselect";
 
     export default {
         components: {
+            InputSensorsMultiselect
 
         },
         computed:{

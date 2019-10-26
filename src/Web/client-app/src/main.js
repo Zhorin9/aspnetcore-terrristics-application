@@ -18,6 +18,10 @@ Vue.config.productionTip = false;
 import ValidationMessages from "./components/common/ValidationMessages";
 Vue.component('validation-messages', ValidationMessages);
 
+//Register multiselect globally
+import {Multiselect} from "vue-multiselect";
+Vue.component('multiselect', Multiselect);
+
 //Set vee-validate
 import VeeValidate, { Validator } from 'vee-validate';
 import pl from 'vee-validate/dist/locale/pl';

@@ -4,7 +4,7 @@
             Zarządzanie oknami
         </div>
         <div class="card-body">
-            <b-button v-b-modal.add-window-modal class="btn btn-primary text-white">
+            <b-button @click="openModal" class="btn btn-primary text-white">
                 Dodaj nowe okno
             </b-button>
         </div>
@@ -18,7 +18,13 @@
     export default {
         components: {
             AddWindowModal
+        },
+        methods: {
+            openModal(){
+                this.$bvModal.show("add-window-modal");
+            }
         }
+
     }
 </script>
 

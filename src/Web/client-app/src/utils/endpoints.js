@@ -1,5 +1,7 @@
 const endpoints = {
-    getJwtToken: "/account/createToken"
+    getJwtToken: "/account/createToken",
+
+    getSensorKinds: "/api/dictionary/getSensorKinds"
 };
 
 export default endpoints;

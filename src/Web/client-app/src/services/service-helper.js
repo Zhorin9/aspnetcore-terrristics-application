@@ -1,17 +1,20 @@
 import _ from 'lodash';
 
 const header = {
-    'Access-Control-Allow-Origin': '*',
-    'Content-Type': 'application/json',
+    "Access-Control-Allow-Origin": '*',
+    "Content-Type": 'application/json',
 };
 
-const GetHeader = function(){
+const GetHeader = function () {
     return header;
 };
 
-const GetHeaderWithJwtToken = function(jwtToken){
+const GetHeaderWithJwtToken = function (jwtToken) {
     let headerWithJwtToken = _.clone(header);
-    headerWithJwtToken.Authorization = 'Bearer ' + jwtToken;
+    headerWithJwtToken = _.extend(headerWithJwtToken,
+        {
+            "Authorization": "Bearer " + jwtToken
+        });
     return headerWithJwtToken;
 };
 

@@ -1,17 +1,23 @@
 <template>
     <multiselect
-        v-model="selectedSensors"
+        v-model="value"
         track-by="name"
-        label="Name"
-        placeholder="Wybierz czujnik"
+        label="name"
+        placeholder="Wybierz urządzenie "
         selectedLabel="Wybrany"
         deselectLabel="Enter aby usunąć"
         :options="outputSensors"
         :searchable="true"
         :multiple="true"
-        :close-on-select="true"
-        :clear-on-select="false"
-        @input="emit"/>
+        :show-labels="false"
+        @input="emit">
+        <template slot="option" slot-scope="props">
+            <div>
+                <strong><span>{{ props.option.name }} - </span></strong>
+                <span class="option__small">{{ props.option.shortDescription }}</span>
+            </div>
+        </template>
+    </multiselect>
 </template>
 
 <script>
@@ -23,6 +29,11 @@
             ...mapGetters({
                 outputSensors: types.getters.DICT_GET_OUTPUT_SENSORS,
             }),
+        },
+        data() {
+            return {
+                value: this.selectedSensors.length > 0 ? this.selectedSensors : Array(0)
+            }
         },
         props: {
             selectedSensors: {
@@ -37,7 +48,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

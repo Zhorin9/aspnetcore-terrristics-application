@@ -10,14 +10,12 @@ export const userService = {
 //Save current JwT Token in storage
 function login(email, password) {
     return axios.post(endpoints.getJwtToken,
-        {Email: email, Password: password},
-        {headers: GetHeader})
+        {Email: email, Password: password}, GetHeader)
         .then(response => {
             let data = response.data;
             if (data.token) {
-                var user = {Email: email, Token: data.token, TokenExpiration: data.expiration};
+                return {Email: email, Token: data.token, TokenExpiration: data.expiration};
             }
-            return user;
         })
         .catch(handleError);
 }

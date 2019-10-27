@@ -6,28 +6,33 @@
         button-size="sm">
 
         <form @submit.prevent="">
-            <div class="form-groups form-label col-6">
-                <label>Nazwa okna</label>
-                <input
-                    v-model="name"
-                    v-validate="'required'"
-                    data-vv-as="Nazwa okna"
-                    name="new.window.name.modal"
-                    class="form-control"
-                    :class="{ 'is-invalid': errors.collect('new.window.name.modal').length > 0 }"/>
-                <validation-messages :errors-list="errors.collect('new.window.name.modal')"/>
-            </div>
-            <div class="form-group form-label col-6">
-                <label>Opis</label>
-                <textarea v-model="description" placeholder="Dodatkowy opis"
-                          class="form-control"></textarea>
-            </div>
-            <div class="form-group form-label col-6">
-                <label>Czujniki do pomiarów</label>
-                <input-sensors-multiselect :selected-sensors="inputSensors" ></input-sensors-multiselect>
-            </div>
             <div>
-
+                <div class="form-groups form-label col-6">
+                    <label>Nazwa okna</label>
+                    <input
+                        v-model="name"
+                        v-validate="'required'"
+                        data-vv-as="Nazwa okna"
+                        name="new.window.name.modal"
+                        class="form-control"
+                        :class="{ 'is-invalid': errors.collect('new.window.name.modal').length > 0 }"/>
+                    <validation-messages :errors-list="errors.collect('new.window.name.modal')"/>
+                </div>
+                <div class="form-group form-label col-6">
+                    <label>Opis</label>
+                    <textarea v-model="description" placeholder="Dodatkowy opis"
+                              class="form-control"></textarea>
+                </div>
+                <div class="form-group form-label col-6">
+                    <label>Czujniki pomiarowe</label>
+                    <input-sensors-multiselect :selected-sensors="inputSensors"
+                                               @selected-inputs="updateInputSensors"></input-sensors-multiselect>
+                </div>
+                <div class="form-group form-label col-6">
+                    <label>Elementy sterujące</label>
+                    <output-sensors-multiselect :selected-sensors="outputSensors"
+                                                @selected-outputs="updateOutputSensors"></output-sensors-multiselect>
+                </div>
             </div>
         </form>
 
@@ -46,15 +51,16 @@
     import {GetWindowFormData} from "../../../utils/object-generator";
     import {mapGetters} from "vuex";
     import InputSensorsMultiselect from "../../common/Multiselects/InputSensorsMultiselect";
+    import OutputSensorsMultiselect from "../../common/Multiselects/OutputSensorsMultiselect";
 
     export default {
         components: {
+            OutputSensorsMultiselect,
             InputSensorsMultiselect
 
         },
-        computed:{
-          ...mapGetters({
-          })
+        computed: {
+            ...mapGetters({})
         },
         data() {
             return GetWindowFormData();
@@ -68,11 +74,16 @@
             },
             resetData() {
                 Object.assign(this.$data, GetWindowFormData());
+            },
+            updateInputSensors(value) {
+                debugger;
+                this.inputSensors = value;
+            },
+            updateOutputSensors(value) {
+                this.outputSensors = value;
             }
         }
     }
 </script>
 
-<style scoped>
-
-</style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

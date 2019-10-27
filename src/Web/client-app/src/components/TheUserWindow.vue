@@ -1,27 +1,35 @@
 <template>
     <div class="p-3">
-        <div class="row">
+        <div v-if="isDataLoaded" class="row">
             <div class="col-md-7 row">
                 <window-block @edit-window-block="editWindowBlock"/>
             </div>
             <div class="offset-1 col-md-3">
-                <add-block/>
+                <add-block :input-sensors="inputSensors" :output-sensors="outputSensors"/>
                 <information-block/>
             </div>
             <!--        <edit-window-modal/>-->
+        </div>
+        <div v-else>
+            <loading-page/>
         </div>
     </div>
 </template>
 
 <script>
     import WindowBlock from "./common/WindowBlock";
-    import {GetUserWindowData} from "../utils/object-generator";
     import InformationBlock from "./userWindow/InformationBlock";
     import EditWindowModal from "./userWindow/modal/EditWindowModal";
     import AddBlock from "./userWindow/AddBlock";
+    import LoadingPage from "./common/LoadingPage";
+
+    import {GetUserWindowData} from "../utils/object-generator";
+    import {mapGetters} from "vuex";
+    import types from "../store/types";
 
     export default {
         components: {
+            LoadingPage,
             EditWindowModal,
             AddBlock,
             InformationBlock,
@@ -29,6 +37,19 @@
         },
         data() {
             return GetUserWindowData();
+        },
+        created() {
+            //TODO dodać oczekiwanie na odpowiedź z promise
+            this.$store.dispatch(types.actions.DICT_GET_ALL_SENSOR_KINDS);
+        },
+        computed: {
+            ...mapGetters({
+                inputSensors: types.getters.DICT_GET_INPUT_SENSORS,
+                outputSensors: types.getters.DICT_GET_OUTPUT_SENSORS
+            }),
+            isDataLoaded() {
+                return this.loading;
+            }
         },
         methods: {
             editWindowBlock(value) {

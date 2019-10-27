@@ -17,10 +17,10 @@ const getters = {
     [types.getters.AUTHENTICATION_IS_USER_LOGGED_CORRECT]() {
         return state.LoggedCorrect;
     },
-    [types.getters.AUTHENTICATION_IS_LOG_PROCESS](){
+    [types.getters.AUTHENTICATION_IS_LOG_PROCESS]() {
         return state.LogProcess;
     },
-    [types.getters.AUTHENTICATION_GET_JWT_TOKEN](){
+    [types.getters.AUTHENTICATION_GET_JWT_TOKEN]() {
         return state.Token;
     }
 };
@@ -29,25 +29,20 @@ const actions = {
     [types.actions.AUTHENTICATION_LOGIN]({dispatch, commit}, user) {
         commit(types.mutations.AUTHENTICATION_UPDATE_LOG_PROCESS, user.email);
 
-        userService.login(user.email, user.password)
-            .then(
-                user => {
-                    commit(types.mutations.AUTHENTICATION_SET_STATE_TO_LOGGED);
-                    commit(types.mutations.AUTHENTICATION_UPDATE_CURRENT_USER, user);
+        return userService.login(user.email, user.password)
+                    .then(
+                        user => {
+                            commit(types.mutations.AUTHENTICATION_SET_STATE_TO_LOGGED);
+                            commit(types.mutations.AUTHENTICATION_UPDATE_CURRENT_USER, user);
 
-                    router.push({
-                        name: 'HomePage'
-                    });
-                },
-            ).catch(
-            () => {
-                commit(types.mutations.AUTHENTICATION_LOGIN_FAILED);
-                //TODO commit(types.mutations.ALERT_FAILED_LOGIN, {
-                //     Type: "LOGIN_FAILURE",
-                //     Message: "Nie udało się zalogować"
-                // });
-            }
-        )
+                            router.push({
+                                name: 'HomePage'
+                            });
+                        },
+                    ).catch(err => {
+                    commit(types.mutations.AUTHENTICATION_LOGIN_FAILED);
+                    console.error("Problem with authentication", err);
+                })
     },
     [types.actions.AUTHENTICATION_LOGOUT]({commit}) {
         userService.logout();

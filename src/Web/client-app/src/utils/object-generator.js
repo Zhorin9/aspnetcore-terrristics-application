@@ -10,7 +10,7 @@ const GetWindowFormData = function(){
         name: String(),
         description: String(),
         inputSensors: Array(0),
-        outputSensors: Array(0)
+        outputSensors: Array(0),
     }
 };
 

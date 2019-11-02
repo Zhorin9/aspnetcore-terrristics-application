@@ -5,8 +5,8 @@
                 <window-block @edit-window-block="editWindowBlock"/>
             </div>
             <div class="offset-1 col-md-3">
-                <add-block :input-sensors="inputSensors" :output-sensors="outputSensors"/>
-                <information-block/>
+                <user-window-add-block :input-sensors="inputSensors" :output-sensors="outputSensors"/>
+                <user-window-information-block/>
             </div>
             <!--        <edit-window-modal/>-->
         </div>
@@ -18,10 +18,9 @@
 
 <script>
     import WindowBlock from "./common/WindowBlock";
-    import InformationBlock from "./userWindow/InformationBlock";
-    import EditWindowModal from "./userWindow/modal/EditWindowModal";
-    import AddBlock from "./userWindow/AddBlock";
     import LoadingPage from "./common/LoadingPage";
+    import UserWindowAddBlock from "./userWindow/UserWindowAddBlock";
+    import UserWindowInformationBlock from "./userWindow/UserWindowInformationBlock";
 
     import {GetUserWindowData} from "../utils/object-generator";
     import {mapGetters} from "vuex";
@@ -30,10 +29,9 @@
     export default {
         components: {
             LoadingPage,
-            EditWindowModal,
-            AddBlock,
-            InformationBlock,
             WindowBlock,
+            UserWindowAddBlock,
+            UserWindowInformationBlock
         },
         data() {
             return GetUserWindowData();

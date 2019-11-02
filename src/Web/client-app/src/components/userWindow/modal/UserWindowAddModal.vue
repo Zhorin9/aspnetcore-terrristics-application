@@ -4,65 +4,41 @@
         title="Dodanie nowego okna"
         size="xl"
         button-size="sm">
-
         <form @submit.prevent="">
-            <div class="row">
-                <div class="form-groups form-label col-6">
-                    <label>Nazwa okna</label>
-                    <input
-                        v-model="name"
-                        v-validate="'required'"
-                        data-vv-as="Nazwa okna"
-                        name="new.window.name.modal"
-                        class="form-control"
-                        :class="{ 'is-invalid': errors.collect('new.window.name.modal').length > 0 }"/>
-                    <validation-messages :errors-list="errors.collect('new.window.name.modal')"/>
+            <div class="form-groups form-label col-6">
+                <label>Nazwa okna</label>
+                <input
+                    v-model="name"
+                    v-validate="'required'"
+                    data-vv-as="Nazwa okna"
+                    name="new.window.name.modal"
+                    class="form-control"
+                    :class="{ 'is-invalid': errors.collect('new.window.name.modal').length > 0 }"/>
+                <validation-messages :errors-list="errors.collect('new.window.name.modal')"/>
+            </div>
+            <div class="form-group form-label col-6">
+                <label>Opis</label>
+                <textarea v-model="description" placeholder="Dodatkowy opis"
+                          class="form-control"></textarea>
+            </div>
+            <div class="row col-12">
+                <div class="form-group form-label col-6">
+                    <label>Czujniki pomiarowe</label>
+                    <input-sensors-multiselect @selected-inputs="updateInputSensors"/>
                 </div>
                 <div class="form-group form-label col-6">
-                    <label>Opis</label>
-                    <textarea v-model="description" placeholder="Dodatkowy opis"
-                              class="form-control"></textarea>
-                </div>
-                <div class="form-group form-label col-6">
-                    <label>Typy czujników pomiarowych</label>
-                    <input-sensors-multiselect :selected-sensors="inputSensors"
-                                               @selected-inputs="updateInputSensors"></input-sensors-multiselect>
-                </div>
-                <div class="form-group form-label col-6">
-                    <label>Typy elementów sterujących</label>
-                    <output-sensors-multiselect :selected-sensors="outputSensors"
-                                                @selected-outputs="updateOutputSensors"></output-sensors-multiselect>
+                    <label>Elementy sterujące</label>
+                    <output-sensors-multiselect @selected-outputs="updateOutputSensors"/>
                 </div>
                 <div class="col-6">
                     <label>Wybrano czujniki pomiarowe:</label>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Czujnik</th>
-                            <th>Ilość</th>
-                            <th>Akcja</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="(inputSensor, index) in groupedInputSensors">
-                            <td :key="`input-sensor-{{index}}`">
-                                {{inputSensor.name}}
-                            </td>
-                            <td>
-                                {{inputSensor.count}}
-                            </td>
-                            <td>
-                                <button @click="increaseCount(inputSensor)">Dodaj</button>
-                                <button>Usuń</button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <ul>
-                        <li v-for="(inputSensor,index) in groupedInputSensors"
-                            :key="`input-sensor-{{index}}`">{{inputSensor.name}}
-                        </li>
-                    </ul>
+                    <user-window-modal-table :sensors="inputSensors"
+                                             @update-count="updateInputSensorCount"/>
+                </div>
+                <div class="col-6">
+                    <label>Wybrano elementy sterujące:</label>
+                    <user-window-modal-table :sensors="outputSensors"
+                                             @update-count="updateOutputSensorCount"/>
                 </div>
             </div>
         </form>
@@ -80,20 +56,16 @@
 
 <script>
     import {GetWindowFormData} from "../../../utils/object-generator";
-    import {mapGetters} from "vuex";
     import InputSensorsMultiselect from "../../common/Multiselects/InputSensorsMultiselect";
     import OutputSensorsMultiselect from "../../common/Multiselects/OutputSensorsMultiselect";
+    import UserWindowModalTable from "./UserWindoModalTable";
     import {windowModalHelper} from "../../../utils/window-modal-helper";
 
     export default {
         components: {
+            UserWindowModalTable,
             OutputSensorsMultiselect,
             InputSensorsMultiselect
-        },
-        computed: {
-            groupedInputSensors() {
-                return windowModalHelper.groupSensors(this.inputSensors);
-            }
         },
         data() {
             return GetWindowFormData();
@@ -109,14 +81,20 @@
                 Object.assign(this.$data, GetWindowFormData());
             },
             updateInputSensors(value) {
-                this.inputSensors = value;
+                this.inputSensors = windowModalHelper.updateSensorsList(this.inputSensors, value);
             },
             updateOutputSensors(value) {
-                this.outputSensors = value;
+                this.outputSensors = windowModalHelper.updateSensorsList(this.outputSensors, value);
             },
-            increaseCount(value){
-                console.log(value);
-            }
+            updateInputSensorCount(value) {
+                let inputToUpdate = _.find(this.inputSensors, {'id': value.id});
+                inputToUpdate.count = value.count;
+            },
+            updateOutputSensorCount(value) {
+                let outputToUpdate = _.find(this.outputSensors, {'id': value.id});
+                outputToUpdate.count = value.count;
+            },
+
         }
     }
 </script>

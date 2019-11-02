@@ -38,11 +38,11 @@
         props: {
             selectedSensors: {
                 type: Array,
-                default: Array(0)
+                default: () => Array(0)
             },
         },
         methods: {
-            emit(){
+            emit() {
                 this.$emit("selected-outputs", this.value);
             }
         }

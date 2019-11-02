@@ -1,7 +1,7 @@
 import _ from "lodash";
 import types from "../types";
 import {dictionaryService} from "../../services/dictionary-service";
-import {sensorType} from "../../enums/index";
+import {SensorTypes} from "../../enums/index";
 
 const state = {
     InputSensors: Array(0),
@@ -35,7 +35,7 @@ const actions = {
         return dictionaryService.getSensorKindsDict(jwtToken)
             .then(sensorKinds => {
                     _.each(sensorKinds, sensorKind => {
-                        if (sensorKind.type === sensorType.Input) {
+                        if (sensorKind.type === SensorTypes.Input) {
                             inputSensors.push(sensorKind);
                         } else {
                             outputSensors.push(sensorKind);

@@ -38,7 +38,7 @@
         props: {
             selectedSensors: {
                 type: Array,
-                default: Array(0)
+                default: () => Array(0)
             },
         },
         methods: {

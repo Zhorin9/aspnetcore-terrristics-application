@@ -1,29 +1,28 @@
-const groupSensors = function (sensors) {
-    let groups = Array(0);
-    _.each(sensors, sensors => {
-        if (groups.length === 0) {
-            groups.push(
-                {
-                    id: sensors.id,
-                    name: sensors.name,
-                    count: 1
-                });
-        } else {
-            let groupToUpdate = _.find(groups, {'id': sensors.id});
-            if (groupToUpdate) {
-                groupToUpdate.count++;
-            } else {
-                groups.push({
-                    id: sensors.id,
-                    name: sensors.name,
-                    count: 1
-                })
-            }
+const updateSensorsList = function(sensors, value){
+    let sensorsTemp = [];
+    _.each(value, sensor => {
+        let matchedSensor = _.find(sensors, {'id': sensor.id});
+        if (!_.isNil(matchedSensor)) {
+            sensorsTemp.push({
+                id: matchedSensor.id,
+                name: matchedSensor.name,
+                type: matchedSensor.type,
+                count: matchedSensor.count
+            })
+        }
+        else{
+            sensorsTemp.push({
+                id: sensor.id,
+                name: sensor.name,
+                type: sensor.type,
+                count: 1
+            })
         }
     });
-    return groups;
+
+    return sensorsTemp;
 };
 
 export const windowModalHelper = {
-    groupSensors
+    updateSensorsList
 };

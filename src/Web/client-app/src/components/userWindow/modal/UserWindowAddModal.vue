@@ -9,17 +9,22 @@
                 <label>Nazwa okna</label>
                 <input
                     v-model="name"
-                    v-validate="'required'"
+                    v-validate="'required|min:3|max:30'"
                     data-vv-as="Nazwa okna"
-                    name="new.window.name.modal"
+                    name="user-window-add-modal-name"
                     class="form-control"
-                    :class="{ 'is-invalid': errors.collect('new.window.name.modal').length > 0 }"/>
-                <validation-messages :errors-list="errors.collect('new.window.name.modal')"/>
+                    :class="{ 'is-invalid': errors.collect('user-window-add-modal-name').length > 0 }"/>
+                <validation-messages :errors-list="errors.collect('user-window-add-modal-name')"/>
             </div>
             <div class="form-group form-label col-6">
                 <label>Opis</label>
-                <textarea v-model="description" placeholder="Dodatkowy opis"
+                <textarea v-model="description"
+                          v-validate="'max:200'"
+                          data-vv-as="Opis"
+                          name="user-window-add-modal-description"
+                          placeholder="Dodatkowy opis"
                           class="form-control"></textarea>
+                <validation-messages :errors-list="errors.collect('user-window-add-modal-description')"/>
             </div>
             <div class="row col-12">
                 <div class="form-group form-label col-6">
@@ -60,6 +65,7 @@
     import OutputSensorsMultiselect from "../../common/Multiselects/OutputSensorsMultiselect";
     import UserWindowModalTable from "./UserWindoModalTable";
     import {windowModalHelper} from "../../../utils/window-modal-helper";
+    import types from "../../../store/types";
 
     export default {
         components: {
@@ -72,6 +78,7 @@
         },
         methods: {
             ok() {
+                // this.$store.dispatch(types.actions.)
                 this.resetData();
             },
             cancel() {

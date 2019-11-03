@@ -3,15 +3,12 @@ using System.Threading.Tasks;
 using AppCore.Entities;
 using AppCore.Interfaces;
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.eShopWeb.Web.Controllers.Api;
 using Web.ViewModels.Api;
 
 namespace Web.ApiControllers.Common
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class DictionaryController : BaseApiController
     {
         private readonly ISensorKindRepository _sensorKindRepository;

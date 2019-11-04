@@ -5,7 +5,7 @@ using AppCore.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.eShopWeb.Web.Controllers.Api;
-using Web.ViewModels.Api;
+using Web.ApiModels;
 
 namespace Web.ApiControllers.Common
 {
@@ -22,7 +22,7 @@ namespace Web.ApiControllers.Common
         public async Task<IActionResult> GetSensorKinds()
         {
             IEnumerable<SensorKind> sensors = await _sensorKindRepository.ListAllAsync();
-            List<SensorKindViewModel> sensorKindViewModels = Mapper.Map<IEnumerable<SensorKind>, List<SensorKindViewModel>>(sensors);
+            List<SensorKindApiModel> sensorKindViewModels = Mapper.Map<IEnumerable<SensorKind>, List<SensorKindApiModel>>(sensors);
 
             return Ok(sensorKindViewModels);
         }

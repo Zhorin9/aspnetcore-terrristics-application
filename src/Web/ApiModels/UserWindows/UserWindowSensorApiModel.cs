@@ -1,8 +1,8 @@
 ﻿using AppCore.Enums;
 
-namespace Web.ViewModels.UserWindow
+namespace Web.ApiModels.UserWindows
 {
-    public class UserWindowSensorViewModel
+    public class UserWindowSensorApiModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

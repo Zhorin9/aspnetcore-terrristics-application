@@ -1,8 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Web.ViewModels.UserWindow;
+using Web.ApiModels.UserWindows;
 
 namespace Microsoft.eShopWeb.Web.Controllers.Api
 {
@@ -13,7 +12,7 @@ namespace Microsoft.eShopWeb.Web.Controllers.Api
         }
 
         [HttpPost]
-        public IActionResult Create(UserWindowViewModel userWindow)
+        public IActionResult Create(UserWindowApiModel userWindow)
         {
             if (!ModelState.IsValid)
             {

@@ -9,7 +9,7 @@ namespace Web.Mappings
         {
             return new MapperConfiguration(mc =>
             {
-                mc.AddProfile(new ModelToViewModelProfile());
+                mc.AddProfile(new ModelToApiModelProfile());
             });
         }
     }

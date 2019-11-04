@@ -1,10 +1,9 @@
 <template>
     <div class="card card-green m-3 col-md-5">
         <div class="card-header card-header-background">
-            <span class="cursor-pointer">{{window.Name}}</span>
+            <span class="cursor-pointer">{{mockedWindow.Name}}</span>
             <button @click="editWindowBlock" class="float-right btn btn-green btn-sm">Edytuj</button>
             <button @click="editWindowBlock" class="float-right btn btn-remove btn-sm">Usuń</button>
-<!--            <input type="checkbox" v-model="window.Checked" class="float-right ">-->
         </div>
         <img src="../../assets/homeBackground.jpg" height="150"/>
         <div class="card-body">
@@ -17,7 +16,7 @@
     export default {
         data() {
             return {
-                window: Object(
+                mockedWindow: Object(
                     {
                         Name: String("Moje terarium"),
                         DateCreated: String("2019-09-01"),
@@ -34,10 +33,6 @@
             removeWindowBlock(){
                 this.$emit("remove-window", this.windowIndex);
             }
-        },
-        props: {
-            //windowIndex: Number,
-            // window: Object
         }
     }
 </script>

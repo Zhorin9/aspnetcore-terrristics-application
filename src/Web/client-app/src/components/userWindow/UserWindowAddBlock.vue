@@ -8,23 +8,16 @@
                 Dodaj nowe okno
             </b-button>
         </div>
-        <user-window-add-modal/>
     </div>
 </template>
 
 <script>
-
-    import UserWindowAddModal from "./modal/UserWindowAddModal";
     export default {
-        components: {
-            UserWindowAddModal,
-        },
         methods: {
-            openModal(){
+            openModal() {
                 this.$bvModal.show("add-window-modal");
             }
         }
-
     }
 </script>
 

@@ -5,14 +5,16 @@
                 <window-block @edit-window-block="editWindowBlock"/>
             </div>
             <div class="offset-1 col-md-3">
-                <user-window-add-block :input-sensors="inputSensors" :output-sensors="outputSensors"/>
+                <user-window-add-block/>
                 <user-window-information-block/>
             </div>
-            <!--        <edit-window-modal/>-->
         </div>
         <div v-else>
             <loading-page/>
         </div>
+
+        <!--        <user-window-edit-modal/>-->
+        <user-window-add-modal @added-new-window="addedNewWindow"/>
     </div>
 </template>
 
@@ -21,6 +23,7 @@
     import LoadingPage from "./common/LoadingPage";
     import UserWindowAddBlock from "./userWindow/UserWindowAddBlock";
     import UserWindowInformationBlock from "./userWindow/UserWindowInformationBlock";
+    import UserWindowAddModal from "./userWindow/modal/UserWindowAddModal";
 
     import {GetUserWindowData} from "../utils/object-generator";
     import {mapGetters} from "vuex";
@@ -31,7 +34,8 @@
             LoadingPage,
             WindowBlock,
             UserWindowAddBlock,
-            UserWindowInformationBlock
+            UserWindowInformationBlock,
+            UserWindowAddModal,
         },
         data() {
             return GetUserWindowData();
@@ -52,11 +56,12 @@
         methods: {
             editWindowBlock(value) {
                 //TODO sklonowac item o danym indexu z listy okien, wyslac do modala i tam edytować
+            },
+            addedNewWindow(value){
+
             }
         }
     };
 </script>
 
-<style>
-
-</style>
+<style scoped></style>

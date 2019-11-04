@@ -3,7 +3,8 @@
         id="add-window-modal"
         title="Dodanie nowego okna"
         size="xl"
-        button-size="sm">
+        button-size="sm"
+    @ok="handleOk">
         <form @submit.prevent="">
             <div class="form-groups form-label col-6">
                 <label>Nazwa okna</label>
@@ -24,7 +25,8 @@
                           name="user-window-add-modal-description"
                           placeholder="Dodatkowy opis"
                           class="form-control"></textarea>
-                <validation-messages :errors-list="errors.collect('user-window-add-modal-description')"/>
+                <validation-messages
+                    :errors-list="errors.collect('user-window-add-modal-description')"/>
             </div>
             <div class="row col-12">
                 <div class="form-group form-label col-6">
@@ -49,10 +51,10 @@
         </form>
 
         <template v-slot:modal-footer="{ ok, cancel }">
-            <b-button size="sm" variant="success" @click="ok">
+            <b-button size="sm" variant="success" @click="handleOk">
                 Zapisz
             </b-button>
-            <b-button size="sm" variant="danger" @click="cancel">
+            <b-button size="sm" variant="danger" @click="resetModal">
                 Anuluj
             </b-button>
         </template>
@@ -63,9 +65,8 @@
     import {GetWindowFormData} from "../../../utils/object-generator";
     import InputSensorsMultiselect from "../../common/Multiselects/InputSensorsMultiselect";
     import OutputSensorsMultiselect from "../../common/Multiselects/OutputSensorsMultiselect";
-    import UserWindowModalTable from "./UserWindoModalTable";
+    import UserWindowModalTable from "./UserWindowModalTable";
     import {windowModalHelper} from "../../../utils/window-modal-helper";
-    import types from "../../../store/types";
 
     export default {
         components: {
@@ -77,14 +78,16 @@
             return GetWindowFormData();
         },
         methods: {
-            ok() {
-                // this.$store.dispatch(types.actions.)
-                this.resetData();
+            handleOk() {
+                this.$emit("added-new-window", {
+                    name: this.name,
+                    description: this.description,
+                    inputSensors: this.inputSensors,
+                    outputSensors: this.outputSensors
+                });
+                this.resetModal();
             },
-            cancel() {
-                this.resetData();
-            },
-            resetData() {
+            resetModal() {
                 Object.assign(this.$data, GetWindowFormData());
             },
             updateInputSensors(value) {

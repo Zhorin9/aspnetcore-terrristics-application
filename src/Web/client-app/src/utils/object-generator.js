@@ -7,6 +7,8 @@ const GetUserWindowData = function(){
 
 const GetWindowFormData = function(){
     return {
+        failedOnCreate: Boolean(false),
+        waitingForResponse: Boolean(false),
         name: String(),
         description: String(),
         inputSensors: Array(0),

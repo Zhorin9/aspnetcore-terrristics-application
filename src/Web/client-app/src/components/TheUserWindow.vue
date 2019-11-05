@@ -14,7 +14,7 @@
         </div>
 
         <!--        <user-window-edit-modal/>-->
-        <user-window-add-modal @added-new-window="addedNewWindow"/>
+        <user-window-add-modal></user-window-add-modal>
     </div>
 </template>
 
@@ -56,9 +56,6 @@
         methods: {
             editWindowBlock(value) {
                 //TODO sklonowac item o danym indexu z listy okien, wyslac do modala i tam edytować
-            },
-            addedNewWindow(value){
-
             }
         }
     };

@@ -4,8 +4,12 @@
         title="Dodanie nowego okna"
         size="xl"
         button-size="sm"
-    @ok="handleOk">
-        <form @submit.prevent="">
+        ref="addWindowModal">
+        <div v-show="failedOnCreate" class="alert alert-danger text-center modal-alert" :style="`padding: 0`">
+            <p class="text-danger" :style="`font-size: 11px; margin-bottom:0px;`">Nie udało się zapisać okna, spróbuj ponownie :(</p>
+        </div>
+        <form v-if="!waitingForResponse"
+              @submit.prevent="handleOk">
             <div class="form-groups form-label col-6">
                 <label>Nazwa okna</label>
                 <input
@@ -15,7 +19,8 @@
                     name="user-window-add-modal-name"
                     class="form-control"
                     :class="{ 'is-invalid': errors.collect('user-window-add-modal-name').length > 0 }"/>
-                <validation-messages :errors-list="errors.collect('user-window-add-modal-name')"/>
+                <validation-messages
+                    :errors-list="errors.collect('user-window-add-modal-name')"/>
             </div>
             <div class="form-group form-label col-6">
                 <label>Opis</label>
@@ -49,12 +54,15 @@
                 </div>
             </div>
         </form>
+        <template v-else>
+            <loading-page/>
+        </template>
 
         <template v-slot:modal-footer="{ ok, cancel }">
             <b-button size="sm" variant="success" @click="handleOk">
                 Zapisz
             </b-button>
-            <b-button size="sm" variant="danger" @click="resetModal">
+            <b-button size="sm" variant="danger" @click="hideAndResetModalData">
                 Anuluj
             </b-button>
         </template>
@@ -62,33 +70,38 @@
 </template>
 
 <script>
-    import {GetWindowFormData} from "../../../utils/object-generator";
     import InputSensorsMultiselect from "../../common/Multiselects/InputSensorsMultiselect";
     import OutputSensorsMultiselect from "../../common/Multiselects/OutputSensorsMultiselect";
     import UserWindowModalTable from "./UserWindowModalTable";
+    import LoadingPage from "../../common/LoadingPage";
+
+    import {GetWindowFormData} from "../../../utils/object-generator";
     import {windowModalHelper} from "../../../utils/window-modal-helper";
+    import {userWindowService} from "../../../services/user-window-service";
 
     export default {
         components: {
+            LoadingPage,
             UserWindowModalTable,
             OutputSensorsMultiselect,
-            InputSensorsMultiselect
+            InputSensorsMultiselect,
         },
         data() {
             return GetWindowFormData();
         },
         methods: {
-            handleOk() {
-                this.$emit("added-new-window", {
-                    name: this.name,
-                    description: this.description,
-                    inputSensors: this.inputSensors,
-                    outputSensors: this.outputSensors
-                });
-                this.resetModal();
+            async handleOk(evt) {
+                evt.preventDefault();
+                const result = await this.isValid();
+
+                if (!result) {
+                    return;
+                }
+                this.saveNewWindow();
             },
-            resetModal() {
+            hideAndResetModalData() {
                 Object.assign(this.$data, GetWindowFormData());
+                this.$refs.addWindowModal.hide();
             },
             updateInputSensors(value) {
                 this.inputSensors = windowModalHelper.updateSensorsList(this.inputSensors, value);
@@ -104,9 +117,29 @@
                 let outputToUpdate = _.find(this.outputSensors, {'id': value.id});
                 outputToUpdate.count = value.count;
             },
+            saveNewWindow() {
+                let userWindowToCreate = {
+                    name: this.name,
+                    description: this.description,
+                    inputSensors: this.inputSensors,
+                    outputSensors: this.outputSensors
+                };
 
+                this.waitingForResponse = true;
+                userWindowService.addNewWindow(userWindowToCreate)
+                    .then(result => {
+                        this.hideAndResetModalData();
+                    })
+                    .catch(err => {
+                        console.error();
+                    })
+                    .finally(() => {
+                        this.waitingForResponse = false;
+                    })
+            },
+            async isValid() {
+                return await this.$validator.validateAll();
+            }
         }
     }
 </script>
-
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

@@ -17,12 +17,14 @@
             </td>
             <td>
                 <button class="btn btn-light mt-2 mr-1 btn-xs"
-                        @click="increaseCount(sensor)">
+                        @click="increaseCount(sensor)"
+                        type="button">
                     Dodaj
                 </button>
                 <button v-if="showRemoveButton(sensor)"
                         @click="decreaseCount(sensor)"
-                        class="btn btn-light mt-2 btn-xs">
+                        class="btn btn-light mt-2 btn-xs"
+                        type="button">
                     Usuń
                 </button>
             </td>

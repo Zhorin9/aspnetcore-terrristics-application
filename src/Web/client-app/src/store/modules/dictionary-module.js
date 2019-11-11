@@ -27,12 +27,11 @@ const mutations = {
 };
 
 const actions = {
-    [types.actions.DICT_GET_ALL_SENSOR_KINDS]({commit, getters, state}) {
-        let jwtToken = getters[types.getters.AUTHENTICATION_GET_JWT_TOKEN];
+    [types.actions.DICT_GET_ALL_SENSOR_KINDS]({commit}) {
         let inputSensors = Array(0);
         let outputSensors = Array(0);
 
-        return dictionaryService.getSensorKindsDict(jwtToken)
+        return dictionaryService.getSensorKindsDict()
             .then(sensorKinds => {
                     _.each(sensorKinds, sensorKind => {
                         if (sensorKind.type === SensorTypes.Input) {

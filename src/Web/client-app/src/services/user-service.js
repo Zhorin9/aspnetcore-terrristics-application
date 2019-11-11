@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {GetHeader} from "./service-helper";
 import endpoints from "../utils/endpoints";
+import {GetHeader} from "../helpers/auth-helper";
 
 export const userService = {
     login,

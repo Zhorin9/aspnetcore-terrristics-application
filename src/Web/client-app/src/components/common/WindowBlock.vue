@@ -16,6 +16,7 @@
     export default {
         data() {
             return {
+                //TODO Remove mocked data
                 mockedWindow: Object(
                     {
                         Name: String("Moje terarium"),

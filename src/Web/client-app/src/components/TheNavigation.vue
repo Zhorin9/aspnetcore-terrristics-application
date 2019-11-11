@@ -31,25 +31,49 @@
 
 <script>
     import types from "../store/types";
+    import {userService} from "../services/user-service";
+    import {getUserEmail, isUserLogged} from "../helpers/current-user-helper";
     import {mapGetters} from "vuex";
 
     export default {
+        beforeMount() {
+            if (this.getUserEmail) {
+                this.isLogged = true;
+            }
+        },
+        data() {
+            return {
+                logged: false
+            }
+        },
         computed: {
             ...mapGetters({
-                getUserEmail: types.getters.AUTHENTICATION_GET_CURRENT_USER,
-                jwtToken: types.getters.AUTHENTICATION_GET_JWT_TOKEN,
+                getUserEmail: types.getters.AUTHENTICATION_GET_CURRENT_USER
             }),
-            isLogged(){
-                return this.jwtToken !== null;
+            isLogged: {
+                get() {
+                    return this.logged;
+                },
+                set(value) {
+                    this.logged = value;
+                }
             }
         },
         methods: {
             logOut() {
+                this.isLogged = false;
+                userService.logout();
                 this.$store.commit(types.mutations.AUTHENTICATION_LOGOUT);
                 this.$route.push({
                     name: 'HomePage'
                 });
             },
+        },
+        watch: {
+            getUserEmail(newEmail)
+            {
+                this.isLogged = !!newEmail;
+            }
         }
     };
 </script>

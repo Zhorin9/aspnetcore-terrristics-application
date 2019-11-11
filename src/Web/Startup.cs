@@ -4,6 +4,7 @@ using AutoMapper;
 using Infrastructure.Data;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Identity;
+using Infrastructure.Logging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -72,6 +73,7 @@ namespace Web
         {
             services.AddTransient<AppIdentityDbContextSeed>();
             services.AddTransient<AddDbContextSeed>();
+            services.AddScoped(typeof(IAppLogger<>), typeof(LoggingAdapter<>));
             services.AddScoped(typeof(IAsyncAppRepository<>), typeof(AppRepository<>));
 
             services.AddScoped<ITerraristicWindowRepository, TerraristicWindowRepository>();

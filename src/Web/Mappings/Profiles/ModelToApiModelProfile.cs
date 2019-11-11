@@ -8,7 +8,8 @@ namespace Web.Mappings.Profiles
     {
         public ModelToApiModelProfile()
         {
-            CreateMap<SensorKind, SensorKindApiModel>();
+            CreateMap<SensorKind, SensorKindApiModel>()
+                .ForMember(d => d.SensorKindId, o => o.MapFrom(s => s.Id));
         }
     }
 }

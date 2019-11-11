@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Microsoft.eShopWeb.Web.Controllers.Api
+namespace Web.ApiControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]

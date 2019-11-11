@@ -1,13 +1,13 @@
 import axios from 'axios';
-import {GetHeaderWithJwtToken} from "./service-helper";
 import endpoints from "../utils/endpoints";
+import {GetHeaderWithJwtToken} from "../helpers/auth-helper";
 
 export const dictionaryService = {
     getSensorKindsDict,
 };
 
-function getSensorKindsDict(token) {
-    let headerWithJwtToken = GetHeaderWithJwtToken(token);
+function getSensorKindsDict() {
+    let headerWithJwtToken = GetHeaderWithJwtToken();
 
     return axios.get(endpoints.getSensorKinds, {headers: headerWithJwtToken})
         .then(response => {

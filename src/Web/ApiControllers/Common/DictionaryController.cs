@@ -4,7 +4,6 @@ using AppCore.Entities;
 using AppCore.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.eShopWeb.Web.Controllers.Api;
 using Web.ApiModels;
 
 namespace Web.ApiControllers.Common

@@ -3,7 +3,7 @@ const endpoints = {
 
     getSensorKinds: "/api/dictionary/getSensorKinds",
 
-    createNewUserWindow: "api/userWindow/create"
+    createNewTerraristicsWindow: "api/terraristicsWindow/create"
 };
 
 export default endpoints;

@@ -57,7 +57,7 @@
     import TerraristicsWindowModalTable from "./TerraristicsWindowModalTable";
 
     import {GetTerraristicsWindowFormData} from "../../../utils/object-generator";
-    import {userWindowService} from "../../../services/user-window-service";
+    import {terraristicsWindowService} from "../../../services/terraristics-window-service";
 
     export default {
         components: {
@@ -81,22 +81,18 @@
 
                 }
             },
-            resetModalDataAndGoToCreatedWindow() {
+            resetModalDataAndGoToCreatedWindow(id) {
                 Object.assign(this.$data, GetTerraristicsWindowFormData());
                 this.$refs.addTerraristicsWindowModal.hide();
                 this.$route.push({
-                    name: 'HomePage'
+                    name: 'TerraristicsWindowData',
+                    id: id
                 });
             },
             saveNewWindow() {
-                let userWindowToCreate = {
-                    name: this.name,
-                    description: this.description
-                };
-
-                userWindowService.addNewWindow(userWindowToCreate)
+                terraristicsWindowService.addNewWindow(this.name, this.description)
                     .then(result => {
-                        this.resetModalDataAndGoToCreatedWindow();
+                        this.resetModalDataAndGoToCreatedWindow(result.data);
                     })
                     .catch(err => {
                         console.error(err.message);

@@ -11,16 +11,18 @@ const state = {
 };
 
 const getters = {
-    [types.getters.AUTHENTICATION_GET_CURRENT_USER]() {
-        let user = JSON.parse(localStorage.getItem(userKey));
-        return user.Email;
+    [types.getters.AUTHENTICATION_GET_CURRENT_USER]: state => {
+        return state.Email;
     },
     [types.getters.AUTHENTICATION_IS_LOG_PROCESS]() {
         return state.LogProcess;
     },
     [types.getters.AUTHENTICATION_GET_JWT_TOKEN]() {
         let user = JSON.parse(localStorage.getItem(userKey));
-        return user.Token;
+        if(user){
+            return user.Token;
+        }
+        return null;
     }
 };
 
@@ -55,6 +57,7 @@ const mutations = {
         state.Email = email;
     },
     [types.mutations.AUTHENTICATION_LOGOUT]: state => {
+        state.Email = "";
         state.LogProcess = false;
         state.LoggedCorrect = false;
     },
@@ -63,6 +66,7 @@ const mutations = {
         state.LogProcess = false;
     },
     [types.mutations.AUTHENTICATION_LOGIN_FAILED]: state => {
+        state.Email = "";
         state.LogProcess = false;
         state.LoggedCorrect = false;
     }

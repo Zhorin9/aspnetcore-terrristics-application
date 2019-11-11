@@ -22,7 +22,7 @@ function login(email, password) {
 
 //Remove user from local storage to log user out
 function logout() {
-
+    localStorage.removeItem("user");
 }
 
 function handleError(data) {

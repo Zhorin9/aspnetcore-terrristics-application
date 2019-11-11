@@ -2,26 +2,25 @@ import {userService} from '../../services/user-service';
 import types from "../types";
 import {router} from '../../router/index.js';
 
+const userKey = "user";
+
 const state = {
-    LogProcess: false,
-    LoggedCorrect: false,
     Email: "",
-    Token: "",
-    TokenExpiration: ""
+    LogProcess: false
+    //TODO Probably need to extend to some claims
 };
 
 const getters = {
-    [types.getters.AUTHENTICATION_GET_CURRENT_USER](state, payload) {
-        return state.Email;
-    },
-    [types.getters.AUTHENTICATION_IS_USER_LOGGED_CORRECT]() {
-        return state.LoggedCorrect;
+    [types.getters.AUTHENTICATION_GET_CURRENT_USER]() {
+        let user = JSON.parse(localStorage.getItem(userKey));
+        return user.Email;
     },
     [types.getters.AUTHENTICATION_IS_LOG_PROCESS]() {
         return state.LogProcess;
     },
     [types.getters.AUTHENTICATION_GET_JWT_TOKEN]() {
-        return state.Token;
+        let user = JSON.parse(localStorage.getItem(userKey));
+        return user.Token;
     }
 };
 
@@ -30,19 +29,19 @@ const actions = {
         commit(types.mutations.AUTHENTICATION_UPDATE_LOG_PROCESS, user.email);
 
         return userService.login(user.email, user.password)
-                    .then(
-                        user => {
-                            commit(types.mutations.AUTHENTICATION_SET_STATE_TO_LOGGED);
-                            commit(types.mutations.AUTHENTICATION_UPDATE_CURRENT_USER, user);
+            .then(
+                user => {
+                    localStorage.setItem(userKey, JSON.stringify(user));
+                    commit(types.mutations.AUTHENTICATION_SET_STATE_TO_LOGGED);
 
-                            router.push({
-                                name: 'HomePage'
-                            });
-                        },
-                    ).catch(err => {
-                    commit(types.mutations.AUTHENTICATION_LOGIN_FAILED);
-                    console.error("Problem with authentication", err);
-                })
+                    router.push({
+                        name: 'HomePage'
+                    });
+                },
+            ).catch(err => {
+                commit(types.mutations.AUTHENTICATION_LOGIN_FAILED);
+                console.error("Problem with authentication", err);
+            })
     },
     [types.actions.AUTHENTICATION_LOGOUT]({commit}) {
         userService.logout();
@@ -56,20 +55,12 @@ const mutations = {
         state.Email = email;
     },
     [types.mutations.AUTHENTICATION_LOGOUT]: state => {
-        state.Email = "";
-        state.Token = "";
-        state.TokenExpiration = "";
         state.LogProcess = false;
         state.LoggedCorrect = false;
     },
     [types.mutations.AUTHENTICATION_SET_STATE_TO_LOGGED]: state => {
         state.LoggedCorrect = true;
         state.LogProcess = false;
-    },
-    [types.mutations.AUTHENTICATION_UPDATE_CURRENT_USER](state, user) {
-        state.Token = user.Token;
-        state.TokenExpiration = user.TokenExpiration;
-        state.LoggedCorrect = true;
     },
     [types.mutations.AUTHENTICATION_LOGIN_FAILED]: state => {
         state.LogProcess = false;

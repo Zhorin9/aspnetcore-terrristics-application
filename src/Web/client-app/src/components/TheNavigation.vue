@@ -7,10 +7,10 @@
             </b-navbar-brand>
             <b-navbar-nav>
                 <b-nav-item :to="{name: 'ThePublicWindow'}">Publiczne terraria</b-nav-item>
-                <b-nav-item :to="{name: 'TheUserWindow'}">Moje terraria</b-nav-item>
+                <b-nav-item :to="{name: 'TheTerraristicsWindows'}">Moje terraria</b-nav-item>
             </b-navbar-nav>
 
-            <b-navbar-nav v-if="loggedIn" class="ml-auto">
+            <b-navbar-nav v-if="isLogged" class="ml-auto">
                 <b-nav-item-dropdown right>
                     <template slot="button-content">{{getUserEmail}}</template>
                     <b-dropdown-item :to="{name: 'TheHomePage'}">
@@ -36,9 +36,12 @@
     export default {
         computed: {
             ...mapGetters({
-                loggedIn: types.getters.AUTHENTICATION_IS_USER_LOGGED_CORRECT,
-                getUserEmail: types.getters.AUTHENTICATION_GET_CURRENT_USER
+                getUserEmail: types.getters.AUTHENTICATION_GET_CURRENT_USER,
+                jwtToken: types.getters.AUTHENTICATION_GET_JWT_TOKEN,
             }),
+            isLogged(){
+                return this.jwtToken !== null;
+            }
         },
         methods: {
             logOut() {

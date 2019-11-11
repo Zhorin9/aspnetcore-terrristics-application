@@ -3,8 +3,9 @@ import Router from 'vue-router';
 
 import TheHomePage from '../components/TheHomePage.vue';
 import LoginPage from '../components/user/LoginPage.vue';
-import TheUserWindow from "../components/TheUserWindow";
+import TheTerraristicsWindows from "../components/TheTerraristicsWindows";
 import ThePublicWindow from "../components/ThePublicWindow";
+import TerraristicsWindowData from "../components/terraristicsWindow/TerraristicsWindowData";
 
 Vue.use(Router);
 
@@ -12,13 +13,18 @@ export const router = new Router({
     routes: [
         {
             path: '/',
-            name: 'TheHome',
+            name: 'TheHomePage',
             component: TheHomePage,
         },
         {
             path: '/mojeOkna',
-            name: 'TheUserWindow',
-            component: TheUserWindow,
+            name: 'TheTerraristicsWindows',
+            component: TheTerraristicsWindows,
+        },
+        {
+          path: '/mojeOkna/:id',
+            name: 'TerraristicsWindowData',
+            component: TerraristicsWindowData
         },
         {
             path: '/okna',

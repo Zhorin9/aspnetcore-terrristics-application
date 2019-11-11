@@ -15,7 +15,7 @@
     export default {
         methods: {
             openModal() {
-                this.$bvModal.show("add-window-modal");
+                this.$bvModal.show("add-terraristics-window-modal");
             }
         }
     }

@@ -26,14 +26,14 @@ namespace AppCore.Interfaces
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        void AddAsync(T entity);
+        Task<int> AddAsync(T entity);
 
         /// <summary>
         /// Update data
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        void UpdateAsync(T entity);
+        Task<int> UpdateAsync(T entity);
 
         /// <summary>
         /// Delete data

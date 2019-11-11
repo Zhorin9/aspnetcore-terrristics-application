@@ -11,43 +11,44 @@ namespace Infrastructure.Data
 {
     public class AppRepository<T> : IAsyncAppRepository<T> where T : BaseEntity
     {
-        protected readonly AppDbContext _context;
+        protected readonly AppDbContext Context;
 
         public AppRepository(AppDbContext context)
         {
-            _context = context;
+            Context = context;
         }
+
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _context.Set<T>().FindAsync(id);
+            return await Context.Set<T>().FindAsync(id);
         }
 
-        public async void AddAsync(T entity)
+        public async Task<int> AddAsync(T entity)
         {
-            _context.Set<T>().Add(entity);
-            await _context.SaveChangesAsync();
+            Context.Set<T>().Add(entity);
+            return await Context.SaveChangesAsync();
         }
 
-        public async void UpdateAsync(T entity)
+        public async Task<int> UpdateAsync(T entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            Context.Entry(entity).State = EntityState.Modified;
+            return await Context.SaveChangesAsync();
         }
 
         public async void DeleteAsync(T entity)
         {
-            _context.Set<T>().Remove(entity);
-            await _context.SaveChangesAsync();
+            Context.Set<T>().Remove(entity);
+            await Context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<T>> ListAllAsync()
         {
-            return await _context.Set<T>().ToListAsync();
+            return await Context.Set<T>().ToListAsync();
         }
 
         public async Task<IEnumerable<T>> GetListByExpression(Expression<Func<T, bool>> expression)
         {
-            return await _context.Set<T>().Where(expression).ToListAsync();
+            return await Context.Set<T>().Where(expression).ToListAsync();
         }
     }
 }

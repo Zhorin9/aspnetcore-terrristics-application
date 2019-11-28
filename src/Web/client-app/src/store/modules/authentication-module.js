@@ -33,7 +33,7 @@ const actions = {
         return userService.login(user.email, user.password)
             .then(
                 user => {
-                    localStorage.setItem(userKey, JSON.stringify(user));
+                    localStorage.setItem( JSON.stringify(user));
                     commit(types.mutations.AUTHENTICATION_SET_STATE_TO_LOGGED);
 
                     router.push({

@@ -1,11 +1,11 @@
-import {headerImpl} from "@/helpers/auth-helper";
-import {endpoints} from "@/api/endpoints";
 import axios from 'axios';
+import {endpoints} from "@/api/endpoints";
+import {getHeaderWithJwtToken} from "@/api/header-generator";
 
 class DictionaryApiImpl implements DictionaryApi {
-    getSensorKindsDict(): Promise<SensorKind> {
-        let headerWithJwtToken = headerImpl.GetHeaderWithJwtToken();
-        return axios.get(endpoints.getSensorKinds, {headers: headerWithJwtToken});
+    async getSensorKindsDict() {
+        const header = getHeaderWithJwtToken();
+        return await axios.get(endpoints.getSensorKinds, {headers: header});
     }
 }
 

@@ -1,19 +1,23 @@
 <template>
     <div id="app">
-        <Home msg="Hello world!" />
+        <navbar/>
+        <main>
+            <router-view/>
+        </main>
     </div>
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator';
-    import Home from './components/Home.vue';
+    import {Component, Vue} from 'vue-property-decorator';
+    import Navbar from "@/components/Navbar.vue";
 
     @Component({
         components: {
-            Home
+            Navbar,
         }
     })
-    export default class App extends Vue { }
+    export default class App extends Vue {
+    }
 </script>
 
 <style>
@@ -59,7 +63,7 @@
         background: #0a281d !important;
     }
 
-    .modal-header{
+    .modal-header {
         background: #0a281d !important;
     }
 

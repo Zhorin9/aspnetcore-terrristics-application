@@ -1,11 +1,11 @@
-interface DictionaryApi {
-    getSensorKindsDict() : Promise<SensorKind>    
+interface UserApi {
+    login(email: string, password: string): Promise<any>;
 }
 
-interface SensorKind {
-    SensorKindId: number;
-    Name: string;
-    ShortDescription: string;
-    Description: string;
-    Type: number;
+interface DictionaryApi {
+    getSensorKindsDict(): Promise<any>;
+}
+
+interface TerraristicsWindowApi {
+    addNewWindow(name: string, description: string): Promise<number>;
 }

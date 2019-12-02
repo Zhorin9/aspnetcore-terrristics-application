@@ -5,7 +5,6 @@ import 'normalize.css'
 import '@/icons/components'
 
 import SvgIcon from 'vue-svgicon'
-
 Vue.use(SvgIcon, {
     tagName: 'svg-icon',
     defaultWidth: '1em',
@@ -14,15 +13,14 @@ Vue.use(SvgIcon, {
 
 //Register multiselect globally
 import {Multiselect} from "vue-multiselect";
-
 Vue.component('multiselect', Multiselect);
 
 Vue.config.productionTip = true;
 
 // Setup bootstrap Vue
-import BootstrapVue from 'bootstrap-vue'
-import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap-vue/dist/bootstrap-vue.css"
+import BootstrapVue from 'bootstrap-vue';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 Vue.use(BootstrapVue);
 

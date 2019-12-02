@@ -1,10 +1,10 @@
 <template>
     <b-modal
-            id="add-terraristics-window-modal"
+            id="user-window-add-modal"
             title="Dodanie nowego okna"
             size="lg"
             button-size="sm"
-            ref="addTerraristicsWindowModal">
+            ref="addUserTerraristicWindowModal">
         <div v-show="failedOnCreate" class="alert alert-danger text-center modal-alert"
              :style="`padding: 0`">
             <p class="text-danger" :style="`font-size: 16px; margin-bottom:0px;`">Nie udało się
@@ -16,7 +16,8 @@
                 <label>Nazwa okna</label>
                 <input v-model="name"
                        data-vv-as="Nazwa okna"
-                       name="user-window-add-modal-name"/>
+                       name="user-window-add-modal-name"
+                       class="form-control"/>
             </div>
             <div class="form-group form-label col-6">
                 <label>Opis</label>
@@ -43,17 +44,17 @@
 
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
-    import LoadingPage from "@/components/common/LoadingPage.vue";
     import {terraristicsWindowApiImpl} from "@/api/terraristics-window-api";
-    import TerraristicsWindowTableModal from "@/views/terraristics/components/modals/TerraristicsWindowTableModal.vue";
+    import LoadingPage from "@/components/common/LoadingPage.vue";
+    import UserTerraristicWindowTable from "@/views/userWindows/components/modals/UserTerraristicWindowTable.vue";
 
     @Component({
         components: {
             LoadingPage,
-            TerraristicsWindowTableModal
+            UserTerraristicWindowTable
         }
     })
-    export default class TerraristicsWindowAddModal extends Vue {
+    export default class UserTerraristicWindowAddModal extends Vue {
         failedOnCreate: Boolean = false;
         waitingForResponse: Boolean = false;
         name: string = "";
@@ -75,7 +76,7 @@
 
         resetModalDataAndGoToCreatedWindow(id: number) {
             // @ts-ignore
-            this.$refs.addTerraristicsWindowModal.hide();
+            this.$refs.addUserTerraristicWindowModal.hide();
             // this.$router.push({
             //     name: 'TerraristicsWindowData',
             //     id: id

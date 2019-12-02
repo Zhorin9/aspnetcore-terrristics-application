@@ -7,7 +7,7 @@
             </b-navbar-brand>
             <b-navbar-nav>
                 <b-nav-item to="/publicWindows">Publiczne terraria</b-nav-item>
-                <b-nav-item :to="{name: 'TheTerraristicsWindows'}">Moje terraria</b-nav-item>
+                <b-nav-item to="/userTerraristicWindows">Moje terraria</b-nav-item>
             </b-navbar-nav>
 
             <b-navbar-nav v-if="isLogged" class="ml-auto">

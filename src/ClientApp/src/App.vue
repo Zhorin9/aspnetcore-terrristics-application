@@ -38,7 +38,7 @@
     body {
         height: 100%;
         background-image: linear-gradient(80deg, #040E0D, #1E6036);
-        color: white;
+        color: white !important;
     }
 
     .form-control.is-invalid {

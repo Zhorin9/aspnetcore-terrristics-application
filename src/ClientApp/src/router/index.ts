@@ -19,6 +19,11 @@ export const constantRoutes: RouteConfig[] = [
         component: () => import(/* webpackChunkName: "login" */ '@/views/public/PublicView.vue'),
         meta: {hidden: true}
     },
+    {
+        path: '/userTerraristicWindows',
+        component: () => import(/* webpackChunkName: "login" */ '@/views/userWindows/UserTerraristicWindowsView.vue'),
+        meta: {hidden: true}
+    },
 ];
 
 const createRouter = () => new Router({

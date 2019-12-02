@@ -37,7 +37,7 @@
     import {Component, Prop, Vue} from "vue-property-decorator";
 
     @Component
-    export default class TerraristicsWindowTableModal extends Vue {
+    export default class UserTerraristicWindowTable extends Vue {
         @Prop({default: Array(0)}) sensors!: Array<any>;
 
         showRemoveButton(value: any) {

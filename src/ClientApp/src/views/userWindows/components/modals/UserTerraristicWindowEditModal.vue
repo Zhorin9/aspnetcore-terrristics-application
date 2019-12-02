@@ -13,6 +13,6 @@
     import {Component, Vue} from "vue-property-decorator";
 
     @Component
-    export default class EditModal extends Vue {
+    export default class UserTerraristicWindowEditModal extends Vue {
     }
 </script>

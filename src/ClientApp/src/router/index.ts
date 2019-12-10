@@ -21,8 +21,14 @@ export const constantRoutes: RouteConfig[] = [
     },
     {
         path: '/userTerraristicWindows',
-        component: () => import(/* webpackChunkName: "login" */ '@/views/userWindows/UserTerraristicWindowsView.vue'),
+        component: () => import(/* webpackChunkName: "login" */ '@/views/userTerraristicsWindow/UserTerraristicsWindowView.vue'),
         meta: {hidden: true}
+    },
+    {
+        path: '/terraristicsData/:id',
+        component: () => import(/* webpackChunkName: "login" */ '@/views/terraristicsWindow/TerraristicsWindowView.vue'),
+        meta: {hidden: true},
+        props: true
     },
 ];
 

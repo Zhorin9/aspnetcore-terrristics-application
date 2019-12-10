@@ -46,12 +46,10 @@
     import {Component, Vue} from "vue-property-decorator";
     import {terraristicsWindowApiImpl} from "@/api/terraristics-window-api";
     import LoadingPage from "@/components/common/LoadingPage.vue";
-    import UserTerraristicWindowTable from "@/views/userWindows/components/modals/UserTerraristicWindowTable.vue";
 
     @Component({
         components: {
-            LoadingPage,
-            UserTerraristicWindowTable
+            LoadingPage
         }
     })
     export default class UserTerraristicWindowAddModal extends Vue {
@@ -74,17 +72,24 @@
             }
         };
 
-        resetModalDataAndGoToCreatedWindow(id: number) {
+        resetModalDataAndGoToCreatedWindow(id: string) {
             // @ts-ignore
             this.$refs.addUserTerraristicWindowModal.hide();
-            // this.$router.push({
-            //     name: 'TerraristicsWindowData',
-            //     id: id
-            // });
+            this.$router.push({
+                name: 'TerraristicWindow',
+                params: {
+                    id: id
+                }
+            });
         };
 
         saveNewWindow() {
-            terraristicsWindowApiImpl.addNewWindow(this.name, this.description)
+            let request = {
+                Name: this.name,
+                Description: this.description
+            };
+            
+            terraristicsWindowApiImpl.createNewTerraristicsWindow(request)
                 .then(result => {
                     this.resetModalDataAndGoToCreatedWindow(result.data);
                 })

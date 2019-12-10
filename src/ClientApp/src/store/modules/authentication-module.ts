@@ -1,7 +1,7 @@
 import {Action, getModule, Module, Mutation, VuexModule} from "vuex-module-decorators";
 import {AlertModule} from "@/store/modules/alert-module";
 import {userServiceImpl} from "@/services/user-service";
-import {getUserToken, setUser} from "@/utils/local-storage";
+import {getUserEmail, getUserToken, setUser} from "@/utils/local-storage";
 import router from "@/router";
 import store from "@/store";
 
@@ -14,7 +14,7 @@ export interface AuthenticationState {
 
 @Module({dynamic: true, store, name: 'authenticationModule'})
 class Authentication extends VuexModule implements AuthenticationState {
-    public Email = "";
+    public Email = getUserEmail() || "";
     public LogProcess = false;
     public Roles: string[] = [];
     public Token = getUserToken() || '';
@@ -66,7 +66,7 @@ class Authentication extends VuexModule implements AuthenticationState {
                     });
                 },
             ).catch(err => {
-                AlertModule.ALERT_FAILED_LOGIN();
+                AlertModule.ALERT_FAILED_LOGIN();``
                 console.error("Problem with authentication", err);
             })
     }

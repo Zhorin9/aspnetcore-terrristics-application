@@ -1,4 +1,5 @@
 import _ from "lodash";
+import {getUserToken} from "@/utils/local-storage";
 
 const header = {
     "Access-Control-Allow-Origin": '*',
@@ -7,35 +8,14 @@ const header = {
 
 export const getHeader = () => header;
 export const getHeaderWithJwtToken = () => {
-    let localStorageUser = localStorage.getItem('user');
-    if (localStorageUser != null) {
-        let user = JSON.parse(localStorageUser);
-
-        if (user && user.Token) {
-            let headerWithJwtToken = _.clone(header);
-            headerWithJwtToken = _.extend(headerWithJwtToken,
-                {
-                    "Authorization": "Bearer " + user.Token
-                });
-            return headerWithJwtToken;
-        }
-    }
-    return header;
-};
-
-const generateHeaderWithJwtToken = function (): object {
-    let localStorageUser = localStorage.getItem('user');
-    if (localStorageUser != null) {
-        let user = JSON.parse(localStorageUser);
-
-        if (user && user.Token) {
-            let headerWithJwtToken = _.clone(header);
-            headerWithJwtToken = _.extend(headerWithJwtToken,
-                {
-                    "Authorization": "Bearer " + user.Token
-                });
-            return headerWithJwtToken;
-        }
+    let userToken = getUserToken();
+    if (userToken != null) {
+        let headerWithJwtToken = _.clone(header);
+        headerWithJwtToken = _.extend(headerWithJwtToken,
+            {
+                "Authorization": "Bearer " + userToken
+            });
+        return headerWithJwtToken;
     }
     return header;
 };

@@ -12,11 +12,14 @@ interface UserLoginModel {
     Password: string;
 }
 
-interface TerraristicsWindowData {
-    loading: boolean;
-    error: string;
-} 
-    
+interface TerraristicsWindow {
+    Id: number;
+    Name: string;
+    Description: string;
+    CreationDate: Date;
+    ApiKey: string;
+}
+
 interface TerraristicsWindowFormData {
     failedOnCreate: boolean;
     waitingForResponse: boolean;

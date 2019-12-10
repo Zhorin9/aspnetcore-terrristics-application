@@ -13,7 +13,7 @@
             <b-navbar-nav v-if="isLogged" class="ml-auto">
                 <b-nav-item-dropdown right>
                     <template slot="button-content">{{getUserEmail}}</template>
-                    <b-dropdown-item :to="{name: 'TheHomePage'}">
+                    <b-dropdown-item to="/publicWindows">
                         Costam
                     </b-dropdown-item>
                     <b-dropdown-item @click="logOut">Wyloguj</b-dropdown-item>

@@ -3,14 +3,18 @@ import {endpoints} from "@/api/endpoints";
 import {getHeaderWithJwtToken} from "@/api/header-generator";
 
 class TerraristicsWindowApiImpl implements TerraristicsWindowApi {
-    addNewWindow(name: string, description: string): Promise<any> {
+    getTerraristicsWindows(): Promise<any> {
+        return axios.get(endpoints.getTerraristicsWindows,
+            {
+                headers: getHeaderWithJwtToken(),
+            })
+    }
+
+    createNewTerraristicsWindow(request: any): Promise<any> {
         return axios.post(endpoints.createNewTerraristicsWindow,
+            request,
             {
-                "Name": name,
-                "Description": description
-            },
-            {
-                headers: getHeaderWithJwtToken
+                headers: getHeaderWithJwtToken()
             });
     }
 }

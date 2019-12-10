@@ -26,7 +26,7 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
-        color: #2c3e50;
+        color: white;
     }
 
     .dropdown-menu {
@@ -50,13 +50,11 @@
     }
 
     .card-green {
-        border: none;
-        border-radius: 3px;
         background: #204638 !important;
-        color: white;
         text-align: left;
         padding-left: 0 !important;
         padding-right: 0 !important;
+        color: white;
     }
 
     .card-header-background {

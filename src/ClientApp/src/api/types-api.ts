@@ -7,5 +7,6 @@ interface DictionaryApi {
 }
 
 interface TerraristicsWindowApi {
-    addNewWindow(name: string, description: string): Promise<number>;
+    createNewTerraristicsWindow(request: any): Promise<any>;
+    getTerraristicsWindows(id: string): Promise<any>;
 }

@@ -11,42 +11,31 @@ namespace AppCore.Interfaces
         /// <summary>
         /// Get entity based on id
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         Task<T> GetByIdAsync(int id);
 
         /// <summary>
         /// Get listed data for specified entity
         /// </summary>
-        /// <returns></returns>
         Task<IEnumerable<T>> ListAllAsync();
 
         /// <summary>
         /// Add data
         /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
         Task<int> AddAsync(T entity);
 
         /// <summary>
         /// Update data
         /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
         Task<int> UpdateAsync(T entity);
 
         /// <summary>
         /// Delete data
         /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
         void DeleteAsync(T entity);
 
         /// <summary>
         /// Get list of data by expression
         /// </summary>
-        /// <param name="expression"></param>
-        /// <returns></returns>
         Task<IEnumerable<T>> GetListByExpression(Expression<Func<T, bool>> expression);
     }
 }

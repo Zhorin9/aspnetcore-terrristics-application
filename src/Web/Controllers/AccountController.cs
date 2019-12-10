@@ -61,7 +61,7 @@ namespace Web.Controllers
                 //who can use the token
                 _config["Tokens:Audience"],
                 claims,
-                expires: DateTime.UtcNow.AddMinutes(30),
+                expires: DateTime.Now.AddMinutes(90),
                 signingCredentials: credentials
             );
             var results = new

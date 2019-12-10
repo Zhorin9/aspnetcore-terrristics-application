@@ -22,7 +22,7 @@ namespace Infrastructure.Data
         {
             return await Context.Set<T>().FindAsync(id);
         }
-
+        
         public async Task<int> AddAsync(T entity)
         {
             Context.Set<T>().Add(entity);

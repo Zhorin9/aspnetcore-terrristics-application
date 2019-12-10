@@ -15,7 +15,21 @@ namespace Infrastructure.Data.Repositories
             _logger = logger;
         }
 
-        public async Task<TerraristicWindow> GetByIdWithItemsAsync(int id)
+        public Task<TerraristicWindow> GetAsync(int id, string userId)
+        {
+            return Context.TerraristicWindows
+                .Where(p => p.Id == id && p.UserId == userId)
+                .FirstAsync();
+        }
+
+        public Task<List<TerraristicWindow>> GetAsync(string userId)
+        {
+            return Context.TerraristicWindows
+                .Where(p => p.UserId == userId)
+                .ToListAsync();
+        }
+
+        public async Task<TerraristicWindow> GetWithItemsAsync(int id)
         {
             //TODO Add log information if null
             return await Context.TerraristicWindows
@@ -23,6 +37,16 @@ namespace Infrastructure.Data.Repositories
                     .Include(o => o.SensorBlocks).ThenInclude(p => p.Outputs)
                     .Include(o => o.SensorBlocks).ThenInclude(p => p.SensorKind)
                     .FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task<TerraristicWindow> GetWithItemsAsync(int id, string userId)
+        {
+            //TODO Add log information if null
+            return await Context.TerraristicWindows
+                    .Include(o => o.SensorBlocks).ThenInclude(p => p.Inputs)
+                    .Include(o => o.SensorBlocks).ThenInclude(p => p.Outputs)
+                    .Include(o => o.SensorBlocks).ThenInclude(p => p.SensorKind)
+                    .FirstOrDefaultAsync(p => p.Id == id && p.UserId == userId);
         }
 
         public Task<List<TerraristicWindow>> GetByUserIdWithItemsAsync(string userId)

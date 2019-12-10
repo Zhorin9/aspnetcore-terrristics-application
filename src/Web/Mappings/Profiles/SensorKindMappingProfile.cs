@@ -4,9 +4,9 @@ using Web.ApiModels;
 
 namespace Web.Mappings.Profiles
 {
-    public class ModelToApiModelProfile : Profile
+    public class SensorKindMappingProfile : Profile
     {
-        public ModelToApiModelProfile()
+        public SensorKindMappingProfile()
         {
             CreateMap<SensorKind, SensorKindApiModel>()
                 .ForMember(d => d.SensorKindId, o => o.MapFrom(s => s.Id));

@@ -3,7 +3,14 @@ import _ from 'lodash';
 // User
 const userKey = 'vue_local_storage_user';
 export const getUser = () => localStorage.getItem(userKey);
-export const getUserEmail = () => JSON.parse(localStorage.getItem(userKey) || "").Email;
+export const getUserEmail = function () {
+    let user = getUser();
+    if (user === null) {
+        return "";
+    }
+
+    return JSON.parse(user || "").Email;
+};
 export const getUserToken = function () {
     let user = getUser();
     if (user === null) {

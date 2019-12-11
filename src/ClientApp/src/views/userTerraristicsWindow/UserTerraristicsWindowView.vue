@@ -4,7 +4,8 @@
             <div class="col-md-7 row">
                 <window-block v-for="(window, index) in terraristicsWindows"
                               :key="`window-block-${window.Id}-${index}`"
-                              :data="window"/>
+                              :data="window"
+                              @click.native="updateAdditionalInformation(window.Id)"/>
             </div>
             <div class="offset-1 col-md-3">
                 <div class="card card-green">
@@ -26,23 +27,19 @@
                             <tbody>
                             <tr>
                                 <th>Nazwa:</th>
-                                <th>Moje terrarium</th>
+                                <th>{{name}}</th>
                             </tr>
                             <tr>
                                 <th>Klucz Api:</th>
-                                <th>test</th>
+                                <th>{{apiKey}}</th>
                             </tr>
                             <tr>
                                 <th>Data stworzenia:</th>
-                                <th>2019-09-01</th>
+                                <th>{{creationDate}}</th>
                             </tr>
                             <tr>
                                 <th>Data modyfikacji:</th>
                                 <th>2019-09-01</th>
-                            </tr>
-                            <tr>
-                                <th>Liczba terrariów:</th>
-                                <th>{{terraristicsWindowsCount}}</th>
                             </tr>
                             <tr>
                                 <th>Liczba czujników:</th>
@@ -78,16 +75,26 @@
     })
 
     export default class UserTerraristicsWindowView extends Vue {
+        name: string = "";
+        apiKey: string = "";
+        creationDate: string = "";
+        
         get terraristicsWindows() {
             return TerraristicsModule.TerraristicsWindows;
         }
         
-        get terraristicsWindowsCount(){
-            return this.terraristicsWindows.length;
-        }
-        
         created() {
             TerraristicsModule.GET_LIST();
+        }
+
+        updateAdditionalInformation(windowId: number){
+            let terraristicsWindow =  this.terraristicsWindows.find(terraristicsWindow => {
+                return terraristicsWindow.Id === windowId;
+            });
+            
+            this.name = terraristicsWindow.Name;
+            this.apiKey = terraristicsWindow.ApiKey;
+            this.creationDate = terraristicsWindow.CreationDate;
         }
         
         openModal() {

@@ -14,10 +14,10 @@ export interface AuthenticationState {
 
 @Module({dynamic: true, store, name: 'authenticationModule'})
 class Authentication extends VuexModule implements AuthenticationState {
-    public Email = getUserEmail() || "";
+    public Email = getUserEmail();
     public LogProcess = false;
     public Roles: string[] = [];
-    public Token = getUserToken() || '';
+    public Token = getUserToken();
 
     get AUTHENTICATION_GET_EMAIL(){
         return this.Email;

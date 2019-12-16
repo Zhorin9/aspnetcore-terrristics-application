@@ -15,16 +15,16 @@ namespace Infrastructure.Data.Repositories
             _logger = logger;
         }
 
-        public Task<TerraristicWindow> GetAsync(int id, string userId)
+        public async Task<TerraristicWindow> GetAsync(int id, string userId)
         {
-            return Context.TerraristicWindows
+            return await Context.TerraristicWindows
                 .Where(p => p.Id == id && p.UserId == userId)
                 .FirstAsync();
         }
 
-        public Task<List<TerraristicWindow>> GetAsync(string userId)
+        public async Task<List<TerraristicWindow>> GetAsync(string userId)
         {
-            return Context.TerraristicWindows
+            return await Context.TerraristicWindows
                 .Where(p => p.UserId == userId)
                 .ToListAsync();
         }

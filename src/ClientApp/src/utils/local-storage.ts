@@ -1,4 +1,3 @@
-import _ from 'lodash';
 
 // User
 const userKey = 'vue_local_storage_user';

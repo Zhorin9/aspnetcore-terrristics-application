@@ -69,6 +69,10 @@
         background: #204638 !important;
     }
 
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
     textarea {
         resize: none;
     }

@@ -4,6 +4,5 @@ namespace AppCore.Interfaces
 {
     public interface ISensorKindRepository : IAsyncAppRepository<SensorKind>
     {
-        
     }
 }

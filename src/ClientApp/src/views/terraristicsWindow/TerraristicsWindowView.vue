@@ -6,26 +6,27 @@
 
 <script lang="ts">
     import {Component, Prop, Vue} from "vue-property-decorator";
-    import {terraristicsWindowApiImpl} from "@/api/terraristics-window-api";
+    import {sensorBlockApiImpl} from "@/api/sensor-block-api";
 
 
     @Component({})
     export default class TerraristicsWindowView extends Vue {
         @Prop() id!: string;
-
-        created() {
-            // this.getTerraristicsWindow(this.id);
-        }
+        sensorBlock: Array<any> | undefined;
         
-        // getTerraristicsWindow(id: string) {
-            // terraristicsWindowApiImpl.getTerraristicsWindows(id)
-            //     .then(response => {
-            //         console.log(response);
-            //     })
-            //     .catch(err => {
-            //         console.error(err);
-            //     })
-        // }
+        created() {
+            this.getSensorBlocks(this.id);
+        }
+
+        getSensorBlocks(id: string) {
+            sensorBlockApiImpl.getSensorBlocks(id)
+                .then(response => {
+                    // console.log(response);
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+        }
     }
 </script>
 

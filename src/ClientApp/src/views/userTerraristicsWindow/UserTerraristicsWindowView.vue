@@ -1,56 +1,62 @@
 <template>
-    <div class="p-3">
-        <div v-if="true" class="row">
-            <div class="col-md-7 row">
-                <window-block v-for="(window, index) in terraristicsWindows"
-                              :key="`window-block-${window.Id}-${index}`"
-                              :data="window"
-                              @click.native="updateAdditionalInformation(window.Id)"/>
-            </div>
-            <div class="offset-1 col-md-3">
-                <div class="card card-green">
-                    <div class="card card-header font-weight-bold card-header-background">
-                        Zarządzanie oknami
+    <div>
+        <b-container fluid v-if="true">
+            <b-row>
+                <b-col cols="8">
+                    <b-row>
+                        <b-col cols="6">
+                            <window-block v-for="(window, index) in terraristicsWindows"
+                                          :key="`window-block-${window.Id}-${index}`"
+                                          :data="window"
+                                          class="cursor-pointer"
+                                          @click.native="updateAdditionalInformation(window.Id)"/>
+                        </b-col>
+                    </b-row>
+                </b-col>
+                <b-col cols="1"/>
+                <b-col cols="3">
+                    <div class="card card-green">
+                        <div class="card card-header font-weight-bold card-header-background">
+                            Zarządzanie oknami
+                        </div>
+                        <div class="card-body">
+                            <b-button @click="openModal" class="btn btn-primary text-white">
+                                Dodaj nowe okno
+                            </b-button>
+                        </div>
+                        <div class="card-header font-weight-bold card-header-background">
+                            Informacje dodatkowe
+                        </div>
+                        <div class="card-body">
+                            <table class="table text-white">
+                                <tbody>
+                                <tr>
+                                    <th>Nazwa:</th>
+                                    <th>{{name}}</th>
+                                </tr>
+                                <tr>
+                                    <th>Klucz Api:</th>
+                                    <th>{{apiKey}}</th>
+                                </tr>
+                                <tr>
+                                    <th>Data stworzenia:</th>
+                                    <th>{{creationDate}}</th>
+                                </tr>
+                                <tr>
+                                    <th>Data modyfikacji:</th>
+                                    <th>2019-09-01</th>
+                                </tr>
+                                <tr>
+                                    <th>Liczba czujników:</th>
+                                    <th>5</th>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <b-button @click="openModal" class="btn btn-primary text-white">
-                            Dodaj nowe okno
-                        </b-button>
-                    </div>
-                </div>
-                <div class="card card-green">
-                    <div class="card-header font-weight-bold card-header-background">
-                        Informacje dodatkowe
-                    </div>
-                    <div class="card-body">
-                        <table class="table text-white">
-                            <tbody>
-                            <tr>
-                                <th>Nazwa:</th>
-                                <th>{{name}}</th>
-                            </tr>
-                            <tr>
-                                <th>Klucz Api:</th>
-                                <th>{{apiKey}}</th>
-                            </tr>
-                            <tr>
-                                <th>Data stworzenia:</th>
-                                <th>{{creationDate}}</th>
-                            </tr>
-                            <tr>
-                                <th>Data modyfikacji:</th>
-                                <th>2019-09-01</th>
-                            </tr>
-                            <tr>
-                                <th>Liczba czujników:</th>
-                                <th>5</th>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+                </b-col>
+            </b-row>
+        </b-container>
         <div v-else>
             <loading-page/>
         </div>
@@ -78,25 +84,25 @@
         name: string = "";
         apiKey: string = "";
         creationDate: string = "";
-        
+
         get terraristicsWindows() {
             return TerraristicsModule.TerraristicsWindows;
         }
-        
+
         created() {
             TerraristicsModule.GET_LIST();
         }
 
-        updateAdditionalInformation(windowId: number){
-            let terraristicsWindow =  this.terraristicsWindows.find(terraristicsWindow => {
+        updateAdditionalInformation(windowId: number) {
+            let terraristicsWindow = this.terraristicsWindows.find(terraristicsWindow => {
                 return terraristicsWindow.Id === windowId;
             });
-            
+
             this.name = terraristicsWindow.Name;
             this.apiKey = terraristicsWindow.ApiKey;
             this.creationDate = terraristicsWindow.CreationDate;
         }
-        
+
         openModal() {
             this.$bvModal.show("user-window-add-modal");
         }

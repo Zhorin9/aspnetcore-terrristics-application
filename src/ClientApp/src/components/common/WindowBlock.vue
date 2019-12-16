@@ -1,19 +1,21 @@
 <template>
-    <!--    <div class="card card-green m-3 col-md-5">-->
-    <!--        <div class="card-header card-header-background">-->
-    <!--            <span class="cursor-pointer">{{mockedWindow.Name}}</span>-->
-    <!--            <button @click="editWindowBlock" class="float-right btn btn-green btn-sm">Edytuj</button>-->
-    <!--            <button @click="editWindowBlock" class="float-right btn btn-remove btn-sm">Usuń</button>-->
-    <!--        </div>-->
-    <!--        <img src="../../assets/homeBackground.jpg" height="150"/>-->
-    <!--        <div class="card-body">-->
-    <!--            <p class="card-text text-center">Zwykły test</p>-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <div class="m-3 col-md-5">
-        <b-card class="card-green" :title="data.Name"  :img-src="iconUrl" img-alt="Image" img-top>
+    <div class="m-3">
+        <b-card class="card-green" :title="data.Name" :img-src="iconUrl" img-alt="Image" img-top>
             <b-card-text algin="left">
                 {{data.Description}}
+                <div>
+                    <b-button 
+                              class="ml-1"
+                              size="sm">
+                        Edytuj
+                    </b-button>
+                    <b-button :to="{name: 'terraristicsData', params:{id: data.Id}}"
+                            class="ml-1" 
+                            variant="info" 
+                            size="sm">
+                        Podgląd
+                    </b-button>
+                </div>
             </b-card-text>
             <template v-slot:footer>
                 <small class="text-muted">Data utworzenia: {{data.CreationDate}} </small>
@@ -29,14 +31,14 @@
 
     export default class WindowBlock extends Vue {
         @Prop() data: TerraristicsWindow | undefined;
-        
+
         windowIndex: number = 2;
 
         //TODO do webpacka
-        get iconUrl(){
+        get iconUrl() {
             return require('@/assets/homeBackground.jpg')
         }
-        
+
         editWindowBlock() {
             this.$emit("edit-window", this.windowIndex);
         };

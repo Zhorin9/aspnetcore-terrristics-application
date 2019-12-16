@@ -79,6 +79,7 @@ namespace Web
             services.AddScoped(typeof(IAsyncAppRepository<>), typeof(AppRepository<>));
 
             services.AddScoped<ITerraristicWindowRepository, TerraristicWindowRepository>();
+            services.AddScoped<ISensorBlockRepository, SensorBlockRepository>();
             services.AddScoped<ISensorKindRepository, SensorKindRepository>();
         }
 

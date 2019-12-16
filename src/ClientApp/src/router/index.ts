@@ -26,6 +26,7 @@ export const constantRoutes: RouteConfig[] = [
     },
     {
         path: '/terraristicsData/:id',
+        name: 'terraristicsData',
         component: () => import(/* webpackChunkName: "login" */ '@/views/terraristicsWindow/TerraristicsWindowView.vue'),
         meta: {hidden: true},
         props: true

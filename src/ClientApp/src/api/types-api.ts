@@ -10,3 +10,7 @@ interface TerraristicsWindowApi {
     createNewTerraristicsWindow(request: any): Promise<any>;
     getTerraristicsWindows(id: string): Promise<any>;
 }
+
+interface SensorBlockApi {
+    getSensorBlocks(windowId: string): Promise<any>;
+}

@@ -33,6 +33,7 @@
   <ItemGroup>
     <Content Include="public\favicon.ico" />
     <Content Include="public\index.html" />
+    <Content Include="src\api\sensor-block-api.ts" />
     <Content Include="src\App.vue" />
     <Content Include="src\components\common\LoadingPage.vue" />
     <Content Include="src\components\common\Multiselects\InputSensorsMultiselect.vue" />
@@ -42,6 +43,7 @@
     <Content Include="src\components\Footer.vue" />
     <Content Include="src\components\LoginPage.vue" />
     <Content Include="src\components\Navbar.vue" />
+    <Content Include="src\components\SensorBlock.vue" />
     <Content Include="src\icons\README.md" />
     <Content Include="src\icons\svg\404.svg" />
     <Content Include="src\icons\svg\back-top.svg" />
@@ -93,6 +95,7 @@
     <Content Include="src\icons\svg\user.svg" />
     <Content Include="src\icons\svg\wechat.svg" />
     <Content Include="src\icons\svg\zip.svg" />
+    <Content Include="src\store\modules\sensor-blocks-module.ts" />
     <Content Include="src\views\home\HomeView.vue" />
     <Content Include="src\views\login\LoginView.vue" />
     <Content Include="src\views\public\PublicView.vue" />

@@ -18,7 +18,7 @@ namespace Infrastructure.Data
             Context = context;
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T> GetAsync(int id)
         {
             return await Context.Set<T>().FindAsync(id);
         }

@@ -11,7 +11,7 @@ namespace AppCore.Interfaces
         /// <summary>
         /// Get entity based on id
         /// </summary>
-        Task<T> GetByIdAsync(int id);
+        Task<T> GetAsync(int id);
 
         /// <summary>
         /// Get listed data for specified entity

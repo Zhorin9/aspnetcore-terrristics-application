@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Web.ApiControllers
 {
     [Route("api/[controller]/[action]")]
-//    [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class BaseApiController : ControllerBase
     {

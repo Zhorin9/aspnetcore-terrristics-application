@@ -6,19 +6,29 @@ interface SensorKindModel {
     Type: number;
 }
 
-//User
-interface UserLoginModel {
-    Email: string;
-    Password: string;
+interface SensorBlockModel {
+    Id: number;
+    Name: string;
+    Description: string;
+    PositionId: number;
+    SensorKindApiModel: SensorKindModel
 }
 
-interface TerraristicsWindow {
+interface TerraristicsWindowModel {
     Id: number;
     Name: string;
     Description: string;
     CreationDate: Date;
     ApiKey: string;
 }
+
+//User
+interface UserLoginModel {
+    Email: string;
+    Password: string;
+}
+
+
 
 interface TerraristicsWindowFormData {
     failedOnCreate: boolean;

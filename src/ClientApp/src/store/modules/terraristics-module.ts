@@ -3,7 +3,7 @@ import store from "@/store";
 import {terraristicsWindowApiImpl} from "@/api/terraristics-window-api";
 
 export interface TerraristicsState {
-    TerraristicsWindows: Array<TerraristicsWindow>;
+    TerraristicsWindows: Array<TerraristicsWindowModel>;
 }
 
 @Module({dynamic: true, store, name: 'terraristicsModule'})
@@ -11,7 +11,7 @@ class Terraristics extends VuexModule implements TerraristicsState {
     TerraristicsWindows = Array(0);
     
     @Mutation
-    public UPDATE_TERRARISTICS_WINDOWS(terraristicsWindows: Array<TerraristicsWindow>) {
+    public UPDATE_TERRARISTICS_WINDOWS(terraristicsWindows: Array<TerraristicsWindowModel>) {
         this.TerraristicsWindows = terraristicsWindows;
     }
 

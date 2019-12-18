@@ -49,6 +49,12 @@
         background-image: none;
     }
 
+    .btn-green {
+        color: #fff;
+        background-color: #061611;
+        border-color: #5b8111;
+    }
+
     .card-green {
         background: #204638 !important;
         text-align: left;

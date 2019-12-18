@@ -4,16 +4,22 @@
             <b-card-text algin="left">
                 {{data.Description}}
                 <div>
-                    <b-button 
+                    <b-button :to="{name: 'terraristicsData', params:{id: data.Id}}"
                               class="ml-1"
+                              variant="info"
                               size="sm">
+                        Podgląd
+                    </b-button>
+                    <b-button
+                            class="ml-1"
+                            size="sm">
                         Edytuj
                     </b-button>
                     <b-button :to="{name: 'terraristicsData', params:{id: data.Id}}"
-                            class="ml-1" 
-                            variant="info" 
-                            size="sm">
-                        Podgląd
+                              class="ml-1"
+                              variant="danger"
+                              size="sm">
+                        Usuń
                     </b-button>
                 </div>
             </b-card-text>
@@ -30,31 +36,17 @@
     @Component({})
 
     export default class WindowBlock extends Vue {
-        @Prop() data: TerraristicsWindow | undefined;
-
-        windowIndex: number = 2;
+        @Prop() data: TerraristicsWindowModel | undefined;
 
         //TODO do webpacka
         get iconUrl() {
             return require('@/assets/homeBackground.jpg')
         }
-
-        editWindowBlock() {
-            this.$emit("edit-window", this.windowIndex);
-        };
-
-        removeWindowBlock() {
-            this.$emit("remove-window", this.windowIndex);
-        }
     }
 </script>
 
 <style scoped>
-    .btn-green {
-        color: #fff;
-        background-color: #061611;
-        border-color: #5b8111;
-    }
+
 
     .btn-sm {
         padding: 0.25rem 0.5rem;

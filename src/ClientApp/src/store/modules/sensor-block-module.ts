@@ -2,7 +2,7 @@ import {Action, getModule, Module, Mutation, VuexModule} from "vuex-module-decor
 import store from "@/store";
 
 export interface SensorBlockState {
-    SensorBlocks: Array<any>;
+    SensorBlocks: SensorBlockModel[];
 }
 
 @Module({dynamic: true, store, name: 'terraristicsModule'})

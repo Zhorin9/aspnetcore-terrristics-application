@@ -46,6 +46,7 @@
     import {AuthenticationModule} from "@/store/modules/authentication-module";
     import {Component, Vue} from "vue-property-decorator";
     import LoadingPage from "@/components/common/LoadingPage.vue";
+    import router from "@/router";
 
     @Component({
         components: {
@@ -68,15 +69,13 @@
 
         created() {
             AuthenticationModule.LOGOUT();
-            // this.$store.dispatch('LOGOUT');
         };
 
-        handleSubmit(e: any) {
+        handleSubmit() {
             const {email, password} = this;
             if (email && password) {
-                AuthenticationModule.LOGIN({Email: email, Password: password});
-                // this.$store.dispatch('LOGIN', {Email: email, Password: password});
                 this.submitted = true;
+                AuthenticationModule.LOGIN({Email: email, Password: password});
             }
         };
     }

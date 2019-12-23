@@ -1,24 +1,21 @@
 <template>
-    <b-row>
-        <b-col>
-            <b-card class="card-green">
-                TEST
-            </b-card>
-        </b-col>        <b-col>
-            <b-card class="card-green">
-                TEST
-            </b-card>
-        </b-col>
-    </b-row>
+    <b-col cols="6" class="p-5 mt-3">
+        <b-card class="card-green">
+            TEST
+        </b-card>
+    </b-col>
 </template>
 
 <script lang="ts">
     import {Component, Prop, Vue} from "vue-property-decorator";
+    import PlusComponent from "@/components/common/PlusComponent.vue";
 
-    @Component({})
+    @Component({
+        components: {PlusComponent}
+    })
 
     export default class SensorBlock extends Vue {
-        @Prop({default: Array<SensorBlockModel>(0)}) sensorBlocks: Array<SensorBlockModel> | undefined;
+        @Prop({default: {}}) sensorBlock: SensorBlockModel | undefined;
     }
 </script>
 

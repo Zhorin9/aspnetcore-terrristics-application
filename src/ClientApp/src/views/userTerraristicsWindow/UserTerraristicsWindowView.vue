@@ -90,7 +90,13 @@
         }
 
         created() {
-            TerraristicsModule.GET_LIST();
+            TerraristicsModule.GET_LIST()
+                .then(response => {
+                    if (response) {
+                        const firstTerraristicsWindowId = this.terraristicsWindows[0].Id;
+                        this.updateAdditionalInformation(firstTerraristicsWindowId);
+                    }
+                })
         }
 
         updateAdditionalInformation(windowId: number) {
@@ -98,9 +104,11 @@
                 return terraristicsWindow.Id === windowId;
             });
 
-            this.name = terraristicsWindow.Name;
-            this.apiKey = terraristicsWindow.ApiKey;
-            this.creationDate = terraristicsWindow.CreationDate;
+            if (terraristicsWindow) {
+                this.name = terraristicsWindow.Name;
+                this.apiKey = terraristicsWindow.ApiKey;
+                this.creationDate = terraristicsWindow.CreationDate;
+            }
         }
 
         openModal() {

@@ -16,11 +16,18 @@ export interface AuthenticationState {
 class Authentication extends VuexModule implements AuthenticationState {
     public Email = getUserEmail();
     public LogProcess = false;
+    public LoggedCorrect = false;
     public Roles: string[] = [];
     public Token = getUserToken();
 
     get AUTHENTICATION_GET_EMAIL(){
-        return this.Email;
+        if(this.LoggedCorrect){
+            return this.Email;
+        }
+        return '';
+    }
+    get AUTHENTICATION_IS_LOGGED_CORRECT(){
+        return this.LoggedCorrect;
     }
     
     @Mutation
@@ -42,11 +49,18 @@ class Authentication extends VuexModule implements AuthenticationState {
     private AUTHENTICATION_UPDATE_LOG_PROCESS(email: string) {
         this.LogProcess = true;
         this.Email = email;
+    } 
+    
+    @Mutation
+    private AUTHENTICATION_LOGGED_CORRECT() {
+        this.LogProcess = false;
+        this.LoggedCorrect = true;
     }
 
     @Mutation
-    private AUTHENTICATION_SET_STATE_TO_LOGGED() {
+    private AUTHENTICATION_LOGGED_INCORRECT() {
         this.LogProcess = false;
+        this.LoggedCorrect = false;
     }
 
     @Action
@@ -59,14 +73,15 @@ class Authentication extends VuexModule implements AuthenticationState {
                     let userToken = user ? user.Token : "";
                     setUser(user);
                     this.AUTHENTICATION_SET_TOKEN(userToken);
-                    this.AUTHENTICATION_SET_STATE_TO_LOGGED();
+                    this.AUTHENTICATION_LOGGED_CORRECT();
 
-                    return router.push({
-                        name: 'HomePage'
+                    router.push({
+                        name: 'HomeView'
                     });
                 },
             ).catch(err => {
-                AlertModule.ALERT_FAILED_LOGIN();``
+                AlertModule.ALERT_FAILED_LOGIN();
+                this.AUTHENTICATION_LOGGED_INCORRECT();
                 console.error("Problem with authentication", err);
             })
     }
@@ -78,6 +93,7 @@ class Authentication extends VuexModule implements AuthenticationState {
         // Reset visited views and cached views
         this.AUTHENTICATION_SET_TOKEN('');
         this.AUTHENTICATION_SET_ROLES([]);
+        this.AUTHENTICATION_SET_EMAIL('');
     }
 }
 

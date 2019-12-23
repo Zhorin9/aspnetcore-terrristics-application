@@ -6,7 +6,7 @@ class UserApiImpl implements UserApi {
     login(email: string, password: string) {
         const header = getHeader();
         return axios.post(endpoints.getJwtToken,
-            {Email: email, Password: password}, {headers: header});
+            {Email: email, Password: password}, {headers: header, timeout: 3000});
     }
 }
 

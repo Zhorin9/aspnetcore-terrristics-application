@@ -7,6 +7,7 @@ export const constantRoutes: RouteConfig[] = [
     {
         path: '/',
         component: () => import('@/views/home/HomeView.vue'),
+        name: 'HomeView',
         meta: {hidden: true}
     },
     {

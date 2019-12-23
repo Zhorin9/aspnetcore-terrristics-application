@@ -38,6 +38,7 @@
     <Content Include="src\components\common\LoadingPage.vue" />
     <Content Include="src\components\common\Multiselects\InputSensorsMultiselect.vue" />
     <Content Include="src\components\common\Multiselects\OutputSensorsMultiselect.vue" />
+    <Content Include="src\components\common\PlusComponent.vue" />
     <Content Include="src\components\common\WindowBlock.vue" />
     <Content Include="src\components\errorLog\index.vue" />
     <Content Include="src\components\Footer.vue" />

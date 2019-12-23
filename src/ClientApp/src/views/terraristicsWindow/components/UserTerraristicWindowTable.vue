@@ -9,7 +9,7 @@
         </thead>
         <tbody>
         <tr v-for="(sensor, index) in sensors">
-            <td :key="`input-sensor-{{index}}`">
+            <td :key="`input-sensor-${{index}}`">
                 {{sensor.name}}
             </td>
             <td>

@@ -2,14 +2,14 @@ import Vue from 'vue';
 import App from './App.vue';
 
 import 'normalize.css'
-import '@/icons/components'
 
-import SvgIcon from 'vue-svgicon'
-Vue.use(SvgIcon, {
-    tagName: 'svg-icon',
-    defaultWidth: '1em',
-    defaultHeight: '1em'
-});
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {faPlus} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faPlus)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 //Register multiselect globally
 import {Multiselect} from "vue-multiselect";

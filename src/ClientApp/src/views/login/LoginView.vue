@@ -1,15 +1,15 @@
 <template>
-    <login-page/>
+    <login/>
 </template>
 
 <script lang="ts">
 
     import {Component, Vue} from "vue-property-decorator";
-    import LoginPage from "../../components/LoginPage.vue";
+    import Login from "@/views/login/components/Login.vue";
 
     @Component({
         components: {
-            LoginPage
+            Login
         }
     })
     export default class LoginView extends Vue{

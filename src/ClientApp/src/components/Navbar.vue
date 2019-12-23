@@ -34,19 +34,20 @@
     import {AuthenticationModule} from "@/store/modules/authentication-module";
 
     @Component
-    export default class Navbar extends Vue {
+    export default class Navbar extends Vue {        
         get getUserEmail() {
             return AuthenticationModule.AUTHENTICATION_GET_EMAIL;
         }
         
         get isLogged() {
-            return !_.isNil(this.getUserEmail) && !_.isEmpty(this.getUserEmail);
+            return AuthenticationModule.AUTHENTICATION_IS_LOGGED_CORRECT;
         }
         
         logOut() {
+            debugger;
             AuthenticationModule.LOGOUT();
             this.$router.push({
-                name: 'HomePage'
+                name: 'HomeView'
             });
         };
     }

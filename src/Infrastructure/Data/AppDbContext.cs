@@ -82,8 +82,6 @@ namespace Infrastructure.Data
             builder.Property(s => s.Name)
                 .IsRequired()
                 .HasMaxLength(250);
-            builder.Property(s => s.PositionId)
-                .IsRequired();
             builder.Property(s => s.Description)
                 .HasMaxLength(500);
 

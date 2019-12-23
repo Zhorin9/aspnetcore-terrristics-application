@@ -18,10 +18,10 @@ namespace Infrastructure.Data.Repositories
         }
 
 
-        public Task<List<SensorBlock>> GetAsync(string userId)
+        public Task<List<SensorBlock>> GetAsync(int windowId, string userId)
         {
             return Context.SensorBlocks.AsNoTracking()
-                .Where(p => p.UserId == userId)
+                .Where(sb => sb.ParentWindowId == windowId && sb.UserId == userId)
                 .ToListAsync();
         }
     }

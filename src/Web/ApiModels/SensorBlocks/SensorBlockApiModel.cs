@@ -7,8 +7,8 @@ namespace Web.ApiModels.SensorBlocks
         public string Name { get; set; }
         
         public string Description { get; set; }
-
-        public byte PositionId { get; set; }
+        
+        public int WindowId { get; set; }
 
         public SensorKindApiModel Type { get; set; }
     }

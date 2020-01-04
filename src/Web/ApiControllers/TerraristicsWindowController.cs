@@ -33,7 +33,7 @@ namespace Web.ApiControllers
             if (terraristicsWindow == null)
             {
                 return NotFound("Nie masz dostępu do tego okna.");
-            }    
+            }      
 
             TerraristicsWindowApiModel terraristicsWindowResponseApiModel = Mapper.Map<TerraristicWindow, TerraristicsWindowApiModel>(terraristicsWindow);
             return Ok(new JsonResult(terraristicsWindowResponseApiModel));

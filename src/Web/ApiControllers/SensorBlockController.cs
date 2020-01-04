@@ -18,11 +18,18 @@ namespace Web.ApiControllers
             _sensorBlockRepository = sensorBlockRepository;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Create(SensorBlockApiModel sensorToCreate)
+        {
+            
+            return Ok();
+        }
+
         [HttpGet]
-        public async Task<IActionResult> GetList()
+        public async Task<IActionResult> GetList(int windowId)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            List<SensorBlock> sensorBlocks = await _sensorBlockRepository.GetAsync(userId);
+            List<SensorBlock> sensorBlocks = await _sensorBlockRepository.GetAsync(windowId, userId);
             List<SensorBlockApiModel> sensorBlockResponse = Mapper.Map<List<SensorBlock>, List<SensorBlockApiModel>>(sensorBlocks);
 
             return Ok(new JsonResult(sensorBlockResponse));

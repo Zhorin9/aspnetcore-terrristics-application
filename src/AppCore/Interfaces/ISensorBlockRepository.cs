@@ -6,6 +6,6 @@ namespace AppCore.Interfaces
 {
     public interface ISensorBlockRepository : IAsyncAppRepository<SensorBlock>
     {
-        Task<List<SensorBlock>> GetAsync(string userId);
+        Task<List<SensorBlock>> GetAsync(int windowId, string userId);
     }
 }

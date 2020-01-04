@@ -10,6 +10,7 @@ namespace Web.Mappings
             return new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new TerraristicsWindowMappingProfile());
+                mc.AddProfile(new SensorBlockMappingProfile());
                 mc.AddProfile(new SensorKindMappingProfile());
             });
         }

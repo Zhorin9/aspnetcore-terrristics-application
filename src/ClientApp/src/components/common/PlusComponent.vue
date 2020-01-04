@@ -11,12 +11,14 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
+    import {Component, Emit, Vue} from "vue-property-decorator";
 
     @Component
     export default class PlusComponent extends Vue {
+        
+        @Emit('add-new-element')
         onClick() {
-            this.$emit("add-new-element");
+            return true;
         }
     }
 </script>

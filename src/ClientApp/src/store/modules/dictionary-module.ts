@@ -38,8 +38,8 @@ class Dictionary extends VuexModule implements DictionaryState {
         let outputSensors = Array(0);
 
         return await dictionaryApiImpl.getSensorKindsDict()
-            .then(sensorKinds => {
-                    _.each(sensorKinds, sensorKind => {
+            .then(response => {
+                    _.each(response.data, sensorKind => {
                         if (sensorKind.Type === sensorTypes.Input) {
                             inputSensors.push(sensorKind);
                         } else {

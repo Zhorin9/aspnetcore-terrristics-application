@@ -5,12 +5,12 @@
                 <sensor-block v-for="(sensorBlock, index) in sensorBlocks"
                               :key="`sensorBlock-${index}`"/>
                 <b-col cols="6">
-                    <plus-component @addNewElement=""/>
+                    <plus-component @add-new-element="openAddSensorBlockModal"/>
                 </b-col>
             </b-row>
         </b-container>
         
-        
+        <terraristics-window-add-sensor-blocks-modal/>
     </div>
 </template>
 
@@ -19,12 +19,15 @@
     import SensorBlock from "@/components/SensorBlock.vue";
     import PlusComponent from "@/components/common/PlusComponent.vue";
     import {SensorBlockModule} from "@/store/modules/sensor-block-module";
+    import TerraristicsWindowAddSensorBlocksModal
+        from "@/views/terraristicsWindow/components/modals/TerraristicsWindowAddSensorBlocksModal.vue";
 
 
     @Component({
         components: {
             SensorBlock,
-            PlusComponent
+            PlusComponent,
+            TerraristicsWindowAddSensorBlocksModal
         }
     })
     export default class TerraristicsWindowView extends Vue {
@@ -36,6 +39,10 @@
 
         created() {
             SensorBlockModule.GET_LIST(this.id);
+        }
+
+        openAddSensorBlockModal() {
+            this.$bvModal.show("terraristics-window-add-sensor-blocks-modal");
         }
     }
 </script>

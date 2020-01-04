@@ -61,11 +61,6 @@
         async handleOk(evt: any) {
             try {
                 evt.preventDefault();
-                const result = await this.isValid();
-
-                if (!result) {
-                    return;
-                }
                 this.saveNewWindow();
             } catch (e) {
                 console.error(e);
@@ -84,6 +79,7 @@
         };
 
         saveNewWindow() {
+            this.waitingForResponse = true;
             let request = {
                 Name: this.name,
                 Description: this.description
@@ -100,11 +96,6 @@
                     this.waitingForResponse = false;
                     this.failedOnCreate = true;
                 })
-        };
-
-        async isValid(): Promise<boolean> {
-            return true;
-            // return await this.$validator.validateAll();
         };
     }
 </script>

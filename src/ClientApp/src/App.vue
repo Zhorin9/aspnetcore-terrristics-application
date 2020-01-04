@@ -10,6 +10,7 @@
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator';
     import Navbar from "@/components/Navbar.vue";
+    import {DictionaryModule} from "@/store/modules/dictionary-module";
 
     @Component({
         components: {
@@ -17,6 +18,9 @@
         }
     })
     export default class App extends Vue {
+        created(){
+            DictionaryModule.DICT_GET_ALL_SENSOR_KINDS();
+        }
     }
 </script>
 

@@ -9,8 +9,9 @@
                 </b-col>
             </b-row>
         </b-container>
-        
-        <terraristics-window-add-sensor-blocks-modal/>
+
+        <terraristics-window-add-sensor-blocks-modal :window-id="id"
+                                                     @created-new-sensor-blocks-emit="getCreatedSensorBlock"/>
     </div>
 </template>
 
@@ -21,6 +22,7 @@
     import {SensorBlockModule} from "@/store/modules/sensor-block-module";
     import TerraristicsWindowAddSensorBlocksModal
         from "@/views/terraristicsWindow/components/modals/TerraristicsWindowAddSensorBlocksModal.vue";
+    import {sensorBlockApiImpl} from "@/api/sensor-block-api";
 
 
     @Component({
@@ -43,6 +45,13 @@
 
         openAddSensorBlockModal() {
             this.$bvModal.show("terraristics-window-add-sensor-blocks-modal");
+        }
+
+        getCreatedSensorBlock(sensorBlockId: number) {
+            sensorBlockApiImpl.getSensorBlock(sensorBlockId)
+                .catch(err => {
+                    console.error(err);
+                });
         }
     }
 </script>

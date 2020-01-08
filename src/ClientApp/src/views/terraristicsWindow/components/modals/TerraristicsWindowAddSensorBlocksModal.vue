@@ -112,7 +112,8 @@
 
             sensorBlockApiImpl.createNewSensorBlock(sensorToCreate)
                 .then(response => {
-                    this.resetModalDataAndEmitEvent();
+                    let sensorBlockId = response.data;
+                    this.resetModalDataAndEmitEvent(sensorBlockId);
                 })
                 .catch(err => {
                     console.error(err.message);
@@ -127,10 +128,10 @@
             this.selectedSensor = sensor;
         }
 
-        resetModalDataAndEmitEvent() {
+        resetModalDataAndEmitEvent(sensorBlockId: number) {
             // @ts-ignore
             this.$refs.terraristicsWindowAddSensorBlocksModal.hide();
-            this.createdNewSensorBlocksEmit();
+            this.createdNewSensorBlocksEmit(sensorBlockId);
         };
 
         async handleOk(evt: any) {
@@ -143,8 +144,8 @@
         };
 
         @Emit()
-        createdNewSensorBlocksEmit() {
-            return true;
+        createdNewSensorBlocksEmit(sensorBlockId: number) {
+            return sensorBlockId;
         }
     }
 </script>

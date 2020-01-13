@@ -3,7 +3,8 @@
         <b-container fluid class="align-items-center">
             <b-row>
                 <sensor-block v-for="(sensorBlock, index) in sensorBlocks"
-                              :key="`sensorBlock-${index}`"/>
+                              :key="`sensorBlock-${index}`"
+                              :sensor-block="sensorBlock"/>
                 <b-col cols="6">
                     <plus-component @add-new-element="openAddSensorBlockModal"/>
                 </b-col>

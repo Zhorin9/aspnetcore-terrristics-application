@@ -78,14 +78,14 @@
         }
     })
     export default class TerraristicsWindowAddSensorBlockModal extends Vue {
-        @Prop({type: String}) windowId!: string;
+        @Prop([Number, String]) windowId!: number | string;
 
         failedOnCreate: boolean = false;
         waitingForResponse: boolean = false;
 
         name: string = "";
         description: string = "";
-        selectedSensor: SensorKindData | undefined;
+        selectedSensor: SensorKindData | undefined = undefined;
         private type: boolean = true;
         
         public get selectedType(): boolean {

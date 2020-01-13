@@ -1,6 +1,5 @@
 import {Action, getModule, Module, Mutation, VuexModule} from "vuex-module-decorators";
 import store from "@/store";
-import {terraristicsWindowApiImpl} from "@/api/terraristics-window-api";
 import {sensorBlockApiImpl} from "@/api/sensor-block-api";
 
 export interface SensorBlockState {

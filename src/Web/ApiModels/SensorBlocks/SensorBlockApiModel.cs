@@ -10,6 +10,6 @@ namespace Web.ApiModels.SensorBlocks
         
         public int WindowId { get; set; }
 
-        public SensorKindApiModel Type { get; set; }
+        public SensorKindApiModel SensorKind { get; set; }
     }
 }

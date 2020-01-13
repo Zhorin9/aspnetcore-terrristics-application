@@ -1,7 +1,19 @@
 <template>
     <b-col cols="6" class="p-5 mt-3">
         <b-card class="card-green">
-            TEST
+            <b-card-sub-title class="mb-2">{{sensorBlock.Description}}</b-card-sub-title>
+            <b-card-body>
+                <b-card-text>
+                </b-card-text>
+            </b-card-body>
+
+            <template v-slot:header>
+                <h4 class="mb-0 text-center">{{sensorBlock.Name}}</h4>
+            </template>
+            
+            <template v-slot:footer>
+                <small class="text-muted">{{sensorBlock.SensorKind.Name}} - {{sensorBlock.SensorKind.ShortDescription}}</small>
+            </template>
         </b-card>
     </b-col>
 </template>

@@ -11,7 +11,7 @@ interface SensorBlockModel {
     Name: string;
     Description: string;
     PositionId: number;
-    SensorKindApiModel: SensorKindModel
+    SensorKind: SensorKindModel
 }
 
 interface TerraristicsWindowModel {

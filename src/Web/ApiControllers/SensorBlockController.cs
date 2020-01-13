@@ -33,7 +33,7 @@ namespace Web.ApiControllers
                 Description = sensorToCreate.Description,
                 UserId = userId,
                 ParentWindowId = sensorToCreate.WindowId,
-                SensorKindId = sensorToCreate.Type.SensorKindId
+                SensorKindId = sensorToCreate.SensorKind.SensorKindId
             };
 
             int result = await _sensorBlockRepository.AddAsync(newSensorBlock);

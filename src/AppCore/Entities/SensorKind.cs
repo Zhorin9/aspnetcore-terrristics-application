@@ -8,5 +8,6 @@ namespace AppCore.Entities
         public string ShortDescription { get; set; }
         public string Description { get; set; }
         public SensorTypeEnum Type { get; set; }
+        public OutputTypeEnum OutputType { get; set; }
     }
 }

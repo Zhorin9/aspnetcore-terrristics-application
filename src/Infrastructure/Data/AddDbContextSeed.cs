@@ -66,21 +66,24 @@ namespace Infrastructure.Data
                     Name = "Oświetlenie cyfrowe",
                     ShortDescription = "Oświetlenie terrarium. Włącz/wyłącz.",
                     Description = "Oświetlenie terrarium. Włącz/wyłącz",
-                    Type = SensorTypeEnum.Output
+                    Type = SensorTypeEnum.Output,
+                    OutputType = OutputTypeEnum.Digital
                 },
                 new SensorKind()
                 {
                     Name = "Oświetlenie analogowe",
                     ShortDescription = "Oświetlenie terrarium RGB.",
                     Description = "Oświetlenie terrarium RGB.",
-                    Type = SensorTypeEnum.Output
+                    Type = SensorTypeEnum.Output,
+                    OutputType = OutputTypeEnum.Analog
                 },
                 new SensorKind()
                 {
                     Name = "Grzałka",
                     ShortDescription = "Ogrzewanie terrarium. Włącz/Wyłącz.",
                     Description = "Ogrzewanie terrarium, lampy/maty/przewody. Włącz/Wyłącz",
-                    Type = SensorTypeEnum.Output
+                    Type = SensorTypeEnum.Output,
+                    OutputType = OutputTypeEnum.Analog
                 },
             };
         }

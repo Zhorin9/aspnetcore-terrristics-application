@@ -25,7 +25,6 @@
         from "@/views/terraristicsWindow/components/modals/TerraristicsWindowAddSensorBlocksModal.vue";
     import {sensorBlockApiImpl} from "@/api/sensor-block-api";
 
-
     @Component({
         components: {
             SensorBlock,

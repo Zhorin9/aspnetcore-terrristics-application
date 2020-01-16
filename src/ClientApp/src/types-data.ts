@@ -4,6 +4,7 @@ interface SensorKindModel {
     ShortDescription: string;
     Description: string;
     Type: number;
+    OutputType: number;
 }
 
 interface SensorBlockModel {
@@ -43,4 +44,5 @@ interface SensorKindData {
     ShortDescription: string;
     Description: string;
     Type: number;
+    OutputType: number;
 }

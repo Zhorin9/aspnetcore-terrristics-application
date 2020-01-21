@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Infrastructure.Data;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore;
@@ -13,7 +14,8 @@ namespace Web
     {
         public static void Main(string[] args)
         {
-            var host = CreateWebHostBuilder(args).Build();
+            var host = CreateWebHostBuilder(args)
+                .Build();
 
             SeedDb(host);
 
@@ -36,7 +38,7 @@ namespace Web
                     var applicationSeeder = scope.ServiceProvider.GetService<AddDbContextSeed>();
                     applicationSeeder.SeedAsync().Wait();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     var logger = loggerFactory.CreateLogger<Program>();
                     logger.LogError(ex, "Problem with seeding the DB");

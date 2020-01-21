@@ -1,5 +1,5 @@
 <template>
-
+    <div>1</div>
 </template>
 
 <script lang="ts">
@@ -7,7 +7,7 @@
 
     @Component
     export default class InputSensorBlock extends Vue {
-        
+
     }
 </script>
 

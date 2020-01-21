@@ -23,4 +23,9 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="client-app\package-lock.json" />
+    <_ContentIncludedByDefault Remove="client-app\package.json" />
+  </ItemGroup>
+
 </Project>

@@ -1,24 +1,9 @@
-﻿
-@section Scripts{
-    <script src="~/clientapp/dist/runtime.js"></script>
-    <script src="~/clientapp/dist/polyfills.js"></script>
-    <script src="~/clientapp/dist/styles.js"></script>
-    <script src="~/clientapp/dist/vendor.js"></script>>
-    <script src="~/clientapp/dist/main.js"></script>
-}
+﻿<link rel="stylesheet" href="~/css/app.css"/>
+<link rel="stylesheet" href="~/css/login.css"/>
+<link rel="stylesheet" href="~/css/chunk-vendors.css"/>
 
-<div id="home-top" class="home-top-index">
-    <div class="home-top-index-text">
-        <h1 class="font-weight-bold">Zarządzaj swoim terraium</h1>
-        Kotroluj stan swojego terrarium z dowolnego miejsca poprzez przeglądarkę internetową.
-        <div>
-            <form method="get" asp-controller="Home" asp-action="Index">
-                <button class="btn mt-3">
-                    Rozpocznij za darmo
-                </button>
-            </form>
-        </div>
-    </div>
-</div>
+<script src="~/js/chunk-vendors.js"></script>
+<script src="~/js/login.js"></script>
+<script src="~/js/app.js"></script>
 
-<the-terraristic></the-terraristic>
+<div id="app"></div>

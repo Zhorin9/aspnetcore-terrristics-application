@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.IO;
+using System.Text;
 using AppCore.Interfaces;
 using AutoMapper;
 using Infrastructure.Data;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using VueCliMiddleware;
@@ -64,7 +66,7 @@ namespace Web
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
-
+  
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
@@ -101,6 +103,7 @@ namespace Web
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseCors("AllowOrigin");
@@ -111,15 +114,15 @@ namespace Web
                   new { controller = "Home", Action = "Index" });
             });
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "client-app";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseVueCli(npmScript: "serve", port: 8080);
-                }
-            });
+//            app.UseSpa(spa =>
+//            {
+//                spa.Options.SourcePath = "dist";
+//
+//                if (env.IsDevelopment())
+//                {
+//                    spa.UseVueCli(npmScript: "serve", port: 8080);
+//                }
+//            });
         }
     }
 }

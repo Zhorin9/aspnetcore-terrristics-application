@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Text;
+﻿using System.Text;
 using AppCore.Interfaces;
 using AutoMapper;
 using Infrastructure.Data;
@@ -13,10 +12,8 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
-using VueCliMiddleware;
 using Web.Mappings;
 
 namespace Web
@@ -113,16 +110,6 @@ namespace Web
                   "{controller}/{action}/{id?}",
                   new { controller = "Home", Action = "Index" });
             });
-
-//            app.UseSpa(spa =>
-//            {
-//                spa.Options.SourcePath = "dist";
-//
-//                if (env.IsDevelopment())
-//                {
-//                    spa.UseVueCli(npmScript: "serve", port: 8080);
-//                }
-//            });
         }
     }
 }

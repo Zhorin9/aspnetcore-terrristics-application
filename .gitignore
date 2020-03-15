@@ -333,3 +333,14 @@ ASALocalRun/
 /src/ClientApp/dist/css
 /src/ClientApp/dist/img
 /src/ClientApp/dist/js
+src/Web/wwwroot/js/app.js
+src/Web/wwwroot/index.html
+src/Web/wwwroot/css/chunk-1032ca23.css
+src/Web/wwwroot/favicon.ico
+src/Web/wwwroot/css/app.css
+src/Web/wwwroot/css/chunk-vendors.css
+src/Web/wwwroot/css/login.css
+src/Web/wwwroot/img/homeBackground.40834197.jpg
+src/Web/wwwroot/js/chunk-1032ca23.js
+src/Web/wwwroot/js/chunk-vendors.js
+src/Web/wwwroot/js/login.js

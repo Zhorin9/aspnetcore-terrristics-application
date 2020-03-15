@@ -17,7 +17,6 @@ namespace Infrastructure.Data.Repositories
             _logger = logger;
         }
 
-
         public Task<List<SensorBlock>> GetAsync(int windowId, string userId)
         {
             return Context.SensorBlocks.AsNoTracking()

@@ -7,7 +7,7 @@
                 </b-card-text>
             </b-card-body>
             <input-sensor-block
-                    v-if="sensorBlock.SensorKind.OutputType === 0"/>
+                    v-if="sensorBlock.SensorKind.OutputType === 0" :sensor-block-id="sensorBlock.Id"/>
             <output-analog-sensor-block
                     v-else-if="sensorBlock.SensorKind.OutputType === outputTypes.Analog"/>
             <output-digital-sensor-block

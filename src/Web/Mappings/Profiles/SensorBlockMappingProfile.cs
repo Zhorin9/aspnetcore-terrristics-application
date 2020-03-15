@@ -10,6 +10,8 @@ namespace Web.Mappings.Profiles
         {
             CreateMap<SensorBlock, SensorBlockApiModel>()
                 .ForMember(d => d.WindowId, o => o.MapFrom(s => s.ParentWindowId));
+
+            CreateMap<InputSensorData, InputSensorBlockDataApiModel>();
         }
     }
 }

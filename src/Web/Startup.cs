@@ -31,7 +31,7 @@ namespace Web
         {
             //Add DbContext for application
             services.AddDbContext<AppDbContext>(c =>
-               c.UseSqlServer(_config.GetConnectionString("AppDbContext")));
+                c.UseSqlServer(_config.GetConnectionString("AppDbContext")));
 
             services.AddAuthentication()
                 .AddCookie()
@@ -49,10 +49,8 @@ namespace Web
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(_config.GetConnectionString("AppIdentityDbContext")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(cfg =>
-            {
-                cfg.User.RequireUniqueEmail = true;
-            }).AddEntityFrameworkStores<AppIdentityDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>(cfg => { cfg.User.RequireUniqueEmail = true; })
+                .AddEntityFrameworkStores<AppIdentityDbContext>();
 
             AutoMapperRegistration(services);
             ServiceRegistration(services);
@@ -60,10 +58,10 @@ namespace Web
             services.AddCors(o => o.AddPolicy("AllowOrigin", builder =>
             {
                 builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
             }));
-  
+
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
@@ -80,6 +78,7 @@ namespace Web
             services.AddScoped<ITerraristicWindowRepository, TerraristicWindowRepository>();
             services.AddScoped<ISensorBlockRepository, SensorBlockRepository>();
             services.AddScoped<ISensorKindRepository, SensorKindRepository>();
+            services.AddScoped<InputBlockDataRepository, InputBlockDataRepository>();
         }
 
         private void AutoMapperRegistration(IServiceCollection services)
@@ -107,8 +106,8 @@ namespace Web
             app.UseMvc(cfg =>
             {
                 cfg.MapRoute("Default",
-                  "{controller}/{action}/{id?}",
-                  new { controller = "Home", Action = "Index" });
+                    "{controller}/{action}/{id?}",
+                    new {controller = "Home", Action = "Index"});
             });
         }
     }

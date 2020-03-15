@@ -3,6 +3,8 @@ export const endpoints = {
 
     getSensorKinds: "/api/dictionary/getSensorKinds",
 
+    getSensorBlockData: "/api/sensorBlockData/getList",
+    
     getSensorBlocks: "/api/sensorBlock/getList",
     createNewSensorBlock: "/api/sensorBlock/create",
     

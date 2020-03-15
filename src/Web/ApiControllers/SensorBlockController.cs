@@ -62,7 +62,7 @@ namespace Web.ApiControllers
                 return Unauthorized();
             }
 
-            SensorBlockApiModel sensorBlockResponse = Mapper.Map<SensorBlock, SensorBlockApiModel>(sensorBlock);
+            SensorBlockApiModel sensorBlockResponse = Mapper.Map<SensorBlockApiModel>(sensorBlock);
             return Ok(sensorBlockResponse);
         }
 
@@ -71,8 +71,7 @@ namespace Web.ApiControllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             List<SensorBlock> sensorBlocks = await _sensorBlockRepository.GetAsync(windowId, userId);
-            List<SensorBlockApiModel> sensorBlockResponse =
-                Mapper.Map<List<SensorBlock>, List<SensorBlockApiModel>>(sensorBlocks);
+            List<SensorBlockApiModel> sensorBlockResponse = Mapper.Map<List<SensorBlockApiModel>>(sensorBlocks);
 
             return Ok(new JsonResult(sensorBlockResponse));
         }

@@ -14,3 +14,7 @@ interface TerraristicsWindowApi {
 interface SensorBlockApi {
     getSensorBlocks(windowId: string): Promise<any>;
 }
+
+interface SensorBlockDataApi {
+    getData(sensorBlockId: number): Promise<any>;
+}

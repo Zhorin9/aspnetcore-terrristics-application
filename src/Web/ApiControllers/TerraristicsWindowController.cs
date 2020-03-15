@@ -35,7 +35,7 @@ namespace Web.ApiControllers
                 return NotFound("Nie masz dostępu do tego okna.");
             }      
 
-            TerraristicsWindowApiModel terraristicsWindowResponseApiModel = Mapper.Map<TerraristicWindow, TerraristicsWindowApiModel>(terraristicsWindow);
+            TerraristicsWindowApiModel terraristicsWindowResponseApiModel = Mapper.Map<TerraristicsWindowApiModel>(terraristicsWindow);
             return Ok(new JsonResult(terraristicsWindowResponseApiModel));
         }
 
@@ -44,7 +44,7 @@ namespace Web.ApiControllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             List<TerraristicWindow> terraristicWindows = await _terraristicWindowRepository.GetAsync(userId);
-            List<TerraristicsWindowApiModel> terraristicsWindowResponse = Mapper.Map<List<TerraristicWindow>, List<TerraristicsWindowApiModel>>(terraristicWindows);
+            List<TerraristicsWindowApiModel> terraristicsWindowResponse = Mapper.Map<List<TerraristicsWindowApiModel>>(terraristicWindows);
 
             return Ok(new JsonResult(terraristicsWindowResponse));
         }

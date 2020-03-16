@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AppCore.Entities;
@@ -13,30 +12,18 @@ namespace Web.ApiControllers
     {
         private readonly IInputBlockDataRepository _inputBlockDataRepository;
 
-        private readonly IAppLogger<SensorBlockDataController> _logger;
-
-        public SensorBlockDataController(IMapper mapper, IInputBlockDataRepository inputBlockDataRepository, IAppLogger<SensorBlockDataController> appLogger) : base(mapper)
+        public SensorBlockDataController(IMapper mapper, IInputBlockDataRepository inputBlockDataRepository) : base(mapper)
         {
             _inputBlockDataRepository = inputBlockDataRepository;
-            _logger = appLogger;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetList(int sensorBlockId)
         {
-            try
-            {
-                List<InputSensorData> sensorBlockData = await _inputBlockDataRepository.GetData(sensorBlockId);
-                List<InputSensorBlockDataApiModel> sensorBlockDataApis = Mapper.Map<List<InputSensorBlockDataApiModel>>(sensorBlockData);
+            List<InputSensorData> sensorBlockData = await _inputBlockDataRepository.GetData(sensorBlockId);
+            List<InputSensorBlockDataApiModel> sensorBlockDataApis = Mapper.Map<List<InputSensorBlockDataApiModel>>(sensorBlockData);
 
-                return Ok(sensorBlockDataApis);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e.Message);
-            }
-
-            return BadRequest();
+            return Ok(sensorBlockDataApis);
         }
     }
 }

@@ -1,16 +1,57 @@
+<template>
+    <div>
+        <line-chart v-if="showLineChart" :chart-data="mockedChartData"/>
+        <loading-page v-else-if="showLoadingPage" :size="6"/>
+        <error-page v-else :size="6"/>
+    </div>
+</template>
 <script lang="ts">
-    import {Line} from 'vue-chartjs'
     import {Component, Prop, Vue} from "vue-property-decorator";
     import {sensorBlockDataApiImpl} from "@/api/sensor-block-data-api";
+    import LineChart from "@/components/common/LineChart.vue";
+    import LoadingPage from "@/components/common/LoadingPage.vue";
+    import ErrorPage from "@/components/common/ErrorPage.vue";
+    import _ from "lodash";
 
     @Component({
-        extends: Line,
+        components: {ErrorPage, LoadingPage, LineChart},
     })
     export default class InputSensorBlock extends Vue {
         @Prop({default: null}) sensorBlockId!: number;
+        loadingData: boolean = true;
+        showErrorPage: boolean = false;
+        chartXData: Array<number> = [];
+        chartYData: Array<Date> = [];
 
-        public renderChart!: (chartData: any, options: any) => void;
-        chartData: any = {
+        get showLineChart() {
+            return !this.loadingData && !this.showErrorPage;
+        }
+
+        get showLoadingPage() {
+            return this.loadingData && !this.showErrorPage;
+        }
+
+        getData() {
+            this.loadingData = true;
+            sensorBlockDataApiImpl.getData(this.sensorBlockId)
+                .then(response => {
+                    this.loadingData = false;
+                    _.each(response, point => {
+                        this.chartXData.push(point.Value);
+                        this.chartYData.push(point.CreationDate);
+                    });
+                })
+                .catch(err => {
+                    console.error(err);
+                    this.showErrorPage = true;
+                });
+        }
+        
+        mounted(){
+            this.getData();
+        }
+
+        mockedChartData: any = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             datasets: [
                 {
@@ -20,17 +61,5 @@
                 }
             ]
         };
-        chartOptions: any = {
-            responsive: true,
-            maintainAspectRatio: false
-        };
-        
-        _getData(){
-            sensorBlockDataApiImpl.getData(this.sensorBlockId);
-        }
-
-        mounted() {
-            this.renderChart(this.chartData, this.chartOptions);
-        }
     }
 </script>

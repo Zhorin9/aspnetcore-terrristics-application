@@ -57,9 +57,7 @@
                 </b-col>
             </b-row>
         </b-container>
-        <div v-else>
-            <loading-page/>
-        </div>
+        <loading-page v-else />
 
         <user-terraristic-window-add-modal/>
     </div>
@@ -100,6 +98,10 @@
         }
 
         updateAdditionalInformation(windowId: number) {
+            if(!this.terraristicsWindows){
+                return;
+            }
+            
             let terraristicsWindow = this.terraristicsWindows.find(terraristicsWindow => {
                 return terraristicsWindow.Id === windowId;
             });

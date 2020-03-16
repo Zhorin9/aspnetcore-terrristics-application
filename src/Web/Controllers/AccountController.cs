@@ -67,7 +67,7 @@ namespace Web.Controllers
             var results = new
             {
                 token = new JwtSecurityTokenHandler().WriteToken(token),
-                expiration = token.ValidTo.ToString()
+                expiration = token.ValidTo
             };
 
             return Ok(results);

@@ -78,7 +78,7 @@ namespace Web
             services.AddScoped<ITerraristicWindowRepository, TerraristicWindowRepository>();
             services.AddScoped<ISensorBlockRepository, SensorBlockRepository>();
             services.AddScoped<ISensorKindRepository, SensorKindRepository>();
-            services.AddScoped<InputBlockDataRepository, InputBlockDataRepository>();
+            services.AddScoped<IInputBlockDataRepository, InputBlockDataRepository>();
         }
 
         private void AutoMapperRegistration(IServiceCollection services)

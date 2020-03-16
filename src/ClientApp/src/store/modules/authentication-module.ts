@@ -1,7 +1,7 @@
 import {Action, getModule, Module, Mutation, VuexModule} from "vuex-module-decorators";
 import {AlertModule} from "@/store/modules/alert-module";
 import {userServiceImpl} from "@/services/user-service";
-import {getUserEmail, getUserToken, setUser} from "@/utils/local-storage";
+import {getUserEmail, getUserToken, isLoggedCorrect, setUser} from "@/utils/local-storage";
 import router from "@/router";
 import store from "@/store";
 
@@ -16,16 +16,14 @@ export interface AuthenticationState {
 class Authentication extends VuexModule implements AuthenticationState {
     public Email = getUserEmail();
     public LogProcess = false;
-    public LoggedCorrect = false;
+    public LoggedCorrect = isLoggedCorrect();
     public Roles: string[] = [];
     public Token = getUserToken();
 
-    get AUTHENTICATION_GET_EMAIL(){
-        if(this.LoggedCorrect){
-            return this.Email;
-        }
-        return '';
+    get AUTHENTICATION_GET_EMAIL() {
+        return this.Email;
     }
+    
     get AUTHENTICATION_IS_LOGGED_CORRECT(){
         return this.LoggedCorrect;
     }

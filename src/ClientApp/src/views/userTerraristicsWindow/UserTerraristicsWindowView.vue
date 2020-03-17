@@ -40,15 +40,11 @@
                                 </tr>
                                 <tr>
                                     <th>Data stworzenia:</th>
-                                    <th>{{creationDate}}</th>
+                                    <th>{{creationDate  | moment('YYYY-MM-DD')}}</th>
                                 </tr>
                                 <tr>
                                     <th>Data modyfikacji:</th>
                                     <th>2019-09-01</th>
-                                </tr>
-                                <tr>
-                                    <th>Liczba czujników:</th>
-                                    <th>5</th>
                                 </tr>
                                 </tbody>
                             </table>
@@ -81,7 +77,7 @@
     export default class UserTerraristicsWindowView extends Vue {
         name: string = "";
         apiKey: string = "";
-        creationDate: string = "";
+        creationDate: Date = new Date();
 
         get terraristicsWindows() {
             return TerraristicsModule.TerraristicsWindows;

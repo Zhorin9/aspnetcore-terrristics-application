@@ -71,10 +71,7 @@
             // @ts-ignore
             this.$refs.addUserTerraristicWindowModal.hide();
             this.$router.push({
-                name: 'TerraristicWindow',
-                params: {
-                    id: id
-                }
+                name: 'userTerraristicWindows'
             });
         };
 

@@ -33,6 +33,9 @@ Vue.component('validation-provider', ValidationProvider);
 // Setup axios as the Vue default $http library
 import axios from 'axios';
 
+import VueMoment from 'vue-moment';
+Vue.use(VueMoment);
+
 axios.defaults.baseURL = 'http://localhost:5000';
 Vue.prototype.$http = axios;
 

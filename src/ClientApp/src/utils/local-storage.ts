@@ -29,7 +29,7 @@ export const isLoggedCorrect = function (): boolean {
     //@ts-ignore
     let currentDate = moment();
 
-    if (tokenExpiration.diff(currentDate, 'minutes') < 90) {
+    if (currentDate.diff(tokenExpiration, 'minutes') < 90) {
         return true;
     }
     removeUser();

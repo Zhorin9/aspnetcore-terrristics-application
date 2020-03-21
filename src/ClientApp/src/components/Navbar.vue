@@ -7,10 +7,10 @@
             </b-navbar-brand>
             <b-navbar-nav>
                 <b-nav-item to="/publicWindows">Publiczne terraria</b-nav-item>
-                <b-nav-item to="/userTerraristicWindows">Moje terraria</b-nav-item>
+                <b-nav-item v-show="isUserAuthenticated" to="/userTerraristicWindows">Moje terraria</b-nav-item>
             </b-navbar-nav>
 
-            <b-navbar-nav v-if="isLogged" class="ml-auto">
+            <b-navbar-nav v-if="isUserAuthenticated" class="ml-auto">
                 <b-nav-item-dropdown right>
                     <template slot="button-content">{{getUserEmail}}</template>
                     <b-dropdown-item to="/publicWindows">
@@ -29,7 +29,6 @@
 </template>
 
 <script lang="ts">
-    import _ from 'lodash';
     import {Component, Vue} from "vue-property-decorator";
     import {AuthenticationModule} from "@/store/modules/authentication-module";
 
@@ -39,12 +38,11 @@
             return AuthenticationModule.AUTHENTICATION_GET_EMAIL;
         }
         
-        get isLogged() {
+        get isUserAuthenticated() {
             return AuthenticationModule.AUTHENTICATION_IS_LOGGED_CORRECT;
         }
         
         logOut() {
-            debugger;
             AuthenticationModule.LOGOUT();
             this.$router.push({
                 name: 'HomeView'

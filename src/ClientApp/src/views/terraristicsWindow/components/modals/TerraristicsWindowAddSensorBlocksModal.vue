@@ -68,11 +68,9 @@
     import {DictionaryModule} from "@/store/modules/dictionary-module";
     import InputSensorsMultiselect from "@/components/common/Multiselects/InputSensorsMultiselect.vue"
     import OutputSensorsMultiselect from "@/components/common/Multiselects/OutputSensorsMultiselect.vue";
-    import LoadingPage from "@/components/common/LoadingPage.vue";
 
     @Component({
         components: {
-            LoadingPage,
             OutputSensorsMultiselect,
             InputSensorsMultiselect
         }

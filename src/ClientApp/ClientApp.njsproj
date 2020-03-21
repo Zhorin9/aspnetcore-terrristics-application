@@ -80,6 +80,7 @@
     <Folder Include="src\components\common\" />
     <Folder Include="src\components\common\Multiselects\" />
     <Folder Include="src\components\errorLog\" />
+    <Folder Include="src\components\sensorBlockTypes\" />
     <Folder Include="src\enums\" />
     <Folder Include="src\router\" />
     <Folder Include="src\services\" />
@@ -90,6 +91,12 @@
     <Folder Include="src\views\home\" />
     <Folder Include="src\views\login\" />
     <Folder Include="src\views\public\" />
+    <Folder Include="src\views\terraristicsWindow\" />
+    <Folder Include="src\views\terraristicsWindow\components\" />
+    <Folder Include="src\views\terraristicsWindow\components\modals\" />
+    <Folder Include="src\views\userTerraristicsWindow\" />
+    <Folder Include="src\views\userTerraristicsWindow\components\" />
+    <Folder Include="src\views\userTerraristicsWindow\components\modals\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\main.ts" />

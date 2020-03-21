@@ -36,6 +36,12 @@ import axios from 'axios';
 import VueMoment from 'vue-moment';
 Vue.use(VueMoment);
 
+//Global comopnents
+import LoadingPage from "@/components/common/LoadingPage.vue";
+import ErrorPage from "@/components/common/ErrorPage.vue";
+Vue.component('loading-page', LoadingPage);
+Vue.component('error-page', ErrorPage);
+
 axios.defaults.baseURL = 'http://localhost:5000';
 Vue.prototype.$http = axios;
 

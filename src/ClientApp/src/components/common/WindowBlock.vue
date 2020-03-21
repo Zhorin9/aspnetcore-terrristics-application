@@ -3,7 +3,7 @@
         <b-card class="card-green" :title="data.Name" :img-src="iconUrl" img-alt="Image" img-top>
             <b-card-text algin="left">
                 {{data.Description}}
-                <div>
+                <div class="mt-5">
                     <b-button :to="{name: 'terraristicsData', params:{id: data.Id}}"
                               class="ml-1"
                               variant="info"
@@ -12,7 +12,8 @@
                     </b-button>
                     <b-button
                             class="ml-1"
-                            size="sm">
+                            size="sm"
+                            @click="editTerraristicsWindow">
                         Edytuj
                     </b-button>
                     <b-button :to="{name: 'terraristicsData', params:{id: data.Id}}"
@@ -24,14 +25,14 @@
                 </div>
             </b-card-text>
             <template v-slot:footer>
-                <small class="text-muted">Data utworzenia: {{data.CreationDate}} </small>
+                <small class="text-muted">Data utworzenia: {{data.CreationDate | moment('YYYY-MM-DD')}} </small>
             </template>
         </b-card>
     </div>
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from "vue-property-decorator";
+    import {Component, Emit, Prop, Vue} from "vue-property-decorator";
 
     @Component({})
 
@@ -42,12 +43,16 @@
         get iconUrl() {
             return require('@/assets/homeBackground.jpg')
         }
+
+        @Emit()
+        editTerraristicsWindow(){
+            //@ts-ignore Element in edit model always exist
+            return this.data.Id;
+        }
     }
 </script>
 
 <style scoped>
-
-
     .btn-sm {
         padding: 0.25rem 0.5rem;
         font-size: 0.75rem;

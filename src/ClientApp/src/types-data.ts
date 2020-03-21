@@ -20,6 +20,7 @@ interface TerraristicsWindowModel {
     Name: string;
     Description: string;
     CreationDate: Date;
+    ModificationDate: Date;
     ApiKey: string;
 }
 
@@ -29,11 +30,8 @@ interface UserLoginModel {
     Password: string;
 }
 
-
-
 interface TerraristicsWindowFormData {
-    failedOnCreate: boolean;
-    waitingForResponse: boolean;
+    id: number;
     name: string;
     description: string;
 }

@@ -9,12 +9,12 @@
     import {Component, Prop, Vue} from "vue-property-decorator";
     import {sensorBlockDataApiImpl} from "@/api/sensor-block-data-api";
     import LineChart from "@/components/common/LineChart.vue";
-    import LoadingPage from "@/components/common/LoadingPage.vue";
-    import ErrorPage from "@/components/common/ErrorPage.vue";
     import _ from "lodash";
 
     @Component({
-        components: {ErrorPage, LoadingPage, LineChart},
+        components: {
+            LineChart
+        },
     })
     export default class InputSensorBlock extends Vue {
         @Prop({default: null}) sensorBlockId!: number;
@@ -46,8 +46,8 @@
                     this.showErrorPage = true;
                 });
         }
-        
-        mounted(){
+
+        mounted() {
             this.getData();
         }
 

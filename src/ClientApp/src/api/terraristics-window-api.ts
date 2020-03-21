@@ -17,6 +17,14 @@ class TerraristicsWindowApiImpl implements TerraristicsWindowApi {
                 headers: getHeaderWithJwtToken()
             });
     }
+
+    updateTerraristicsWindow(request: TerraristicsWindowFormData): Promise<any> {
+        return axios.post(endpoints.updateTerraristicsWindow,
+            request,
+            {
+                headers: getHeaderWithJwtToken()
+            });
+    }
 }
 
 export const terraristicsWindowApiImpl = new TerraristicsWindowApiImpl();

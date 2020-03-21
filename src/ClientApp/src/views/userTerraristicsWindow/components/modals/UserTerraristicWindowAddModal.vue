@@ -45,13 +45,8 @@
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
     import {terraristicsWindowApiImpl} from "@/api/terraristics-window-api";
-    import LoadingPage from "@/components/common/LoadingPage.vue";
 
-    @Component({
-        components: {
-            LoadingPage
-        }
-    })
+    @Component
     export default class UserTerraristicWindowAddModal extends Vue {
         failedOnCreate: Boolean = false;
         waitingForResponse: Boolean = false;

@@ -45,14 +45,9 @@
     import _ from "lodash";
     import {AuthenticationModule} from "@/store/modules/authentication-module";
     import {Component, Vue} from "vue-property-decorator";
-    import LoadingPage from "@/components/common/LoadingPage.vue";
     import router from "@/router";
 
-    @Component({
-        components: {
-            LoadingPage,
-        }
-    })
+    @Component
     export default class LoginPage extends Vue {
         email: string = "";
         password: string = "";

@@ -9,7 +9,7 @@ export interface TerraristicsState {
 @Module({dynamic: true, store, name: 'terraristicsModule'})
 class Terraristics extends VuexModule implements TerraristicsState {
     TerraristicsWindows = Array(0);
-    
+
     @Mutation
     public UPDATE_TERRARISTICS_WINDOWS(terraristicsWindows: Array<TerraristicsWindowModel>) {
         this.TerraristicsWindows = terraristicsWindows;
@@ -25,6 +25,18 @@ class Terraristics extends VuexModule implements TerraristicsState {
             .catch(err => {
                 console.error(err);
             });
+    }
+
+    @Action
+    public UPDATE_WINDOW(windowData: TerraristicsWindowFormData) {
+        return terraristicsWindowApiImpl.updateTerraristicsWindow(windowData)
+            .then(response => {
+                return true;
+            })
+            .catch(err => {
+                console.error(err);
+            })
+
     }
 }
 

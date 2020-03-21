@@ -16,7 +16,7 @@ export interface AuthenticationState {
 class Authentication extends VuexModule implements AuthenticationState {
     public Email = getUserEmail();
     public LogProcess = false;
-    public LoggedCorrect = isLoggedCorrect();
+    public IsUserAuthenticated = isLoggedCorrect();
     public Roles: string[] = [];
     public Token = getUserToken();
 
@@ -25,7 +25,7 @@ class Authentication extends VuexModule implements AuthenticationState {
     }
     
     get AUTHENTICATION_IS_LOGGED_CORRECT(){
-        return this.LoggedCorrect;
+        return this.IsUserAuthenticated;
     }
     
     @Mutation
@@ -52,13 +52,16 @@ class Authentication extends VuexModule implements AuthenticationState {
     @Mutation
     private AUTHENTICATION_LOGGED_CORRECT() {
         this.LogProcess = false;
-        this.LoggedCorrect = true;
+        this.IsUserAuthenticated = true;
     }
-
-    @Mutation
-    private AUTHENTICATION_LOGGED_INCORRECT() {
+    
+    @Mutation 
+    private AUTHENTICATION_LOGOUT(){
         this.LogProcess = false;
-        this.LoggedCorrect = false;
+        this.IsUserAuthenticated = false;
+        this.Email = '';
+        this.Roles = [];
+        this.Token = '';
     }
 
     @Action
@@ -79,7 +82,7 @@ class Authentication extends VuexModule implements AuthenticationState {
                 },
             ).catch(err => {
                 AlertModule.ALERT_FAILED_LOGIN();
-                this.AUTHENTICATION_LOGGED_INCORRECT();
+                this.AUTHENTICATION_LOGOUT();
                 console.error("Problem with authentication", err);
             })
     }
@@ -87,11 +90,7 @@ class Authentication extends VuexModule implements AuthenticationState {
     @Action
     public LOGOUT() {
         userServiceImpl.logout();
-
-        // Reset visited views and cached views
-        this.AUTHENTICATION_SET_TOKEN('');
-        this.AUTHENTICATION_SET_ROLES([]);
-        this.AUTHENTICATION_SET_EMAIL('');
+        this.AUTHENTICATION_LOGOUT();
     }
 }
 

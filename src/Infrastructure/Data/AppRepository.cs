@@ -35,7 +35,7 @@ namespace Infrastructure.Data
             return await Context.SaveChangesAsync();
         }
 
-        public async void DeleteAsync(T entity)
+        public async Task DeleteAsync(T entity)
         {
             Context.Set<T>().Remove(entity);
             await Context.SaveChangesAsync();

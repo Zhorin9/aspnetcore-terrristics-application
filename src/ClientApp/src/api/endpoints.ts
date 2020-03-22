@@ -11,4 +11,5 @@ export const endpoints = {
     getTerraristicsWindows: "api/terraristicsWindow/getList",
     createNewTerraristicsWindow: "api/terraristicsWindow/create",
     updateTerraristicsWindow: "api/terraristicsWindow/update",
+    deleteTerraristicsWindow: "api/terraristicsWindow/delete",
 };

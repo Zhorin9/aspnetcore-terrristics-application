@@ -9,54 +9,37 @@
                                 :data="window"
                                 class="cursor-pointer"
                                 @click.native="updateAdditionalInformation(window.Id)"
-                                @edit-terraristics-window="openEditWindowModal"/>
+                                @edit-terraristics-window="openEditWindowModal"
+                                @delete-terraristics-window="openDeleteModal"/>
                     </b-col>
                 </b-row>
             </b-col>
             <b-col cols="1"/>
             <b-col cols="3">
-                <div class="card card-green">
-                    <div class="card card-header font-weight-bold card-header-background">
-                        <span>Zarządzanie oknami</span>
-                        <i class="fa-pull-right fas fa-sync 2px cursor-pointer" @click="refreshData"></i>
-                    </div>
-                    <div class="card-body">
-                        <b-button @click="openAddWindowModal" class="btn btn-primary text-white">
-                            Dodaj nowe okno
-                        </b-button>
-                    </div>
-                    <div class="card-header font-weight-bold card-header-background">
-                        Informacje dodatkowe
-                    </div>
-                    <div class="card-body">
-                        <table class="table text-white">
-                            <tbody>
-                            <tr>
-                                <th>Nazwa:</th>
-                                <th>{{selectedWindow.Name}}</th>
-                            </tr>
-                            <tr>
-                                <th>Klucz Api:</th>
-                                <th>{{selectedWindow.ApiKey}}</th>
-                            </tr>
-                            <tr>
-                                <th>Data stworzenia:</th>
-                                <th>{{selectedWindow.CreationDate | moment('YYYY-MM-DD')}}</th>
-                            </tr>
-                            <tr>
-                                <th>Data modyfikacji:</th>
-                                <th>{{selectedWindow.ModificationDate | moment('YYYY-MM-DD')}}</th>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <b-card class="card-green" header-tag="header">
+                    <template class="card-header-background" v-slot:header>
+                        <div class="font-weight-bold">
+                            <h3>Zarządzanie oknami</h3>
+                            <i class="fa-pull-right fas fa-sync 2px cursor-pointer" @click="refreshData"></i>
+                        </div>
+                    </template>
+                    <b-button @click="openAddWindowModal" class="btn btn-primary text-white">
+                        Dodaj nowe okno
+                    </b-button>
+
+                    <h4 class="mt-4">Dodatkowe informacje</h4>
+                    <b-table stacked class="text-white"
+                             :items="[selectedWindowToDisplay]"
+                             :fields="fieldDefinitions">
+                    </b-table>
+                </b-card>
             </b-col>
         </b-row>
         <loading-page v-else :size="8"/>
 
-        <user-terraristic-window-add-modal/>
-        <user-terraristic-window-edit-modal :selected-window="selectedWindowToEdit"/>
+        <user-terraristic-window-add-modal @successfully-added="refreshData"/>
+        <user-terraristic-window-edit-modal :selected-window="selectedWindowToEdit" @updated-correct="handleUpdate"/>
+        <simple-dialog :id="'user-window-delete-modal'" @result="handleDelete"/>
     </div>
 </template>
 
@@ -67,7 +50,6 @@
     import UserTerraristicWindowEditModal from "./components/modals/UserTerraristicWindowEditModal.vue";
     import {TerraristicsModule} from "@/store/modules/terraristics-module";
 
-
     @Component({
         components: {
             UserTerraristicWindowEditModal,
@@ -77,9 +59,30 @@
     })
 
     export default class UserTerraristicsWindowView extends Vue {
-        selectedWindow!: TerraristicsWindowFormData;
-        selectedWindowToEdit: any = {};
+        selectedWindowToDisplay: TerraristicsWindowModel = <TerraristicsWindowModel>{};
+        selectedWindowToEdit: TerraristicsWindowFormData = <TerraristicsWindowFormData>{};
+        selectedWindowIdToDelete: number = 0;
         isLoadingData: boolean = true;
+        fieldDefinitions: any = [
+            {key: 'Name', label: 'Nazwa'},
+            {key: 'ApiKey', label: 'Klucz Api'},
+            {
+                key: 'CreationDate',
+                label: 'Data utworzenia',
+                formatter: (value: any, key: any, item: any) => {
+                    //@ts-ignore    
+                    return this.$moment(value).format('YYYY-MM-DD')
+                }
+            },
+            {
+                key: 'ModificationDate',
+                label: 'Data modyfikacji',
+                formatter: (value: any, key: any, item: any) => {
+                    //@ts-ignore    
+                    return this.$moment(value).format('YYYY-MM-DD')
+                }
+            },
+        ];
 
         get terraristicsWindows() {
             return TerraristicsModule.TerraristicsWindows;
@@ -115,8 +118,30 @@
             });
 
             if (terraristicsWindow) {
-                this.selectedWindow = terraristicsWindow;
+                this.selectedWindowToDisplay = terraristicsWindow;
             }
+        }
+
+        handleDelete(value: boolean) {
+            if (value) {
+                TerraristicsModule.DELETE_WINDOW(this.selectedWindowIdToDelete)
+                    .then(() => {
+                        this.$bvModal.hide('user-window-delete-modal');
+                        this.refreshData();
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    })
+            }
+        }
+
+        handleUpdate(data: TerraristicsWindowFormData) {
+            this.selectedWindowToEdit = <TerraristicsWindowFormData>{};
+            let terraristicsWindow = this.terraristicsWindows.find(terraristicsWindow => {
+                return terraristicsWindow.Id === data.id;
+            });
+            terraristicsWindow.Name = data.name;
+            terraristicsWindow.Description = data.description;
         }
 
         openAddWindowModal() {
@@ -135,7 +160,14 @@
 
             this.$bvModal.show("user-window-edit-modal");
         }
+
+        openDeleteModal(windowId: number) {
+            this.selectedWindowIdToDelete = windowId;
+            this.$bvModal.show("user-window-delete-modal");
+        }
     }
+
+    const fieldDefinitions = {}
 </script>
 <style scoped>
     .btn-primary {

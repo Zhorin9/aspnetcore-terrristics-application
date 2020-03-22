@@ -39,8 +39,10 @@ Vue.use(VueMoment);
 //Global comopnents
 import LoadingPage from "@/components/common/LoadingPage.vue";
 import ErrorPage from "@/components/common/ErrorPage.vue";
+import SimpleDialog from "@/components/common/SimpleDialog.vue";
 Vue.component('loading-page', LoadingPage);
 Vue.component('error-page', ErrorPage);
+Vue.component('simple-dialog', SimpleDialog);
 
 axios.defaults.baseURL = 'http://localhost:5000';
 Vue.prototype.$http = axios;

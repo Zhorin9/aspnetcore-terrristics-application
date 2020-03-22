@@ -16,7 +16,6 @@
                 <label>Nazwa okna</label>
                 <input v-model="name"
                        data-vv-as="Nazwa okna"
-                       name="user-window-add-modal-name"
                        class="form-control"/>
             </div>
             <div class="form-group form-label col-6">
@@ -35,7 +34,7 @@
             <b-button size="sm" variant="success" @click="handleOk">
                 Zapisz
             </b-button>
-            <b-button size="sm" variant="danger" @click="resetModalDataAndGoToCreatedWindow">
+            <b-button size="sm" variant="danger" @click="handleCancel">
                 Anuluj
             </b-button>
         </template>
@@ -43,7 +42,7 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
+    import {Component, Emit, Vue} from "vue-property-decorator";
     import {terraristicsWindowApiImpl} from "@/api/terraristics-window-api";
 
     @Component
@@ -62,13 +61,22 @@
             }
         };
 
-        resetModalDataAndGoToCreatedWindow(id: string) {
+        handleCancel() {
+            this.resetModalData();
+            this.hideModal();
+        }
+
+        resetModalData() {
+            this.name = '';
+            this.description = '';
+            this.failedOnCreate = false;
+            this.waitingForResponse = false;
+        };
+
+        hideModal() {
             // @ts-ignore
             this.$refs.addUserTerraristicWindowModal.hide();
-            this.$router.push({
-                name: 'userTerraristicWindows'
-            });
-        };
+        }
 
         saveNewWindow() {
             this.waitingForResponse = true;
@@ -76,10 +84,12 @@
                 Name: this.name,
                 Description: this.description
             };
-            
-            terraristicsWindowApiImpl.createNewTerraristicsWindow(request)
-                .then(result => {
-                    this.resetModalDataAndGoToCreatedWindow(result.data);
+
+            terraristicsWindowApiImpl.create(request)
+                .then(() => {
+                    this.resetModalData();
+                    this.hideModal();
+                    this.successfullyAdded();
                 })
                 .catch(err => {
                     console.error(err.message);
@@ -89,5 +99,10 @@
                     this.failedOnCreate = true;
                 })
         };
+
+        @Emit()
+        successfullyAdded() {
+            return true;
+        }
     }
 </script>

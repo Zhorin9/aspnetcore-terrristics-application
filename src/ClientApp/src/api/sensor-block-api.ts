@@ -19,7 +19,7 @@ class SensorBlockApiImpl implements SensorBlockApi {
             })
     }
 
-    createNewSensorBlock(request: any): Promise<any> {
+    create(request: any): Promise<any> {
         return axios.post(endpoints.createNewSensorBlock,
             request,
             {

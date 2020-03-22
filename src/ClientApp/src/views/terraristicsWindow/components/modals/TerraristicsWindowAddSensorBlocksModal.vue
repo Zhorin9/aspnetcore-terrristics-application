@@ -15,7 +15,6 @@
             <div class="form-groups form-label col-6">
                 <label>Nazwa bloku</label>
                 <input v-model="name"
-                       name="user-window-add-modal-name"
                        class="form-control"/>
             </div>
             <div class="form-group form-label col-6">
@@ -106,7 +105,7 @@
             };
             this.waitingForResponse = true;
 
-            sensorBlockApiImpl.createNewSensorBlock(sensorToCreate)
+            sensorBlockApiImpl.create(sensorToCreate)
                 .then(response => {
                     let sensorBlockId = response.data;
                     this.resetModalDataAndEmitEvent(sensorBlockId);

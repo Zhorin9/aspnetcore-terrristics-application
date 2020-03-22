@@ -7,11 +7,14 @@ interface DictionaryApi {
 }
 
 interface TerraristicsWindowApi {
-    createNewTerraristicsWindow(request: any): Promise<any>;
-    getTerraristicsWindows(id: string): Promise<any>;
+    create(request: any): Promise<any>;
+    getList(id: string): Promise<any>;
+    update(request: TerraristicsWindowFormData): Promise<any>;
+    delete(windowId: number): Promise<any>;
 }
 
 interface SensorBlockApi {
+    getSensorBlock(sensorBlockId: number): Promise<any>;
     getSensorBlocks(windowId: string): Promise<any>;
 }
 

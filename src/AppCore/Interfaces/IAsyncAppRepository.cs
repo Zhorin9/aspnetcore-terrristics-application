@@ -31,7 +31,7 @@ namespace AppCore.Interfaces
         /// <summary>
         /// Delete data
         /// </summary>
-        void DeleteAsync(T entity);
+        Task DeleteAsync(T entity);
 
         /// <summary>
         /// Get list of data by expression

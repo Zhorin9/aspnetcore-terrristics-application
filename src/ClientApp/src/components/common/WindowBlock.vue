@@ -10,16 +10,10 @@
                               size="sm">
                         Podgląd
                     </b-button>
-                    <b-button
-                            class="ml-1"
-                            size="sm"
-                            @click="editTerraristicsWindow">
+                    <b-button class="ml-1" size="sm" @click="editTerraristicsWindow">
                         Edytuj
                     </b-button>
-                    <b-button :to="{name: 'terraristicsData', params:{id: data.Id}}"
-                              class="ml-1"
-                              variant="danger"
-                              size="sm">
+                    <b-button class="ml-1" variant="danger" size="sm" @click="deleteTerraristicsWindow">
                         Usuń
                     </b-button>
                 </div>
@@ -34,8 +28,7 @@
 <script lang="ts">
     import {Component, Emit, Prop, Vue} from "vue-property-decorator";
 
-    @Component({})
-
+    @Component
     export default class WindowBlock extends Vue {
         @Prop() data: TerraristicsWindowModel | undefined;
 
@@ -44,10 +37,21 @@
             return require('@/assets/homeBackground.jpg')
         }
 
+        get terraristicsWindowId() {
+            if (this.data) {
+                return this.data.Id;
+            }
+            return null;
+        }
+
         @Emit()
-        editTerraristicsWindow(){
-            //@ts-ignore Element in edit model always exist
-            return this.data.Id;
+        editTerraristicsWindow() {
+            return this.terraristicsWindowId;
+        }
+
+        @Emit()
+        deleteTerraristicsWindow() {
+            return this.terraristicsWindowId;
         }
     }
 </script>
@@ -58,19 +62,5 @@
         font-size: 0.75rem;
         line-height: 1.5;
         border-radius: 0.2rem;
-    }
-
-    .card-header-background {
-        background: #0a281d !important;
-    }
-
-    .cursor-pointer {
-        cursor: pointer;
-    }
-
-    .btn-remove {
-        color: #fff;
-        background-color: #642020;
-        border-color: #ac0e23;
     }
 </style>

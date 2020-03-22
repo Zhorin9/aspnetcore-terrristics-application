@@ -76,5 +76,47 @@ namespace Web.ApiControllers
 
             return BadRequest();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Update([FromBody] UpdateTerraristicsWindowApiModel updateTerraristicsWindowApiModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Formularz został niepoprawnie wypełniony. Spróbuj ponownie");
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var terraristicWindow = new TerraristicWindow
+            {
+                Id = updateTerraristicsWindowApiModel.Id,
+                Name = updateTerraristicsWindowApiModel.Name,
+                Description = updateTerraristicsWindowApiModel.Description,
+            };
+
+            int result = await _terraristicWindowRepository.Update(terraristicWindow, userId);
+            if (result > 0)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Delete([FromBody] int id)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            TerraristicWindow terraristicWindow = await _terraristicWindowRepository.GetAsync(id, userId);
+
+            try
+            {
+                await _terraristicWindowRepository.DeleteAsync(terraristicWindow);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
     }
 }

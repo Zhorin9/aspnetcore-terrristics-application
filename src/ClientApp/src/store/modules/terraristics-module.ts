@@ -17,7 +17,7 @@ class Terraristics extends VuexModule implements TerraristicsState {
 
     @Action
     public GET_LIST() {
-        return terraristicsWindowApiImpl.getTerraristicsWindows()
+        return terraristicsWindowApiImpl.getList()
             .then(response => {
                 this.UPDATE_TERRARISTICS_WINDOWS(response.data.Value);
                 return true;
@@ -29,14 +29,24 @@ class Terraristics extends VuexModule implements TerraristicsState {
 
     @Action
     public UPDATE_WINDOW(windowData: TerraristicsWindowFormData) {
-        return terraristicsWindowApiImpl.updateTerraristicsWindow(windowData)
-            .then(response => {
+        return terraristicsWindowApiImpl.update(windowData)
+            .then(() => {
                 return true;
             })
             .catch(err => {
                 console.error(err);
             })
+    }
 
+    @Action
+    public DELETE_WINDOW(windowId: number) {
+        return terraristicsWindowApiImpl.delete(windowId)
+            .then(() => {
+                return true;
+            })
+            .catch(err => {
+                console.error(err);
+            })
     }
 }
 

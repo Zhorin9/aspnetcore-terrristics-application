@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AppCore.Entities;
@@ -38,6 +39,22 @@ namespace Infrastructure.Data.Repositories
                     .Include(o => o.SensorBlocks).ThenInclude(p => p.Outputs)
                     .Include(o => o.SensorBlocks).ThenInclude(p => p.SensorKind)
                     .ToListAsync();
+        }
+
+        public async Task<int> Update(TerraristicWindow model, string userId)
+        {
+            TerraristicWindow terraristicWindow = await GetAsync(model.Id, userId);
+            if (terraristicWindow == null)
+            {
+                return -1;
+            }
+            
+            terraristicWindow.Name = model.Name;
+            terraristicWindow.Description = model.Description;
+            terraristicWindow.ModificationDate = DateTime.Now;
+                
+            return await UpdateAsync(terraristicWindow);
+
         }
     }
 }

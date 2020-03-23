@@ -163,7 +163,8 @@
             this.selectedWindowToEdit = <TerraristicsWindowFormData>{
                 id: terraristicsWindow.Id,
                 name: terraristicsWindow.Name,
-                description: terraristicsWindow.Description
+                description: terraristicsWindow.Description,
+                isPublic: terraristicsWindow.IsPublic
             };
 
             this.$bvModal.show("user-window-edit-modal");

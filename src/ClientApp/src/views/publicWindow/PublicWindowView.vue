@@ -7,12 +7,7 @@
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
 
-    @Component({})
-
-    export default class ThePublicView extends Vue {
+    @Component
+    export default class PublicWindowView extends Vue {
     }
 </script>
-
-<style scoped>
-
-</style>

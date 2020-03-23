@@ -15,5 +15,7 @@ namespace Web.ApiModels.TerraristicsWindows
         public DateTime ModificationDate { get; set; }
 
         public string ApiKey { get; set; }
+
+        public bool IsPublic { get; set; }
     }
 }

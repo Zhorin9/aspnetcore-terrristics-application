@@ -65,7 +65,8 @@ namespace Web.ApiControllers
                 UserId = userId,
                 ApiKey = Guid.NewGuid(),
                 CreationDate = DateTime.Now.Date,
-                ModificationDate = DateTime.Now.Date
+                ModificationDate = DateTime.Now.Date,
+                IsPublic = createTerraristicsWindowApiModel.IsPublic
             };
 
             int result = await _terraristicWindowRepository.AddAsync(newTerraristicsWindow);
@@ -91,6 +92,7 @@ namespace Web.ApiControllers
                 Id = updateTerraristicsWindowApiModel.Id,
                 Name = updateTerraristicsWindowApiModel.Name,
                 Description = updateTerraristicsWindowApiModel.Description,
+                IsPublic = updateTerraristicsWindowApiModel.IsPublic
             };
 
             int result = await _terraristicWindowRepository.Update(terraristicWindow, userId);

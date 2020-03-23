@@ -25,6 +25,15 @@
                           class="form-control">
                 </textarea>
             </div>
+            <div class="form-group form-check col-6">
+                <b-form-checkbox
+                        id="terraristics-window-is-public"
+                        v-model="isPublic"
+                        value="true"
+                        unchecked-value="false">
+                    Czy jest publiczne?
+                </b-form-checkbox>
+            </div>
         </form>
         <template v-else>
             <loading-page/>
@@ -51,6 +60,7 @@
         waitingForResponse: Boolean = false;
         name: string = "";
         description: string = "";
+        isPublic: boolean = false;
 
         async handleOk(evt: any) {
             try {
@@ -71,6 +81,7 @@
             this.description = '';
             this.failedOnCreate = false;
             this.waitingForResponse = false;
+            this.isPublic = false;
         };
 
         hideModal() {
@@ -82,7 +93,8 @@
             this.waitingForResponse = true;
             let request = {
                 Name: this.name,
-                Description: this.description
+                Description: this.description,
+                IsPublic: this.isPublic
             };
 
             terraristicsWindowApiImpl.create(request)

@@ -22,6 +22,7 @@ interface TerraristicsWindowModel {
     CreationDate: Date;
     ModificationDate: Date;
     ApiKey: string;
+    IsPublic: boolean;
 }
 
 //User
@@ -34,6 +35,7 @@ interface TerraristicsWindowFormData {
     id: number;
     name: string;
     description: string;
+    isPublic: boolean;
 }
 
 interface SensorKindData {

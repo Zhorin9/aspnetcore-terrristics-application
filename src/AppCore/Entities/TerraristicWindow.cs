@@ -11,6 +11,7 @@ namespace AppCore.Entities
         public DateTime ModificationDate { get; set; }
         public Guid ApiKey { get; set; }
         public string UserId { get; set; }
+        public bool IsPublic { get; set; }
         public IEnumerable<SensorBlock> SensorBlocks { get; set; }
     }
 }

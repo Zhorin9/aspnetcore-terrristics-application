@@ -17,7 +17,7 @@ export const constantRoutes: RouteConfig[] = [
     },
     {
         path: '/publicWindows',
-        component: () => import(/* webpackChunkName: "login" */ '@/views/public/PublicView.vue'),
+        component: () => import(/* webpackChunkName: "login" */ '@/views/publicWindow/PublicWindowView.vue'),
         meta: {hidden: true}
     },
     {

@@ -51,6 +51,7 @@ namespace Infrastructure.Data.Repositories
             
             terraristicWindow.Name = model.Name;
             terraristicWindow.Description = model.Description;
+            terraristicWindow.IsPublic = model.IsPublic;
             terraristicWindow.ModificationDate = DateTime.Now;
                 
             return await UpdateAsync(terraristicWindow);

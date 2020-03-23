@@ -82,6 +82,13 @@
                     return this.$moment(value).format('YYYY-MM-DD')
                 }
             },
+            {
+                key: 'IsPublic',
+                label: 'Czy jest publiczne',
+                formatter: (value: any, key: any, item: any) => {
+                    return value ? "Tak" : "Nie";
+                }
+            },
         ];
 
         get terraristicsWindows() {
@@ -142,6 +149,7 @@
             });
             terraristicsWindow.Name = data.name;
             terraristicsWindow.Description = data.description;
+            terraristicsWindow.IsPublic = data.isPublic;
         }
 
         openAddWindowModal() {

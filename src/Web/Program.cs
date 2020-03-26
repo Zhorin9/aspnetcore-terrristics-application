@@ -48,6 +48,13 @@ namespace Web
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureLogging((context, logging) =>
+                {
+                    logging.ClearProviders();
+                    logging.AddConfiguration(context.Configuration.GetSection("Logging"));
+                    logging.AddDebug();
+                    logging.AddConsole();
+                })
                 .ConfigureAppConfiguration(SetupConfiguration)
                 .UseStartup<Startup>();
 

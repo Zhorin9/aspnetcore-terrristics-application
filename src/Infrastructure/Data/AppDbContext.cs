@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Data
 {
@@ -22,10 +23,10 @@ namespace Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<SensorKind>(ConfigureSensorKind);
+            builder.Entity<TerraristicWindow>(ConfigureTerraristicWindow);
+            builder.Entity<SensorBlock>(ConfigureSensorBlock);
             builder.Entity<InputSensorData>(ConfigureInputSensorData);
             builder.Entity<OutputSensorData>(ConfigureOutputSensorData);
-            builder.Entity<SensorBlock>(ConfigureSensorBlock);
-            builder.Entity<TerraristicWindow>(ConfigureTerraristicWindow);
         }
 
         private void ConfigureSensorKind(EntityTypeBuilder<SensorKind> builder)
@@ -45,8 +46,6 @@ namespace Infrastructure.Data
 
         private void ConfigureInputSensorData(EntityTypeBuilder<InputSensorData> builder)
         {
-            builder.ToTable("InputSensorData");
-
             builder.HasKey(isd => isd.Id);
             builder.Property(isd => isd.CreationDate)
                 .HasColumnType("date")
@@ -102,6 +101,7 @@ namespace Infrastructure.Data
             builder.HasKey(p => p.Id);
 
             builder.Property(tw => tw.ApiKey)
+                .HasConversion(new GuidToStringConverter())
                 .HasDefaultValue(Guid.NewGuid());
             builder.Property(tw => tw.CreationDate)
                 .HasColumnType("date")
@@ -112,6 +112,8 @@ namespace Infrastructure.Data
             builder.Property(tw => tw.ModificationDate)
                 .HasColumnType("datetime")
                 .HasDefaultValue(DateTime.Now);
+            builder.Property(tw => tw.IsPublic)
+                .HasConversion(new BoolToZeroOneConverter<int>());
 
             builder.HasMany(tw => tw.SensorBlocks)
                 .WithOne(tw => tw.ParentWindow);

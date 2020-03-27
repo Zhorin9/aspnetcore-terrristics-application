@@ -3,34 +3,30 @@ using System;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200323182138_AddedNewFlagToTerraristicsWindow")]
-    partial class AddedNewFlagToTerraristicsWindow
+    [Migration("20200327144033_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099");
 
             modelBuilder.Entity("AppCore.Entities.InputSensorData", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2020, 3, 23, 19, 21, 38, 50, DateTimeKind.Local));
+                        .HasDefaultValue(new DateTime(2020, 3, 27, 15, 40, 33, 542, DateTimeKind.Local));
 
                     b.Property<int>("SensorBlockId");
 
@@ -47,8 +43,7 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("AppCore.Entities.OutputSensorData", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("SensorBlockId");
 
@@ -66,8 +61,7 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("AppCore.Entities.SensorBlock", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description")
                         .HasMaxLength(500);
@@ -94,8 +88,7 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("AppCore.Entities.SensorKind", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description")
                         .HasMaxLength(500);
@@ -118,26 +111,27 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("AppCore.Entities.TerraristicWindow", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("ApiKey")
+                    b.Property<string>("ApiKey")
+                        .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValue(new Guid("159e03c4-1354-4d59-8b8f-9db435464081"));
+                        .HasConversion(new ValueConverter<string, string>(v => default(string), v => default(string), new ConverterMappingHints(size: 36)))
+                        .HasDefaultValue("8845851c-4f90-4e45-b389-c371b1a2cf3e");
 
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2020, 3, 23, 19, 21, 38, 62, DateTimeKind.Local));
+                        .HasDefaultValue(new DateTime(2020, 3, 27, 15, 40, 33, 530, DateTimeKind.Local));
 
                     b.Property<string>("Description");
 
-                    b.Property<bool>("IsPublic");
+                    b.Property<int>("IsPublic");
 
                     b.Property<DateTime>("ModificationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2020, 3, 23, 19, 21, 38, 62, DateTimeKind.Local));
+                        .HasDefaultValue(new DateTime(2020, 3, 27, 15, 40, 33, 532, DateTimeKind.Local));
 
                     b.Property<string>("Name")
                         .IsRequired()

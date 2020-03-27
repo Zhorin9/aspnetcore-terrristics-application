@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Data.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,10 +12,12 @@ namespace Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:AutoIncrement", true),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
+                    ShortDescription = table.Column<string>(nullable: true),
                     Description = table.Column<string>(maxLength: 500, nullable: true),
-                    Type = table.Column<byte>(nullable: false)
+                    Type = table.Column<int>(nullable: false),
+                    OutputType = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,12 +29,14 @@ namespace Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:AutoIncrement", true),
                     Name = table.Column<string>(maxLength: 200, nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2019, 3, 27, 9, 49, 42, 43, DateTimeKind.Local)),
-                    ModificationDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2019, 3, 27, 9, 49, 42, 43, DateTimeKind.Local)),
-                    ApiKey = table.Column<Guid>(nullable: false, defaultValue: new Guid("5d44a131-3e39-41bc-b1a5-b902943ffbe7")),
-                    UserId = table.Column<string>(nullable: true)
+                    Description = table.Column<string>(nullable: true),
+                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2020, 3, 27, 15, 40, 33, 530, DateTimeKind.Local)),
+                    ModificationDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2020, 3, 27, 15, 40, 33, 532, DateTimeKind.Local)),
+                    ApiKey = table.Column<string>(nullable: false, defaultValue: "8845851c-4f90-4e45-b389-c371b1a2cf3e"),
+                    UserId = table.Column<string>(nullable: true),
+                    IsPublic = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,20 +48,19 @@ namespace Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:AutoIncrement", true),
                     Name = table.Column<string>(maxLength: 250, nullable: false),
                     Description = table.Column<string>(maxLength: 500, nullable: true),
-                    PositionId = table.Column<byte>(nullable: false),
                     SensorKindId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
-                    ParrentWindowId = table.Column<int>(nullable: false)
+                    ParentWindowId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sensor", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Sensor_TerraristicWindow_ParrentWindowId",
-                        column: x => x.ParrentWindowId,
+                        name: "FK_Sensor_TerraristicWindow_ParentWindowId",
+                        column: x => x.ParentWindowId,
                         principalTable: "TerraristicWindow",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -75,9 +77,9 @@ namespace Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:AutoIncrement", true),
                     Value = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2019, 3, 27, 9, 49, 42, 23, DateTimeKind.Local)),
+                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2020, 3, 27, 15, 40, 33, 542, DateTimeKind.Local)),
                     SensorBlockId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -96,7 +98,7 @@ namespace Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:AutoIncrement", true),
                     State = table.Column<byte>(nullable: false),
                     Value = table.Column<string>(nullable: true),
                     SensorBlockId = table.Column<int>(nullable: false)
@@ -123,9 +125,9 @@ namespace Infrastructure.Data.Migrations
                 column: "SensorBlockId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sensor_ParrentWindowId",
+                name: "IX_Sensor_ParentWindowId",
                 table: "Sensor",
-                column: "ParrentWindowId");
+                column: "ParentWindowId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sensor_SensorKindId",

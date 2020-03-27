@@ -17,7 +17,7 @@ namespace Infrastructure.Data
 
         public async Task SeedAsync()
         {
-            if (!_ctx.SensorKinds.Any())
+            if (_ctx.SensorKinds.FirstOrDefault() == null)
             {
                 _ctx.SensorKinds.AddRange(
                     GetPreconfiguredSensorKinds());

@@ -14,8 +14,7 @@ namespace Infrastructure.Identity
             _userManager = userManager;
             _ctx = ctx;
         }
-
-
+        
         public async Task SeedAsync()
         {
             //Seed the main user

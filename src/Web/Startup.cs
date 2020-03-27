@@ -31,7 +31,7 @@ namespace Web
         {
             //Add DbContext for application
             services.AddDbContext<AppDbContext>(c =>
-                c.UseSqlServer(_config.GetConnectionString("AppDbContext")));
+                c.UseMySQL(_config.GetConnectionString("AppDbContext")));
 
             services.AddAuthentication()
                 .AddCookie()
@@ -47,7 +47,7 @@ namespace Web
 
             //Add DbContext for users identity
             services.AddDbContext<AppIdentityDbContext>(options =>
-                options.UseSqlServer(_config.GetConnectionString("AppIdentityDbContext")));
+                options.UseMySQL(_config.GetConnectionString("AppIdentityDbContext")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>(cfg => { cfg.User.RequireUniqueEmail = true; })
                 .AddEntityFrameworkStores<AppIdentityDbContext>();

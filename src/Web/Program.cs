@@ -30,13 +30,13 @@ namespace Web
             {
                 try
                 {
-                    //Seed identity db context with main user
-                    var idendtitySeeder = scope.ServiceProvider.GetService<AppIdentityDbContextSeed>();
-                    idendtitySeeder.SeedAsync().Wait();
-
                     //Seed application database with sensor dictionary
                     var applicationSeeder = scope.ServiceProvider.GetService<AddDbContextSeed>();
                     applicationSeeder.SeedAsync().Wait();
+                    
+                    //Seed identity db context with main user
+                    var idendtitySeeder = scope.ServiceProvider.GetService<AppIdentityDbContextSeed>();
+                    idendtitySeeder.SeedAsync().Wait();
                 }
                 catch (Exception ex)
                 {

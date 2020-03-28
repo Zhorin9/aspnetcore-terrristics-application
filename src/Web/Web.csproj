@@ -28,4 +28,10 @@
     <_ContentIncludedByDefault Remove="client-app\package.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="ClientApp\babel.config.js" />
+    <Content Include="ClientApp\README.md" />
+    <Content Include="ClientApp\vue.config.js" />
+  </ItemGroup>
+
 </Project>

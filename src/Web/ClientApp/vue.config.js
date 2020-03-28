@@ -12,7 +12,7 @@ module.exports = {
             ]
         }
     },
-    outputDir: '../../src/Web/wwwroot/',
+    outputDir: '../wwwroot/ClientApp/',
     productionSourceMap: false,
     css: {
         extract: {

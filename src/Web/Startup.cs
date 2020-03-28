@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
+using VueCliMiddleware;
 using Web.Mappings;
 
 namespace Web
@@ -62,6 +63,8 @@ namespace Web
                     .AllowAnyHeader();
             }));
 
+            services.AddSpaStaticFiles(cfg => { cfg.RootPath = "ClientApp/"; });
+
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
@@ -94,13 +97,13 @@ namespace Web
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
 
-            app.UseDefaultFiles();
             app.UseStaticFiles();
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
+            
             app.UseAuthentication();
             app.UseCors("AllowOrigin");
             app.UseMvc(cfg =>
@@ -108,6 +111,15 @@ namespace Web
                 cfg.MapRoute("Default",
                     "{controller}/{action}/{id?}",
                     new {controller = "Home", Action = "Index"});
+            });
+            
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+                if (env.IsDevelopment())
+                {
+                    spa.UseVueCli(npmScript: "serve");
+                }
             });
         }
     }

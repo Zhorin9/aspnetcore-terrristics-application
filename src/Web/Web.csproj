@@ -6,14 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\img\" />
-    <Folder Include="wwwroot\libs\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All"/>
     <PackageReference Include="OdeToCode.UseNodeModules" Version="1.0.6" />
     <PackageReference Include="VueCliMiddleware" Version="2.1.1" />
   </ItemGroup>
@@ -32,6 +28,11 @@
     <Content Include="ClientApp\babel.config.js" />
     <Content Include="ClientApp\README.md" />
     <Content Include="ClientApp\vue.config.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot"/>
+    <DistFiles Include="$(SpaRoot)dist\**" />
   </ItemGroup>
 
 </Project>

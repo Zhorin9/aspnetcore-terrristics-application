@@ -19,7 +19,7 @@ namespace Web.ApiControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] SensorBlockApiModel sensorToCreate)
+        public IActionResult Create([FromBody] SensorBlockApiModel sensorToCreate)
         {
             if (!ModelState.IsValid)
             {
@@ -36,7 +36,7 @@ namespace Web.ApiControllers
                 SensorKindId = sensorToCreate.SensorKind.SensorKindId
             };
 
-            int result = await _sensorBlockRepository.AddAsync(newSensorBlock);
+            int result = _sensorBlockRepository.AddAsync(newSensorBlock).Result;
 
             if (result > 0)
             {

@@ -1,6 +1,6 @@
 <template>
     <div class="p-5">
-        <b-row v-if="!isLoadingData">
+        <b-row v-if="!isDataLoading">
             <b-col>
                 <b-row>
                     <b-col cols="6" v-for="(window, index) in terraristicsWindows"
@@ -62,7 +62,7 @@
         selectedWindowToDisplay: TerraristicsWindowModel = <TerraristicsWindowModel>{};
         selectedWindowToEdit: TerraristicsWindowFormData = <TerraristicsWindowFormData>{};
         selectedWindowIdToDelete: number = 0;
-        isLoadingData: boolean = true;
+        isDataLoading: boolean = true;
         fieldDefinitions: any = [
             {key: 'Name', label: 'Nazwa'},
             {key: 'ApiKey', label: 'Klucz Api'},
@@ -100,7 +100,7 @@
         }
 
         refreshData() {
-            this.isLoadingData = true;
+            this.isDataLoading = true;
             this.getTerraristicsWindows();
         }
 
@@ -109,9 +109,14 @@
                 .then(response => {
                     if (response) {
                         const firstTerraristicsWindowId = this.terraristicsWindows[0].Id;
-                        this.isLoadingData = false;
                         this.updateAdditionalInformation(firstTerraristicsWindowId);
                     }
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+                .finally(() => {
+                    this.isDataLoading = false;
                 })
         }
 

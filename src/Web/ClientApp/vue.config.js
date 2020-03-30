@@ -12,7 +12,6 @@ module.exports = {
             ]
         }
     },
-    outputDir: '../wwwroot/ClientApp/',
     productionSourceMap: false,
     css: {
         extract: {

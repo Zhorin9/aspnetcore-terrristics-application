@@ -71,7 +71,6 @@ namespace Web.Controllers
             };
 
             return Ok(results);
-
         }
 
         private async Task<ApplicationUser> FindByEmailAsync(LoginViewModel model)

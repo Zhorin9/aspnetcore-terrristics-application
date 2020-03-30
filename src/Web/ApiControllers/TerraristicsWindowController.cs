@@ -50,7 +50,7 @@ namespace Web.ApiControllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateTerraristicsWindowApiModel createTerraristicsWindowApiModel)
+        public IActionResult Create([FromBody] CreateTerraristicsWindowApiModel createTerraristicsWindowApiModel)
         {
             if (!ModelState.IsValid)
             {
@@ -69,7 +69,7 @@ namespace Web.ApiControllers
                 IsPublic = createTerraristicsWindowApiModel.IsPublic
             };
 
-            int result = await _terraristicWindowRepository.AddAsync(newTerraristicsWindow);
+            int result = _terraristicWindowRepository.AddAsync(newTerraristicsWindow).Result;
             if (result > 0)
             {
                 return Ok(result);
@@ -79,7 +79,7 @@ namespace Web.ApiControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update([FromBody] UpdateTerraristicsWindowApiModel updateTerraristicsWindowApiModel)
+        public IActionResult Update([FromBody] UpdateTerraristicsWindowApiModel updateTerraristicsWindowApiModel)
         {
             if (!ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace Web.ApiControllers
                 IsPublic = updateTerraristicsWindowApiModel.IsPublic
             };
 
-            int result = await _terraristicWindowRepository.Update(terraristicWindow, userId);
+            int result = _terraristicWindowRepository.Update(terraristicWindow, userId);
             if (result > 0)
             {
                 return Ok(result);
@@ -105,14 +105,14 @@ namespace Web.ApiControllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> Delete([FromBody] int id)
+        public IActionResult Delete([FromBody] int id)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            TerraristicWindow terraristicWindow = await _terraristicWindowRepository.GetAsync(id, userId);
+            TerraristicWindow terraristicWindow = _terraristicWindowRepository.GetAsync(id, userId).Result;
 
             try
             {
-                await _terraristicWindowRepository.DeleteAsync(terraristicWindow);
+                _terraristicWindowRepository.DeleteAsync(terraristicWindow).Wait();
                 return Ok();
             }
             catch (Exception e)

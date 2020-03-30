@@ -13,6 +13,6 @@ namespace AppCore.Interfaces
         /// <summary> Get windows list by specified user </summary>
         Task<List<TerraristicWindow>> GetByUserIdWithItemsAsync(string userId);
 
-        Task<int> Update(TerraristicWindow model, string userId);
+        int Update(TerraristicWindow model, string userId);
     }
 }

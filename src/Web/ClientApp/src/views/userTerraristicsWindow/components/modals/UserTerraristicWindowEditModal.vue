@@ -29,7 +29,6 @@
                 <b-form-checkbox
                         id="terraristics-window-is-public"
                         v-model="selectedWindow.isPublic"
-                        value="true"
                         unchecked-value="false">
                     Czy jest publiczne?
                 </b-form-checkbox>

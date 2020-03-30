@@ -8,7 +8,7 @@
         deselectLabel="Enter aby usunąć"
         :options="outputSensors"
         :searchable="true"
-        :multiple="true"
+        :multiple="multiple"
         :show-labels="false"
         @input="emit">
         <template slot="option" slot-scope="props">
@@ -27,7 +27,8 @@
     @Component
     
     export default class OutputSensorsMultiselect extends Vue {
-        @Prop({default: []}) selectedSensors!: Array<SensorKindData>;
+        @Prop({default: [] as SensorKindData[]}) selectedSensors!: Array<SensorKindData>;
+        @Prop({default: true}) multiple!: Boolean;
         value: SensorKindModel[] = this.selectedSensors.length > 0 ? this.selectedSensors : Array(0);
         
         get outputSensors(){

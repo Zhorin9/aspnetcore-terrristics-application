@@ -63,7 +63,7 @@ namespace Web
                     .AllowAnyHeader();
             }));
 
-            services.AddSpaStaticFiles(cfg => { cfg.RootPath = "ClientApp/"; });
+            services.AddSpaStaticFiles(cfg => { cfg.RootPath = "ClientApp/dist"; });
 
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
@@ -98,12 +98,9 @@ namespace Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
-            }
-            
+//            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
+
             app.UseAuthentication();
             app.UseCors("AllowOrigin");
             app.UseMvc(cfg =>

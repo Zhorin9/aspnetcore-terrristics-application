@@ -50,7 +50,7 @@ namespace Web.ApiControllers
         }
         
         [HttpPost]
-        public IActionResult Create([FromBody] CreateTerraristicsWindowApiModel createTerraristicsWindowApiModel)
+        public async Task<IActionResult> Create([FromBody] CreateTerraristicsWindowApiModel createTerraristicsWindowApiModel)
         {
             if (!ModelState.IsValid)
             {
@@ -69,7 +69,7 @@ namespace Web.ApiControllers
                 IsPublic = createTerraristicsWindowApiModel.IsPublic
             };
 
-            int result = _terraristicWindowRepository.AddAsync(newTerraristicsWindow).Result;
+            int result =  await _terraristicWindowRepository.AddAsync(newTerraristicsWindow);
             if (result > 0)
             {
                 return Ok(result);
@@ -112,8 +112,7 @@ namespace Web.ApiControllers
 
             try
             {
-                _terraristicWindowRepository.DeleteAsync(terraristicWindow).Wait();
-                return Ok();
+                return Ok(_terraristicWindowRepository.DeleteAsync(terraristicWindow));
             }
             catch (Exception e)
             {

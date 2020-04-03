@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using AppCore.Interfaces;
-using AutoMapper;
 using Infrastructure.Data;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Identity;
@@ -9,13 +8,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
-using VueCliMiddleware;
-using Web.Mappings;
+using Web.Configurations;
 
 namespace Web
 {
@@ -30,10 +27,10 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //Add DbContext for application
-            services.AddDbContext<AppDbContext>(c =>
-                c.UseMySQL(_config.GetConnectionString("AppDbContext")));
-
+            DatabaseContextsConfiguration.RegisterDbContexts(services, _config);
+            AutoMapperConfiguration.RegisterAutoMapper(services);
+            SpaConfiguration.RegisterStaticFiles(services, _config);
+            
             services.AddAuthentication()
                 .AddCookie()
                 .AddJwtBearer(cfg =>
@@ -46,16 +43,6 @@ namespace Web
                     };
                 });
 
-            //Add DbContext for users identity
-            services.AddDbContext<AppIdentityDbContext>(options =>
-                options.UseMySQL(_config.GetConnectionString("AppIdentityDbContext")));
-
-            services.AddIdentity<ApplicationUser, IdentityRole>(cfg => { cfg.User.RequireUniqueEmail = true; })
-                .AddEntityFrameworkStores<AppIdentityDbContext>();
-
-            AutoMapperRegistration(services);
-            ServiceRegistration(services);
-
             services.AddCors(o => o.AddPolicy("AllowOrigin", builder =>
             {
                 builder.AllowAnyOrigin()
@@ -63,31 +50,11 @@ namespace Web
                     .AllowAnyHeader();
             }));
 
-            services.AddSpaStaticFiles(cfg => { cfg.RootPath = "ClientApp/dist"; });
-
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                 .AddDataAnnotationsLocalization();
-        }
-
-        private static void ServiceRegistration(IServiceCollection services)
-        {
-            services.AddTransient<AppIdentityDbContextSeed>();
-            services.AddTransient<AddDbContextSeed>();
-            services.AddScoped(typeof(IAppLogger<>), typeof(LoggingAdapter<>));
-            services.AddScoped(typeof(IAsyncAppRepository<>), typeof(AppRepository<>));
-
-            services.AddScoped<ITerraristicWindowRepository, TerraristicWindowRepository>();
-            services.AddScoped<ISensorBlockRepository, SensorBlockRepository>();
-            services.AddScoped<ISensorKindRepository, SensorKindRepository>();
-            services.AddScoped<IInputBlockDataRepository, InputBlockDataRepository>();
-        }
-
-        private void AutoMapperRegistration(IServiceCollection services)
-        {
-            IMapper mapper = MappingConfiguration.GetMapperConfiguration().CreateMapper();
-            services.AddSingleton(mapper);
+            RegisterInterfaces(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -99,7 +66,10 @@ namespace Web
             }
 
 //            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+            if (!env.IsDevelopment())
+            {
+                SpaConfiguration.EnableStaticFiles(app);
+            }
 
             app.UseAuthentication();
             app.UseCors("AllowOrigin");
@@ -110,14 +80,23 @@ namespace Web
                     new {controller = "Home", Action = "Index"});
             });
             
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
-                if (env.IsDevelopment())
-                {
-                    spa.UseVueCli(npmScript: "serve");
-                }
-            });
+            SpaConfiguration.EnableSpa(app, env, _config);
+        }
+        
+        private static void RegisterInterfaces(IServiceCollection services)
+        {
+            services.AddTransient<AppIdentityDbContextSeed>();
+            services.AddTransient<AddDbContextSeed>();
+            services.AddScoped(typeof(IAppLogger<>), typeof(LoggingAdapter<>));
+            services.AddScoped(typeof(IAsyncAppRepository<>), typeof(AppRepository<>));
+
+            services.AddScoped<ITerraristicWindowRepository, TerraristicWindowRepository>();
+            services.AddScoped<ISensorBlockRepository, SensorBlockRepository>();
+            services.AddScoped<ISensorKindRepository, SensorKindRepository>();
+            services.AddScoped<IInputBlockDataRepository, InputBlockDataRepository>();
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(cfg => { cfg.User.RequireUniqueEmail = true; })
+                .AddEntityFrameworkStores<AppIdentityDbContext>();
         }
     }
 }

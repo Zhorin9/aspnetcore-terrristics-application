@@ -1,5 +1,6 @@
 using AppCore.Entities;
 using AutoMapper;
+using Web.ApiModels.SensorBlockData;
 using Web.ApiModels.SensorBlocks;
 
 namespace Web.Configurations.Mappings.Profiles

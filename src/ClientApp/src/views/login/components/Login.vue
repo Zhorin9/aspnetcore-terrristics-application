@@ -1,44 +1,50 @@
 <template>
-    <div class="col-3 d-block p-5 login-container m-5">
+    <div class="w-25 d-block p-5 login-container m-5">
         <div v-if="!waitingForResponse">
             <h2>Zaloguj się</h2>
             <validation-observer ref="observer" v-slot="{ invalid }">
-                <form @submit.prevent="handleSubmit">
+                <b-form @submit.prevent="handleSubmit">
                     <div class="text-left text-danger" v-if="submitted">
                         <div>Nie udało się zalogować</div>
                         <div>Sprawdź czy wprowadziłeś poprawne dane</div>
                     </div>
-                    <div class="form-groups form-label">
+                    
+                    <b-form-group>
                         <label>Adres e-mail </label>
-                        <validation-provider rules="required|min:6" v-slot="{ errors }">
-                            <input v-model="email"
-                                   name="login.email"
-                                   class="form-control"/>
-                            <span>{{ errors[0] }}</span>
-                            <span>{{errors[1]}}</span>
+                        <validation-provider rules="required|email" v-slot="{ errors }">
+                            <b-form-input v-model="email"
+                                          :state="errors.length == 0"
+                                          type="text"/>
+                            <b-form-invalid-feedback :state="errors.length == 0">
+                                {{ errors[0] }}
+                            </b-form-invalid-feedback>
                         </validation-provider>
-                    </div>
-                    <div class="form-group form-label">
-                        <label>Hasło</label>
-                        <!--                    <input v-model="password"-->
-                        <!--                           data-vv-as="Hasło"-->
-                        <!--                           type="password"-->
-                        <!--                           name="login.password"-->
-                        <!--                           class="form-control"-->
-                        <!--                           :class="{ 'is-invalid': errors.first('login.password') }"/>-->
-                        <input v-model="password"
-                               type="password"
-                               class="form-control"/>
-                    </div>
-                    <div class="form-group">
+                    </b-form-group>
+                    
+                    <b-form-group>
+                        <validation-provider rules="required|min:6" v-slot="{ errors }">
+                            <label>Hasło</label>
+                            <b-form-input v-model="password"
+                                          type="password"
+                                          :state="errors.length == 0"
+                                          class="form-control"/>
+                            <b-form-invalid-feedback :state="errors.length == 0">
+                                {{ errors[0] }}
+                            </b-form-invalid-feedback>
+                        </validation-provider>
+                    </b-form-group>
+                    
+                    <b-form-group>
                         <button type="submit" class="btn btn-green" :disabled="isDisabled">Zaloguj się
                         </button>
-                    </div>
-                    <div class="form-group">
+                    </b-form-group>
+                    
+                    <b-form-group>
                         <router-link to="/register" class="btn btn-green router-left">Zarejestruj
                         </router-link>
-                    </div>
-                </form>
+                    </b-form-group>
+                    
+                </b-form>
             </validation-observer>
         </div>
         <div v-else>
@@ -51,7 +57,6 @@
     import _ from "lodash";
     import {AuthenticationModule} from "@/store/modules/authentication-module";
     import {Component, Vue} from "vue-property-decorator";
-    import router from "@/router";
 
     @Component
     export default class LoginPage extends Vue {
@@ -73,13 +78,12 @@
         };
 
         async handleSubmit() {
+            //@ts-ignore
             const isValid = await this.$refs.observer.validate();
             if (!isValid) {
                 debugger;
                 return;
             }
-
-            debugger;
             const {email, password} = this;
             if (email && password) {
                 this.submitted = true;

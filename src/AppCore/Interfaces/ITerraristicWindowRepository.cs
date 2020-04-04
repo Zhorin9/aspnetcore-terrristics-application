@@ -1,4 +1,5 @@
-﻿using AppCore.Entities;
+﻿using System;
+using AppCore.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,5 +15,7 @@ namespace AppCore.Interfaces
         Task<List<TerraristicWindow>> GetByUserIdWithItemsAsync(string userId);
 
         int Update(TerraristicWindow model, string userId);
+        
+        Task<bool> IsValidInputData(Guid windowApiKey, int sensorBlockId);
     }
 }

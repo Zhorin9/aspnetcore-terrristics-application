@@ -12,27 +12,35 @@
         </div>
         <form v-if="!operationInProgress"
               @submit.prevent="handleOk">
-            <div class="form-groups form-label col-6">
+            
+            <b-form-group class="col-6">
                 <label>Nazwa okna</label>
-                <input v-model="selectedWindow.name"
-                       data-vv-as="Nazwa okna"
-                       class="form-control"/>
-            </div>
-            <div class="form-group form-label col-6">
+                <validation-provider rules="required|min:3|max:30" v-slot="{ errors }">
+                    <b-form-input v-model="selectedWindow.name" :state="errors.length == 0"/>
+                    <b-form-invalid-feedback :state="errors.length == 0">
+                        {{ errors[0] }}
+                    </b-form-invalid-feedback>
+                </validation-provider>
+            </b-form-group>
+            
+            <b-form-group class="col-6">
                 <label>Opis</label>
-                <textarea v-model="selectedWindow.description"
-                          placeholder="Dodatkowy opis"
-                          class="form-control">
-                </textarea>
-            </div>
-            <div class="form-group form-check col-6">
+                <validation-provider rules="max:200" v-slot="{ errors }">
+                    <b-form-textarea v-model="selectedWindow.description" :state="errors.length == 0"/>
+                    <b-form-invalid-feedback :state="errors.length == 0">
+                        {{ errors[0] }}
+                    </b-form-invalid-feedback>
+                </validation-provider>
+            </b-form-group>
+            
+            <b-form-group class="col-6">
                 <b-form-checkbox
                         id="terraristics-window-is-public"
                         v-model="selectedWindow.isPublic"
                         unchecked-value="false">
                     Czy jest publiczne?
                 </b-form-checkbox>
-            </div>
+            </b-form-group>
         </form>
         <loading-page v-else/>
 

@@ -18,10 +18,11 @@ namespace Infrastructure.Data.Repositories
             _logger = logger;
         }
 
-        public TerraristicWindow Get(int id, string userId)
+        public async Task<bool> IsValidInputData(Guid apiKey, int sensorBlockId)
         {
-            return Context.TerraristicWindows
-                .First(p => p.Id == id && p.UserId == userId);
+            return await Context.TerraristicWindows.AnyAsync(
+                t => t.ApiKey == apiKey
+                     && t.SensorBlocks.Any(s => s.Id == sensorBlockId));
         }
 
         public async Task<TerraristicWindow> GetAsync(int id, string userId)
@@ -51,7 +52,7 @@ namespace Infrastructure.Data.Repositories
 
         public int Update(TerraristicWindow model, string userId)
         {
-            TerraristicWindow terraristicWindow = Get(model.Id, userId);
+            TerraristicWindow terraristicWindow = GetAsync(model.Id, userId).Result;
             if (terraristicWindow == null)
             {
                 return -1;

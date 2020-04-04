@@ -12,6 +12,6 @@
             Login
         }
     })
-    export default class LoginView extends Vue{
+    export default class LoginView extends Vue {
     };
 </script>

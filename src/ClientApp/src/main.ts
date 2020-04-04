@@ -3,16 +3,17 @@ import App from './App.vue';
 
 import 'normalize.css'
 
-import { library } from '@fortawesome/fontawesome-svg-core'
+import {library} from '@fortawesome/fontawesome-svg-core'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 
-library.add(faPlus)
+library.add(faPlus);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 //Register multiselect globally
 import {Multiselect} from "vue-multiselect";
+
 Vue.component('multiselect', Multiselect);
 
 Vue.config.productionTip = true;
@@ -28,24 +29,30 @@ import router from "@/router";
 import store from '@/store'
 
 // Setup vee-validate globally https://logaretm.github.io/vee-validate/guide/basics.html#registering-the-validation-provider
-import {ValidationProvider, ValidationObserver} from "vee-validate";
+import {ValidationProvider, ValidationObserver, extend} from "vee-validate";
 import {required} from 'vee-validate/dist/rules'
+
 Vue.component('validation-provider', ValidationProvider);
 Vue.component('validation-observer', ValidationObserver);
 //validators 
 import '@/validators/required';
 import '@/validators/min';
+import '@/validators/email';
+import '@/validators/max';
 
 // Setup axios as the Vue default $http library
 import axios from 'axios';
 
+//Setup vue moment - used to date format https://github.com/brockpetrie/vue-moment?ref=madewithvuejs.com
 import VueMoment from 'vue-moment';
+
 Vue.use(VueMoment);
 
 //Global comopnents
 import LoadingPage from "@/components/common/LoadingPage.vue";
 import ErrorPage from "@/components/common/ErrorPage.vue";
 import SimpleDialog from "@/components/common/SimpleDialog.vue";
+
 Vue.component('loading-page', LoadingPage);
 Vue.component('error-page', ErrorPage);
 Vue.component('simple-dialog', SimpleDialog);

@@ -7,45 +7,62 @@
             ref="terraristicsWindowAddSensorBlocksModal">
         <div v-show="operationFailed" class="alert alert-danger text-center modal-alert"
              :style="`padding: 0`">
-            <p class="text-danger" :style="`font-size: 16px; margin-bottom:0px;`">Nie udało się
-                dodać nowego sensora, spróbuj ponownie :(</p>
+            <p class="text-danger" :style="`font-size: 16px; margin-bottom:0px;`">Nie udało się dodać nowego sensora,
+                spróbuj ponownie :(</p>
         </div>
-        <form v-if="!operationInProgress"
-              @submit.prevent="handleOk">
-            <div class="form-groups form-label col-6">
-                <label>Nazwa bloku</label>
-                <input v-model="name"
-                       class="form-control"/>
-            </div>
-            <div class="form-group form-label col-6">
-                <label>Opis</label>
-                <textarea v-model="description"
-                          placeholder="Opis bloku"
-                          class="form-control">
-                </textarea>
-            </div>
-            <div class="form-group form-label col-6">
-                <label>Wybierz rodzaj czujnika</label>
-                <b-form-radio v-model="selectedType" name="measure-sensor" :value=true>Czujnik pomiarowy</b-form-radio>
-                <b-form-radio v-model="selectedType" name="control-sensor" :value=false>Czujnik sterujący</b-form-radio>
-            </div>
-            <div v-if="selectedType"
-                 class="form-group form-label col-6">
-                <label>Czujniki wejścia</label>
-                <input-sensors-multiselect
-                        :multiple="false"
-                        :selected-sensors="selectedSensorKind"
-                        @selected-inputs="updateSensor"/>
-            </div>
-            <div v-else
-                 class="form-group form-label col-6">
-                <label>Czujniki wyjścia</label>
-                <output-sensors-multiselect
-                        :multiple="false"
-                        :selected-sensors="selectedSensorKind"
-                        @selected-outputs="updateSensor"/>
-            </div>
-        </form>
+        <validation-observer v-if="!operationInProgress" ref="observer" v-slot="{ invalid }">
+            <b-form @submit.prevent="handleOk">
+
+                <b-form-group class="col-6">
+                    <label>Nazwa bloku</label>
+                    <validation-provider rules="required" v-slot="{ errors }">
+                        <b-form-input v-model="name" :state="errors.length == 0" class="form-control"/>
+                        <b-form-invalid-feedback :state="errors.length == 0">
+                            {{ errors[0] }}
+                        </b-form-invalid-feedback>
+                    </validation-provider>
+                </b-form-group>
+
+                <b-form-group class="col-6">
+                    <label>Opis</label>
+                    <validation-provider rules="max:250" v-slot="{ errors }">
+                        <b-form-textarea v-model="description"
+                                         :state="errors.length == 0"
+                                         placeholder="Opis bloku"
+                                         class="form-control">
+                        </b-form-textarea>
+                        <b-form-invalid-feedback :state="errors.length == 0">
+                            {{ errors[0] }}
+                        </b-form-invalid-feedback>
+                    </validation-provider>
+                </b-form-group>
+
+                <b-form-group class="col-6">
+                    <label>Wybierz rodzaj czujnika</label>
+                    <b-form-radio v-model="selectedType" name="measure-sensor" :value=true>Czujnik pomiarowy
+                    </b-form-radio>
+                    <b-form-radio v-model="selectedType" name="control-sensor" :value=false>Czujnik sterujący
+                    </b-form-radio>
+                </b-form-group>
+
+                <b-form-group v-if="selectedType" class="col-6">
+                    <label>Czujniki wejścia</label>
+                    <input-sensors-multiselect
+                            :multiple="false"
+                            :selected-sensors="selectedSensorKind"
+                            @selected-inputs="updateSensor"/>
+                </b-form-group>
+
+                <b-form-group v-else class="col-6">
+                    <label>Czujniki wyjścia</label>
+                    <output-sensors-multiselect
+                            :multiple="false"
+                            :selected-sensors="selectedSensorKind"
+                            @selected-outputs="updateSensor"/>
+                </b-form-group>
+
+            </b-form>
+        </validation-observer>
         <template v-else>
             <loading-page/>
         </template>

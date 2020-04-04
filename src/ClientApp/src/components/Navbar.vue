@@ -3,7 +3,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
         <b-navbar toggleable="lg" type="dark" class="nav-green">
             <b-navbar-brand active class="navbar-brand" to="/">
-                Moje Terrarium <i class="fas fa-frog"/>
+                Inteligentne terrarium <i class="fas fa-frog"></i>
             </b-navbar-brand>
             <b-navbar-nav>
                 <b-nav-item to="/publicWindows">Publiczne terraria</b-nav-item>

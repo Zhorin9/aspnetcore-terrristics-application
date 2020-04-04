@@ -2,7 +2,7 @@
     <b-modal
             id="user-window-add-modal"
             title="Dodanie nowego okna"
-            size="lg"
+            size="md"
             button-size="sm"
             ref="addUserTerraristicWindowModal">
         <div v-show="operationFailed" class="alert alert-danger text-center modal-alert"
@@ -10,31 +10,41 @@
             <p class="text-danger" :style="`font-size: 16px; margin-bottom:0px;`">Nie udało się
                 zapisać okna, spróbuj ponownie :(</p>
         </div>
-        <form v-if="!operationInProgress"
-              @submit.prevent="handleOk">
-            <div class="form-groups form-label col-6">
-                <label>Nazwa okna</label>
-                <input v-model="name"
-                       data-vv-as="Nazwa okna"
-                       class="form-control"/>
-            </div>
-            <div class="form-group form-label col-6">
-                <label>Opis</label>
-                <textarea v-model="description"
-                          placeholder="Dodatkowy opis"
-                          class="form-control">
-                </textarea>
-            </div>
-            <div class="form-group form-check col-6">
-                <b-form-checkbox
-                        id="terraristics-window-is-public"
-                        v-model="isPublic"
-                        value="true"
-                        unchecked-value="false">
-                    Czy jest publiczne?
-                </b-form-checkbox>
-            </div>
-        </form>
+
+        <validation-observer v-if="!operationInProgress" ref="observer" v-slot="{ invalid }">
+            <b-form @submit.prevent="handleOk">
+
+                <b-form-group>
+                    <label>Nazwa okna</label>
+                    <validation-provider rules="required|min:3|max:30" v-slot="{ errors }">
+                        <b-form-input v-model="name" :state="errors.length == 0"/>
+                        <b-form-invalid-feedback :state="errors.length == 0">
+                            {{ errors[0] }}
+                        </b-form-invalid-feedback>
+                    </validation-provider>
+                </b-form-group>
+
+                <b-form-group>
+                    <label>Opis</label>
+                    <validation-provider rules="max:200" v-slot="{ errors }">
+                        <b-form-textarea v-model="description" :state="errors.length == 0"/>
+                        <b-form-invalid-feedback :state="errors.length == 0">
+                            {{ errors[0] }}
+                        </b-form-invalid-feedback>
+                    </validation-provider>
+                </b-form-group>
+
+                <b-form-group>
+                    <b-form-checkbox
+                            id="terraristics-window-is-public"
+                            v-model="isPublic"
+                            value="true"
+                            unchecked-value="false">
+                        Czy jest publiczne?
+                    </b-form-checkbox>
+                </b-form-group>
+            </b-form>
+        </validation-observer>
         <template v-else>
             <loading-page/>
         </template>

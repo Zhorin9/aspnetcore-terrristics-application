@@ -355,3 +355,4 @@ src/Web/ClientApp/dist/js/app.js
 src/Web/ClientApp/dist/js/chunk-1032ca23.js
 src/Web/ClientApp/dist/js/chunk-vendors.js
 src/Web/ClientApp/dist/js/login.js
+/node_modules/

@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AppCore.Entities;
-using AppCore.Interfaces;
+using Domain.Entities;
+using Domain.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Web.ApiModels.SensorBlockData;
 
@@ -14,7 +15,8 @@ namespace Web.ApiControllers
         private readonly ISensorBlockRepository _sensorBlockRepository;
         private readonly ITerraristicWindowRepository _terraristicWindowRepository;
 
-        public SensorBlockDataController(IMapper mapper, IInputBlockDataRepository inputBlockDataRepository, ISensorBlockRepository sensorBlockRepository, ITerraristicWindowRepository terraristicWindowRepository) : base(mapper)
+        public SensorBlockDataController(IMapper mapper, IInputBlockDataRepository inputBlockDataRepository, ISensorBlockRepository sensorBlockRepository,
+            ITerraristicWindowRepository terraristicWindowRepository) : base(mapper)
         {
             _inputBlockDataRepository = inputBlockDataRepository;
             _sensorBlockRepository = sensorBlockRepository;
@@ -31,17 +33,12 @@ namespace Web.ApiControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(InputSensorBlockDataApiModel blockDataApiModel)
+        [AllowAnonymous]
+        public IActionResult Create(InputSensorBlockDataApiModel blockDataApiModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            var isValid = _terraristicWindowRepository.IsValidInputData(blockDataApiModel.WindowApiKey, blockDataApiModel.SensorBlockId);
-            if (isValid)
-            {
-                return Unauthorized();
             }
 
             var sensorData = new InputSensorData
@@ -50,8 +47,14 @@ namespace Web.ApiControllers
                 SensorBlockId = blockDataApiModel.SensorBlockId,
                 Value = blockDataApiModel.Value
             };
-            
-            
+
+            var result = _inputBlockDataRepository.Add(blockDataApiModel.WindowApiKey, blockDataApiModel.SensorBlockId, sensorData);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
         }
     }
 }

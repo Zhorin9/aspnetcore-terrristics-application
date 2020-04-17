@@ -46,3 +46,8 @@ interface SensorKindData {
     Type: number;
     OutputType: number;
 }
+
+interface InputSensorData {
+    Value: number;
+    CreationDate: Date;
+}

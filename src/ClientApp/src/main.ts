@@ -25,20 +25,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 Vue.use(BootstrapVue);
 
+import './configurations/vee-validate';
 import router from "@/router";
 import store from '@/store'
-
-// Setup vee-validate globally https://logaretm.github.io/vee-validate/guide/basics.html#registering-the-validation-provider
-import {ValidationProvider, ValidationObserver, extend} from "vee-validate";
-import {required} from 'vee-validate/dist/rules'
-
-Vue.component('validation-provider', ValidationProvider);
-Vue.component('validation-observer', ValidationObserver);
-//validators 
-import '@/validators/required';
-import '@/validators/min';
-import '@/validators/email';
-import '@/validators/max';
 
 // Setup axios as the Vue default $http library
 import axios from 'axios';
@@ -57,7 +46,7 @@ Vue.component('loading-page', LoadingPage);
 Vue.component('error-page', ErrorPage);
 Vue.component('simple-dialog', SimpleDialog);
 
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = process.env.VUE_APP_BASE_API;
 Vue.prototype.$http = axios;
 
 new Vue({

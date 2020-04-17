@@ -1,4 +1,4 @@
-using AppCore.Entities;
+using Domain.Entities;
 using AutoMapper;
 using Web.ApiModels.TerraristicsWindows;
 

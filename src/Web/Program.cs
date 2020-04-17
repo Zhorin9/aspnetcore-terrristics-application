@@ -1,7 +1,6 @@
 ﻿using System;
-using System.IO;
-using Infrastructure.Data;
-using Infrastructure.Identity;
+using Auth;
+using DataAccess;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

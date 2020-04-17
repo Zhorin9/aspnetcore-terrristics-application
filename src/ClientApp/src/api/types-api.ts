@@ -19,5 +19,5 @@ interface SensorBlockApi {
 }
 
 interface SensorBlockDataApi {
-    getData(sensorBlockId: number): Promise<any>;
+    getList(sensorBlockId: number): Promise<any>;
 }

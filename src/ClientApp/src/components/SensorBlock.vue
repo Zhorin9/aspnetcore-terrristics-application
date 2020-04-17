@@ -11,7 +11,7 @@
             <output-digital-sensor-block v-else-if="sensorBlock.SensorKind.OutputType === outputTypes.Digital"/>
 
             <template v-slot:header>
-                <h4 class="mb-0 text-center">{{sensorBlock.Name}}</h4>
+                <h4 class="mb-0 text-center">#{{sensorBlock.Id}} - {{sensorBlock.Name}}</h4>
                 <i class="fa-pull-right fas fa-sync 2px cursor-pointer" @click="refreshData"></i>
             </template>
             <template v-slot:footer>

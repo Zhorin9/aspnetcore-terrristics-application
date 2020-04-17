@@ -16,7 +16,7 @@
 
                 <b-form-group>
                     <label>Nazwa okna</label>
-                    <validation-provider rules="required|min:3|max:30" v-slot="{ errors }">
+                    <validation-provider name="name" rules="required|min:3|max:30" v-slot="{ errors }">
                         <b-form-input v-model="name" :state="errors.length == 0"/>
                         <b-form-invalid-feedback :state="errors.length == 0">
                             {{ errors[0] }}
@@ -26,7 +26,7 @@
 
                 <b-form-group>
                     <label>Opis</label>
-                    <validation-provider rules="max:200" v-slot="{ errors }">
+                    <validation-provider name="description" rules="max:200" v-slot="{ errors }">
                         <b-form-textarea v-model="description" :state="errors.length == 0"/>
                         <b-form-invalid-feedback :state="errors.length == 0">
                             {{ errors[0] }}

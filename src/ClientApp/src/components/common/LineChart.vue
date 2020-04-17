@@ -6,8 +6,8 @@
         extends: Line,
     })
     export default class LineChart extends Vue {
-        @Prop({default: null}) chartData!: any;
-        @Prop({default: null}) chartOptions!: any;
+        @Prop({default: null}) chartData!: object;
+        @Prop({default: null}) chartOptions!: object;
         private renderChart!: (chartData: any, options: any) => void;
         private defaultChartOptions: any = {
             responsive: true,

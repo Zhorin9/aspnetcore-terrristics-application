@@ -8,10 +8,10 @@
                         <div>Nie udało się zalogować</div>
                         <div>Sprawdź czy wprowadziłeś poprawne dane</div>
                     </div>
-                    
+
                     <b-form-group>
                         <label>Adres e-mail </label>
-                        <validation-provider rules="required|email" v-slot="{ errors }">
+                        <validation-provider name="email" rules="required|email" v-slot="{ errors }">
                             <b-form-input v-model="email"
                                           :state="errors.length == 0"
                                           type="text"/>
@@ -20,30 +20,29 @@
                             </b-form-invalid-feedback>
                         </validation-provider>
                     </b-form-group>
-                    
+
                     <b-form-group>
-                        <validation-provider rules="required|min:6" v-slot="{ errors }">
-                            <label>Hasło</label>
+                        <label>Hasło</label>
+                        <validation-provider name="password" rules="required|min:6" v-slot="{ errors }">
                             <b-form-input v-model="password"
-                                          type="password"
                                           :state="errors.length == 0"
-                                          class="form-control"/>
+                                          type="password"/>
                             <b-form-invalid-feedback :state="errors.length == 0">
                                 {{ errors[0] }}
                             </b-form-invalid-feedback>
                         </validation-provider>
                     </b-form-group>
-                    
+
                     <b-form-group>
                         <button type="submit" class="btn btn-green" :disabled="isDisabled">Zaloguj się
                         </button>
                     </b-form-group>
-                    
+
                     <b-form-group>
                         <router-link to="/register" class="btn btn-green router-left">Zarejestruj
                         </router-link>
                     </b-form-group>
-                    
+
                 </b-form>
             </validation-observer>
         </div>
@@ -63,6 +62,7 @@
         email: string = "";
         password: string = "";
         submitted: boolean = false;
+        error: boolean = false;
 
         get waitingForResponse() {
             return AuthenticationModule.LogProcess;
@@ -81,13 +81,15 @@
             //@ts-ignore
             const isValid = await this.$refs.observer.validate();
             if (!isValid) {
-                debugger;
                 return;
             }
             const {email, password} = this;
             if (email && password) {
                 this.submitted = true;
-                await AuthenticationModule.LOGIN({Email: email, Password: password});
+                await AuthenticationModule.LOGIN({Email: email, Password: password})
+                    .catch(() => {
+                        this.error = true;
+                    });
             }
         };
     }

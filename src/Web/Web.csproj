@@ -15,24 +15,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AppCore\AppCore.csproj" />
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Auth\Auth.csproj" />
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="client-app\package-lock.json" />
-    <_ContentIncludedByDefault Remove="client-app\package.json" />
-    <_ContentIncludedByDefault Remove="Views\Shared\_Layout.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\_ViewImports.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\_ViewStart.cshtml" />
-    <_ContentIncludedByDefault Remove="ClientApp\jsconfig.json" />
-    <_ContentIncludedByDefault Remove="ClientApp\package-lock.json" />
-    <_ContentIncludedByDefault Remove="ClientApp\package.json" />
-    <_ContentIncludedByDefault Remove="ClientApp\tsconfig.json" />
+    <Content Include="..\ClientApp\dist\**" LinkBase="ClientApp\">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
-
-  <ItemGroup>
-    <DistFiles Include="$(SpaRoot)dist\**" />
-  </ItemGroup>
-
+  
 </Project>

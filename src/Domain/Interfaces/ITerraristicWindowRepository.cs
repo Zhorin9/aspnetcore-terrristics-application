@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Domain.Entities;
+
+namespace Domain.Interfaces
+{
+    public interface ITerraristicWindowRepository : IAsyncAppRepository<TerraristicWindow>
+    {
+        Task<TerraristicWindow> GetAsync(int id, string userId);
+
+        Task<List<TerraristicWindow>> GetAsync(string userId);
+
+        /// <summary> Get windows list by specified user </summary>
+        Task<List<TerraristicWindow>> GetByUserIdWithItemsAsync(string userId);
+
+        int Update(TerraristicWindow model, string userId);
+    }
+}

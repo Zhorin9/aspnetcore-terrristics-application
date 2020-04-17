@@ -1,4 +1,4 @@
-﻿using AppCore.Enums;
+﻿using Domain.Enums;
 
 namespace Web.ApiModels
 {

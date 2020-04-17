@@ -6,7 +6,7 @@ export interface SensorBlockState {
     SensorBlocks: SensorBlockModel[];
 }
 
-@Module({dynamic: true, store, name: 'terraristicsModule'})
+@Module({dynamic: true, store, name: 'sensorBlockModule'})
 class SensorBlock extends VuexModule implements SensorBlockState {
     SensorBlocks: Array<SensorBlockModel> = Array(0);
 

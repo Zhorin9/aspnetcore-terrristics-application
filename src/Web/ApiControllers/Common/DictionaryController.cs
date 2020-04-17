@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using AppCore.Entities;
-using AppCore.Interfaces;
+using Domain.Entities;
+using Domain.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Web.ApiModels;

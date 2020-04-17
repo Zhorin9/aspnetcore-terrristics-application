@@ -3,7 +3,7 @@ import {endpoints} from "@/api/endpoints";
 import {getHeaderWithJwtToken} from "@/api/header-generator";
 
 class SensorBlockDataApiImpl implements SensorBlockDataApi {
-    getData(sensorBlockId: number): Promise<any> {
+    getList(sensorBlockId: number): Promise<any> {
         return axios.get(endpoints.getSensorBlockData,
             {
                 params: {sensorBlockId: sensorBlockId},

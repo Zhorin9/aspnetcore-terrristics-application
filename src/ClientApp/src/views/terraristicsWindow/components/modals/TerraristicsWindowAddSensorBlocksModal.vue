@@ -15,7 +15,7 @@
 
                 <b-form-group class="col-6">
                     <label>Nazwa bloku</label>
-                    <validation-provider rules="required" v-slot="{ errors }">
+                    <validation-provider name="name" rules="required" v-slot="{ errors }">
                         <b-form-input v-model="name" :state="errors.length == 0" class="form-control"/>
                         <b-form-invalid-feedback :state="errors.length == 0">
                             {{ errors[0] }}
@@ -25,7 +25,7 @@
 
                 <b-form-group class="col-6">
                     <label>Opis</label>
-                    <validation-provider rules="max:250" v-slot="{ errors }">
+                    <validation-provider name="description" rules="max:250" v-slot="{ errors }">
                         <b-form-textarea v-model="description"
                                          :state="errors.length == 0"
                                          placeholder="Opis bloku"

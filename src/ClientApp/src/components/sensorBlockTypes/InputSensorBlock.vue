@@ -1,8 +1,11 @@
 <template>
-    <div>
-        <line-chart v-if="showLineChart" :chart-data="mockedChartData"/>
+    <div v-if="hasAnyData">
+        <line-chart v-if="showLineChart" :chart-data="chartdata"/>
         <loading-page v-else-if="showLoadingPage" :size="6"/>
         <error-page v-else :size="6"/>
+    </div>
+    <div v-else-if="!loadingDataProcess">
+        Brak danych
     </div>
 </template>
 <script lang="ts">
@@ -18,27 +21,51 @@
     })
     export default class InputSensorBlock extends Vue {
         @Prop({default: null}) sensorBlockId!: number;
-        loadingData: boolean = true;
+        loadingDataProcess: boolean = true;
         showErrorPage: boolean = false;
         chartXData: Array<number> = [];
         chartYData: Array<Date> = [];
 
         get showLineChart() {
-            return !this.loadingData && !this.showErrorPage;
+            return !this.loadingDataProcess && !this.showErrorPage;
         }
 
         get showLoadingPage() {
-            return this.loadingData && !this.showErrorPage;
+            return this.loadingDataProcess && !this.showErrorPage;
+        }
+
+        get chartdata() {
+            return {
+                labels: this.chartXData,
+                datasets: [
+                    {
+                        label: 'Dane',
+                        backgroundColor: '#3f5741',
+                        data: this.chartYData
+                    }
+                ]
+            }
+        }
+
+        get hasAnyData() {
+            return this.chartXData.length !== 0;
+        }
+        
+        startGetDataProcess(){
+            this.loadingDataProcess = true;
+            this.chartXData = [];
+            this.chartYData = [];
         }
 
         getData() {
-            this.loadingData = true;
-            sensorBlockDataApiImpl.getData(this.sensorBlockId)
+            this.startGetDataProcess();
+            sensorBlockDataApiImpl.getList(this.sensorBlockId)
                 .then(response => {
-                    this.loadingData = false;
-                    _.each(response, point => {
-                        this.chartXData.push(point.Value);
-                        this.chartYData.push(point.CreationDate);
+                    this.loadingDataProcess = false;
+                    _.each(response.data, point => {
+                        //@ts-ignore
+                        this.chartXData.push(this.$moment(point.CreationDate).format('YYYY-MM-DD'));
+                        this.chartYData.push(point.Value);
                     });
                 })
                 .catch(err => {
@@ -50,16 +77,5 @@
         mounted() {
             this.getData();
         }
-
-        mockedChartData: any = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            datasets: [
-                {
-                    label: 'GitHub Commits',
-                    backgroundColor: '#3f5741',
-                    data: [40, 20, 12, 39, 10, 40, 39, 80, 40, null, 10, 25]
-                }
-            ]
-        };
     }
 </script>

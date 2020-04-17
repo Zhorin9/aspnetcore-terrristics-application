@@ -103,6 +103,35 @@
     </Content>
     <Content Include="vue.config.js" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="dist" />
+    <Folder Include="public\" />
+    <Folder Include="src\" />
+    <Folder Include="src\api\" />
+    <Folder Include="src\assets\" />
+    <Folder Include="src\components\" />
+    <Folder Include="src\components\common\" />
+    <Folder Include="src\components\common\Multiselects\" />
+    <Folder Include="src\components\errorLog\" />
+    <Folder Include="src\components\sensorBlockTypes\" />
+    <Folder Include="src\enums\" />
+    <Folder Include="src\router\" />
+    <Folder Include="src\services\" />
+    <Folder Include="src\store\" />
+    <Folder Include="src\store\modules\" />
+    <Folder Include="src\utils\" />
+    <Folder Include="src\views\" />
+    <Folder Include="src\views\home\" />
+    <Folder Include="src\views\login\" />
+    <Folder Include="src\views\login\components\" />
+    <Folder Include="src\views\publicWindow\" />
+    <Folder Include="src\views\terraristicsWindow\" />
+    <Folder Include="src\views\terraristicsWindow\components\" />
+    <Folder Include="src\views\terraristicsWindow\components\modals\" />
+    <Folder Include="src\views\userTerraristicsWindow\" />
+    <Folder Include="src\views\userTerraristicsWindow\components\" />
+    <Folder Include="src\views\userTerraristicsWindow\components\modals\" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>
     <VisualStudio>

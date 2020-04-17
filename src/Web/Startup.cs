@@ -1,9 +1,9 @@
 ﻿using System.Text;
-using AppCore.Interfaces;
-using Infrastructure.Data;
-using Infrastructure.Data.Repositories;
-using Infrastructure.Identity;
-using Infrastructure.Logging;
+using Domain.Interfaces;
+using Auth;
+using DataAccess;
+using DataAccess.Logging;
+using DataAccess.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;

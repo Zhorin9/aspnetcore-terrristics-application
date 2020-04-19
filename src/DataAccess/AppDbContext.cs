@@ -9,15 +9,14 @@ namespace DataAccess
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options)
-            :base(options)
+            : base(options)
         {
-
         }
 
         public DbSet<SensorBlock> SensorBlocks { get; set; }
         public DbSet<SensorKind> SensorKinds { get; set; }
         public DbSet<InputSensorData> InputSensorData { get; set; }
-        
+
         public DbSet<OutputSensorData> OutputSensorData { get; set; }
         public DbSet<TerraristicWindow> TerraristicWindows { get; set; }
 
@@ -55,7 +54,7 @@ namespace DataAccess
             //Decimal(5,2) is precision to 999.99
             builder.Property(isd => isd.Value)
                 .HasColumnType("decimal(5,2)");
-            
+
             builder.HasOne(isd => isd.SensorBlock)
                 .WithMany(isd => isd.Inputs)
                 .HasForeignKey(isd => isd.SensorBlockId);
@@ -70,8 +69,8 @@ namespace DataAccess
                 .IsRequired();
 
             builder.HasOne(osd => osd.SensorBlock)
-                .WithMany(osd => osd.Outputs)
-                .HasForeignKey(osd => osd.SensorBlockId);
+                .WithOne(osd => osd.OutputData)
+                .HasForeignKey<OutputSensorData>(osd => osd.SensorBlockId);
         }
 
         private void ConfigureSensorBlock(EntityTypeBuilder<SensorBlock> builder)
@@ -87,8 +86,9 @@ namespace DataAccess
 
             builder.HasMany(s => s.Inputs)
                 .WithOne(s => s.SensorBlock);
-            builder.HasMany(s => s.Outputs)
-                .WithOne(s => s.SensorBlock);
+            builder.HasOne(s => s.OutputData)
+                .WithOne(s => s.SensorBlock)
+                .HasForeignKey<SensorBlock>(s => s.OutputDataId);
 
             builder.HasOne(s => s.ParentWindow)
                 .WithMany(s => s.SensorBlocks)

@@ -20,4 +20,5 @@ interface SensorBlockApi {
 
 interface SensorBlockDataApi {
     getList(sensorBlockId: number): Promise<any>;
+    getOutputState(sensorBlockId: number): Promise<any>;
 }

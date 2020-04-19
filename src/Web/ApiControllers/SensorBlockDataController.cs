@@ -12,15 +12,12 @@ namespace Web.ApiControllers
     public class SensorBlockDataController : BaseApiController
     {
         private readonly IInputBlockDataRepository _inputBlockDataRepository;
-        private readonly ISensorBlockRepository _sensorBlockRepository;
-        private readonly ITerraristicWindowRepository _terraristicWindowRepository;
+        private readonly IOutputBlockDataRepository _outputBlockDataRepository;
 
-        public SensorBlockDataController(IMapper mapper, IInputBlockDataRepository inputBlockDataRepository, ISensorBlockRepository sensorBlockRepository,
-            ITerraristicWindowRepository terraristicWindowRepository) : base(mapper)
+        public SensorBlockDataController(IMapper mapper, IInputBlockDataRepository inputBlockDataRepository, IOutputBlockDataRepository outputBlockDataRepository) : base(mapper)
         {
             _inputBlockDataRepository = inputBlockDataRepository;
-            _sensorBlockRepository = sensorBlockRepository;
-            _terraristicWindowRepository = terraristicWindowRepository;
+            _outputBlockDataRepository = outputBlockDataRepository;
         }
 
         [HttpGet]
@@ -55,6 +52,39 @@ namespace Web.ApiControllers
             }
 
             return Ok(result);
+        }
+        
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> CreateOrUpdate(OutputSensorDataApiModel blockDataApiModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var outputSensorData = new OutputSensorData
+            {
+                SensorBlockId = blockDataApiModel.SensorBlockId,
+                State = blockDataApiModel.State,
+                Value = blockDataApiModel.Value
+            };
+
+            var result = await _outputBlockDataRepository.CreateOrUpdate(outputSensorData);
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetOutputState(int sensorBlockId)
+        {
+            OutputSensorData outputSensorData = await _outputBlockDataRepository.Get(sensorBlockId);
+
+            if (outputSensorData == null)
+            {
+                return BadRequest("Problem with sensor status readout");
+            }
+            
+            return Ok(outputSensorData.State);
         }
     }
 }

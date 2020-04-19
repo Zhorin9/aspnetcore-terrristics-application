@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {endpoints} from "@/api/endpoints";
-import {getHeaderWithJwtToken} from "@/api/header-generator";
+import {getHeaderWithJwtToken} from "@/utils/header-generator";
 
 class SensorBlockApiImpl implements SensorBlockApi {
     getSensorBlock(sensorBlockId: number): Promise<any> {

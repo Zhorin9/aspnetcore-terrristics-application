@@ -58,10 +58,10 @@
 <script lang="ts">
     import {Component, Emit, Prop} from "vue-property-decorator";
     import {TerraristicsModule} from "@/store/modules/terraristics-module";
-    import FormModalMixin from "@/mixins/form-modal-mixin";
+    import BackendOperationMixin from "@/mixins/backend-operation-mixin";
 
     @Component
-    export default class UserTerraristicWindowEditModal extends FormModalMixin {
+    export default class UserTerraristicWindowEditModal extends BackendOperationMixin {
         @Prop() selectedWindow!: TerraristicsWindowFormData;
 
         handleOk() {

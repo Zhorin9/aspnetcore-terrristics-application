@@ -28,7 +28,7 @@
     @Component
 
     export default class InputSensorsMultiselect extends Vue {       
-        @Prop({default: () => [] as SensorKindData[], type: Array}) selectedSensors!: Array<SensorKindData>;
+        @Prop({default: () => [] as SensorKindData[]}) selectedSensors!: Array<SensorKindData>;
         @Prop({default: true}) multiple!: Boolean;
         value: SensorKindModel[] = this.selectedSensors.length > 0 ? this.selectedSensors : Array(0);
 

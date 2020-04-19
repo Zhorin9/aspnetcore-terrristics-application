@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccess.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,9 +32,9 @@ namespace DataAccess.Migrations
                         .Annotation("MySQL:AutoIncrement", true),
                     Name = table.Column<string>(maxLength: 200, nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2020, 3, 27, 15, 40, 33, 530, DateTimeKind.Local)),
-                    ModificationDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2020, 3, 27, 15, 40, 33, 532, DateTimeKind.Local)),
-                    ApiKey = table.Column<string>(nullable: false, defaultValue: "8845851c-4f90-4e45-b389-c371b1a2cf3e"),
+                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2020, 4, 18, 13, 57, 18, 634, DateTimeKind.Local)),
+                    ModificationDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2020, 4, 18, 13, 57, 18, 636, DateTimeKind.Local)),
+                    ApiKey = table.Column<string>(nullable: false, defaultValue: "f3370201-637c-45d2-8e3f-75acd7ac9132"),
                     UserId = table.Column<string>(nullable: true),
                     IsPublic = table.Column<int>(nullable: false)
                 },
@@ -53,7 +53,8 @@ namespace DataAccess.Migrations
                     Description = table.Column<string>(maxLength: 500, nullable: true),
                     SensorKindId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
-                    ParentWindowId = table.Column<int>(nullable: false)
+                    ParentWindowId = table.Column<int>(nullable: false),
+                    OutputDataId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,7 +80,7 @@ namespace DataAccess.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
                     Value = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2020, 3, 27, 15, 40, 33, 542, DateTimeKind.Local)),
+                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2020, 4, 18, 13, 57, 18, 667, DateTimeKind.Local)),
                     SensorBlockId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -99,7 +100,7 @@ namespace DataAccess.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
-                    State = table.Column<byte>(nullable: false),
+                    State = table.Column<short>(nullable: false),
                     Value = table.Column<string>(nullable: true),
                     SensorBlockId = table.Column<int>(nullable: false)
                 },
@@ -122,7 +123,8 @@ namespace DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_OutputSensorData_SensorBlockId",
                 table: "OutputSensorData",
-                column: "SensorBlockId");
+                column: "SensorBlockId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sensor_ParentWindowId",

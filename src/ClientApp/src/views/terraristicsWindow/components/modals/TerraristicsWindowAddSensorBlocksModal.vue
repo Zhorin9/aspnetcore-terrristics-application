@@ -71,7 +71,7 @@
             <b-button size="sm" variant="success" @click="handleOk">
                 Zapisz
             </b-button>
-            <b-button size="sm" variant="danger" @click="cancel">
+            <b-button size="sm" variant="danger" @click="hideAndResetModal">
                 Anuluj
             </b-button>
         </template>
@@ -84,7 +84,7 @@
     import {DictionaryModule} from "@/store/modules/dictionary-module";
     import InputSensorsMultiselect from "@/components/common/Multiselects/InputSensorsMultiselect.vue"
     import OutputSensorsMultiselect from "@/components/common/Multiselects/OutputSensorsMultiselect.vue";
-    import FormModalMixin from "@/mixins/form-modal-mixin";
+    import BackendOperationMixin from "@/mixins/backend-operation-mixin";
 
     @Component({
         components: {
@@ -92,11 +92,11 @@
             InputSensorsMultiselect
         }
     })
-    export default class TerraristicsWindowAddSensorBlockModal extends FormModalMixin {
+    export default class TerraristicsWindowAddSensorBlockModal extends BackendOperationMixin {
         @Prop([Number, String]) windowId!: number | string;
         name: string = "";
         description: string = "";
-        selectedSensorKind: SensorKindData | undefined = undefined;
+        selectedSensorKind: SensorKindModel = <SensorKindModel>{};
         type: boolean = true;
 
         public get selectedType(): boolean {
@@ -105,7 +105,7 @@
 
         public set selectedType(selected: boolean) {
             this.type = selected;
-            this.selectedSensorKind = undefined;
+            this.selectedSensorKind = <SensorKindModel>{};
         }
 
         created() {
@@ -114,6 +114,7 @@
 
         createSensorBlock() {
             this.startOperation();
+            debugger;
             let sensorToCreate = {
                 Name: this.name,
                 Description: this.description,
@@ -125,7 +126,7 @@
                 .then(response => {
                     let sensorBlockId = response.data;
                     this.operationSuccess();
-                    this.hideModal();
+                    this.hideAndResetModal();
                     this.createdNewSensorBlock(sensorBlockId);
                 })
                 .catch(err => {
@@ -133,11 +134,12 @@
                 });
         };
 
-        updateSensor(sensor: SensorKindData) {
+        updateSensor(sensor: SensorKindModel) {
             this.selectedSensorKind = sensor;
         }
 
-        hideModal() {
+        hideAndResetModal() {
+            this.resetModalData();
             // @ts-ignore
             this.$refs.terraristicsWindowAddSensorBlocksModal.hide();
         }
@@ -150,6 +152,12 @@
                 console.error(e);
             }
         };
+
+        resetModalData(){
+            this.name = '';
+            this.description = '';
+            this.selectedSensorKind = <SensorKindModel>{};
+        }
 
         @Emit()
         createdNewSensorBlock(sensorBlockId: number) {

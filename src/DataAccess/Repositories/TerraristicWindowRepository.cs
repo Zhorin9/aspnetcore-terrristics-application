@@ -38,7 +38,7 @@ namespace DataAccess.Repositories
             return Context.TerraristicWindows
                 .Where(p => p.UserId == userId)
                 .Include(o => o.SensorBlocks).ThenInclude(p => p.Inputs)
-                .Include(o => o.SensorBlocks).ThenInclude(p => p.Outputs)
+                .Include(o => o.SensorBlocks).ThenInclude(p => p.OutputData)
                 .Include(o => o.SensorBlocks).ThenInclude(p => p.SensorKind)
                 .ToListAsync();
         }

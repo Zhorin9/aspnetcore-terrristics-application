@@ -1,7 +1,7 @@
 import {Action, getModule, Module, Mutation, VuexModule} from "vuex-module-decorators";
 import store from "@/store";
 import {dictionaryApiImpl} from "@/api/dictionary-api";
-import {sensorTypes} from "@/enums/sensor-types";
+import {sensorTypes} from "@/utils/enums";
 import _ from "lodash";
 
 export interface DictionaryState {

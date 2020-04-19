@@ -1,6 +1,6 @@
 import {endpoints} from "@/api/endpoints";
 import axios from 'axios';
-import {getHeader} from "@/api/header-generator";
+import {getHeader} from "@/utils/header-generator";
 
 class UserApiImpl implements UserApi {
     login(email: string, password: string) {

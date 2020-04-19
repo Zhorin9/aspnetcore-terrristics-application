@@ -1,12 +1,6 @@
 ﻿using System.Text;
-using Domain.Interfaces;
-using Auth;
-using DataAccess;
-using DataAccess.Logging;
-using DataAccess.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -54,7 +48,8 @@ namespace Web
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                 .AddDataAnnotationsLocalization();
-            RegisterInterfaces(services);
+            
+            ServicesConfiguration.RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,22 +76,6 @@ namespace Web
             });
             
             SpaConfiguration.EnableSpa(app, env, _config);
-        }
-        
-        private static void RegisterInterfaces(IServiceCollection services)
-        {
-            services.AddTransient<AppIdentityDbContextSeed>();
-            services.AddTransient<AddDbContextSeed>();
-            services.AddScoped(typeof(IAppLogger<>), typeof(LoggingAdapter<>));
-            services.AddScoped(typeof(IAsyncAppRepository<>), typeof(AppRepository<>));
-
-            services.AddScoped<ITerraristicWindowRepository, TerraristicWindowRepository>();
-            services.AddScoped<ISensorBlockRepository, SensorBlockRepository>();
-            services.AddScoped<ISensorKindRepository, SensorKindRepository>();
-            services.AddScoped<IInputBlockDataRepository, InputBlockDataRepository>();
-
-            services.AddIdentity<ApplicationUser, IdentityRole>(cfg => { cfg.User.RequireUniqueEmail = true; })
-                .AddEntityFrameworkStores<AppIdentityDbContext>();
         }
     }
 }

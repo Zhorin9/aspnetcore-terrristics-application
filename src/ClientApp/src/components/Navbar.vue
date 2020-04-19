@@ -1,9 +1,8 @@
 <template>
     <nav>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
         <b-navbar toggleable="lg" type="dark" class="nav-green">
             <b-navbar-brand active class="navbar-brand" to="/">
-                Inteligentne terrarium <i class="fas fa-frog"></i>
+                Inteligentne terrarium  <font-awesome-icon :icon="['fas', 'frog']"/>
             </b-navbar-brand>
             <b-navbar-nav>
                 <b-nav-item to="/publicWindows">Publiczne terraria</b-nav-item>

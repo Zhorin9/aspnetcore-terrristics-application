@@ -4,6 +4,8 @@ export const endpoints = {
     getSensorKinds: "/api/dictionary/getSensorKinds",
 
     getSensorBlockData: "/api/sensorBlockData/getList",
+    getSensorBlockDataOutputState: "/api/sensorBlockData/getOutputState",
+    createOrUpdateSensorBlockData: "/api/sensorBlockData/createOrUpdate",
     
     getSensorBlocks: "/api/sensorBlock/getList",
     createNewSensorBlock: "/api/sensorBlock/create",

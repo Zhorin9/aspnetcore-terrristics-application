@@ -11,8 +11,11 @@ namespace Domain.Entities
         public SensorKind SensorKind { get; set; }
         public string UserId { get; set; }
         public int ParentWindowId { get; set; }
+        
+        public int OutputDataId { get; set; }
         public TerraristicWindow ParentWindow { get; set; }
         public ICollection<InputSensorData> Inputs { get; set; }
-        public ICollection<OutputSensorData> Outputs { get; set; }
+        
+        public OutputSensorData OutputData { get; set; }
     }
 }

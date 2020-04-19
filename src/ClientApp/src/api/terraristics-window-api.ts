@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {endpoints} from "@/api/endpoints";
-import {getHeaderWithJwtToken} from "@/api/header-generator";
+import {getHeaderWithJwtToken} from "@/utils/header-generator";
 
 class TerraristicsWindowApiImpl implements TerraristicsWindowApi {
     getList(): Promise<any> {

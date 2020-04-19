@@ -63,10 +63,10 @@
 <script lang="ts">
     import {Component, Emit} from "vue-property-decorator";
     import {terraristicsWindowApiImpl} from "@/api/terraristics-window-api";
-    import FormModalMixin from "@/mixins/form-modal-mixin";
+    import BackendOperationMixin from "@/mixins/backend-operation-mixin";
 
     @Component
-    export default class UserTerraristicWindowAddModal extends FormModalMixin {
+    export default class UserTerraristicWindowAddModal extends BackendOperationMixin {
         name: string = "";
         description: string = "";
         isPublic: boolean = false;

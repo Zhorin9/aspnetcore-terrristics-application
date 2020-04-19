@@ -35,7 +35,6 @@
     <None Include="public\index.html" />
     <None Include="src\api\dictionary-api.ts" />
     <None Include="src\api\endpoints.ts" />
-    <None Include="src\api\header-generator.ts" />
     <None Include="src\api\sensor-block-api.ts" />
     <None Include="src\api\sensor-block-data-api.ts" />
     <None Include="src\api\terraristics-window-api.ts" />
@@ -43,7 +42,6 @@
     <None Include="src\api\user-api.ts" />
     <None Include="src\App.vue" />
     <None Include="src\assets\homeBackground.jpg" />
-    <None Include="src\axios.ts" />
     <None Include="src\components\common\ErrorPage.vue" />
     <None Include="src\components\common\LineChart.vue" />
     <None Include="src\components\common\LoadingPage.vue" />
@@ -59,8 +57,6 @@
     <None Include="src\components\sensorBlockTypes\InputSensorBlock.vue" />
     <None Include="src\components\sensorBlockTypes\OutputAnalogSensorBlock.vue" />
     <None Include="src\components\sensorBlockTypes\OutputDigitalSensorBlock.vue" />
-    <None Include="src\enums\output-type.ts" />
-    <None Include="src\enums\sensor-types.ts" />
     <None Include="src\main.ts" />
     <None Include="src\router\index.ts" />
     <None Include="src\services\user-service.ts" />
@@ -98,6 +94,12 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="README.md" />
+    <Content Include="src\configurations\axios-config.ts" />
+    <Content Include="src\configurations\font-awesome-config.ts" />
+    <Content Include="src\configurations\global-components.ts" />
+    <Content Include="src\configurations\vee-validate-config.ts" />
+    <Content Include="src\mixins\form-modal-mixin.ts" />
+    <Content Include="src\utils\enums.ts" />
     <Content Include="tsconfig.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
@@ -114,7 +116,6 @@
     <Folder Include="src\components\common\Multiselects\" />
     <Folder Include="src\components\errorLog\" />
     <Folder Include="src\components\sensorBlockTypes\" />
-    <Folder Include="src\enums\" />
     <Folder Include="src\router\" />
     <Folder Include="src\services\" />
     <Folder Include="src\store\" />

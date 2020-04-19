@@ -1,5 +1,5 @@
 <template>
-    <i :class="['fas fa-circle-notch fa-spin', sizeClass]"></i>
+    <font-awesome-icon :icon="['fas', 'circle-notch']" :size="sizeClass" spin/>
 </template>
 
 <script lang="ts">
@@ -10,7 +10,7 @@
         @Prop({default: 1}) size!: number | undefined;
 
         get sizeClass() {
-            return 'fa-' + this.size + 'x';
+            return this.size + 'x';
         }
     }
 </script>

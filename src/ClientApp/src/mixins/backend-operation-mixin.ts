@@ -1,7 +1,7 @@
 import {Component, Vue} from "vue-property-decorator";
 
 @Component
-export default class FormModalMixin extends Vue {
+export default class BackendOperationMixin extends Vue {
     operationFailed: boolean = false;
     operationInProgress: boolean = false;
 

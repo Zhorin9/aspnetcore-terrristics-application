@@ -33,7 +33,7 @@ namespace DataAccess
                 new SensorKind()
                 {
                     Name = "DHT22",
-                    ShortDescription = "Czujnik temp.",
+                    ShortDescription = "Czujnik temperatury.",
                     Description =
                         "Czujnik do pomiaru temperatury z interfejsem cyfrowym, jednoprzewodowym. Zakres pomiarowy: wilgotność 0-100 %RH.",
                     Type = SensorTypeEnum.Input
@@ -57,7 +57,7 @@ namespace DataAccess
                 new SensorKind()
                 {
                     Name = "DHT11",
-                    ShortDescription = "Czujnik temp.",
+                    ShortDescription = "Czujnik temperatury.",
                     Description =
                         "Czujnik do pomiaru temperatury z interfejsem cyfrowym, jednoprzewodowym. Zakres pomiarowy: wilgotność od 5 % do 95 % RH. ",
                     Type = SensorTypeEnum.Input
@@ -65,7 +65,7 @@ namespace DataAccess
                 new SensorKind()
                 {
                     Name = "BMP280",
-                    ShortDescription = "Czujnik temp.",
+                    ShortDescription = "Czujnik temperatury.",
                     Description =
                         "Czujnik do pomiaru temperatury. Zakres pomiarowy: temperatura -40 do 85°C",
                     Type = SensorTypeEnum.Input

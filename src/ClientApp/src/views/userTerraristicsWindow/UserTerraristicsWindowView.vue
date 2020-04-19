@@ -20,7 +20,7 @@
                     <template class="card-header-background" v-slot:header>
                         <div class="font-weight-bold">
                             <h3>Zarządzanie oknami</h3>
-                            <i class="fa-pull-right fas fa-sync 2px cursor-pointer" @click="refreshData"></i>
+                            <font-awesome-icon :icon="['fa', 'sync']" class="fa-pull-right cursor-pointer" @click="refreshData"/>
                         </div>
                     </template>
                     <b-button @click="openAddWindowModal" class="btn btn-primary text-white">

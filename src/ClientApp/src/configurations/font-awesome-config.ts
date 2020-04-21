@@ -2,7 +2,16 @@
 import Vue from 'vue';
 
 import {library} from '@fortawesome/fontawesome-svg-core';
-import {faPlus, faLightbulb, faFrog, faCircleNotch, faSync} from '@fortawesome/free-solid-svg-icons';
+import {
+    faPlus,
+    faLightbulb,
+    faFrog,
+    faCircleNotch,
+    faSync,
+    faSearch,
+    faEdit,
+    faTrash
+} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 
 // Register vue font awesome component globally 
@@ -14,3 +23,6 @@ library.add(faLightbulb);
 library.add(faFrog);
 library.add(faCircleNotch);
 library.add(faSync);
+library.add(faSearch);
+library.add(faEdit);
+library.add(faTrash);

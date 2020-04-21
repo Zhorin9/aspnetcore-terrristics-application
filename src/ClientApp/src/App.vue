@@ -31,6 +31,7 @@
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
         color: white;
+        background-color: #113722;
     }
 
     .dropdown-menu {
@@ -41,7 +42,8 @@
     html,
     body {
         height: auto;
-        background-image: linear-gradient(80deg, #040E0D, #1E6036);
+        /*background-image: linear-gradient(80deg, #040E0D, #1E6036);*/
+        background-color: #113722;
         color: white !important;
     }
 
@@ -64,7 +66,6 @@
         text-align: left;
         padding-left: 0 !important;
         padding-right: 0 !important;
-        color: white;
     }
 
     .card-header-background {

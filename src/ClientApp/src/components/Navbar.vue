@@ -5,8 +5,8 @@
                 Inteligentne terrarium  <font-awesome-icon :icon="['fas', 'frog']"/>
             </b-navbar-brand>
             <b-navbar-nav>
-                <b-nav-item to="/publicWindows">Publiczne terraria</b-nav-item>
-                <b-nav-item v-show="isUserAuthenticated" to="/userTerraristicWindows">Moje terraria</b-nav-item>
+                <b-nav-item to="/publicWindows" right>Publiczne terraria</b-nav-item>
+                <b-nav-item v-show="isUserAuthenticated" to="/userTerraristicWindows" right>Moje terraria</b-nav-item>
             </b-navbar-nav>
 
             <b-navbar-nav v-if="isUserAuthenticated" class="ml-auto">
@@ -34,11 +34,11 @@
     @Component
     export default class Navbar extends Vue {        
         get getUserEmail() {
-            return AuthenticationModule.AUTHENTICATION_GET_EMAIL;
+            return AuthenticationModule.Email;
         }
         
         get isUserAuthenticated() {
-            return AuthenticationModule.AUTHENTICATION_IS_LOGGED_CORRECT;
+            return AuthenticationModule.IsUserAuthenticated;
         }
         
         logOut() {
@@ -49,3 +49,8 @@
         };
     }
 </script>
+<style>
+    .nav-green{
+        background-color: #113722;
+    }
+</style>

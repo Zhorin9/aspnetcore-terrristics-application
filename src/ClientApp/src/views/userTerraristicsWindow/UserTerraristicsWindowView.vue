@@ -20,7 +20,8 @@
                     <template class="card-header-background" v-slot:header>
                         <div class="font-weight-bold">
                             <h3>Zarządzanie oknami</h3>
-                            <font-awesome-icon :icon="['fa', 'sync']" class="fa-pull-right cursor-pointer" @click="refreshData"/>
+                            <font-awesome-icon :icon="['fa', 'sync']" class="fa-pull-right cursor-pointer"
+                                               @click="refreshData"/>
                         </div>
                     </template>
                     <b-button @click="openAddWindowModal" class="btn btn-primary text-white">
@@ -28,9 +29,10 @@
                     </b-button>
 
                     <h4 class="mt-4">Dodatkowe informacje</h4>
-                    <b-table stacked class="text-white"
+                    <b-table caption-top responsive stacked
                              :items="[selectedWindowToDisplay]"
-                             :fields="fieldDefinitions">
+                             :fields="fieldDefinitions"
+                             class="text-white">
                     </b-table>
                 </b-card>
             </b-col>

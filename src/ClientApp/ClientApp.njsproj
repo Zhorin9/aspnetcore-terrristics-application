@@ -99,6 +99,7 @@
     <Content Include="src\configurations\global-components.ts" />
     <Content Include="src\configurations\vee-validate-config.ts" />
     <Content Include="src\mixins\form-modal-mixin.ts" />
+    <Content Include="src\router\auth-required.ts" />
     <Content Include="src\utils\enums.ts" />
     <Content Include="tsconfig.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

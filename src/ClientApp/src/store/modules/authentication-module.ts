@@ -16,18 +16,11 @@ export interface AuthenticationState {
 class Authentication extends VuexModule implements AuthenticationState {
     public Email = getUserEmail();
     public LogProcess = false;
+    public LoginError = false;
     public IsUserAuthenticated = isLoggedCorrect();
     public Roles: string[] = [];
     public Token = getUserToken();
 
-    get AUTHENTICATION_GET_EMAIL() {
-        return this.Email;
-    }
-    
-    get AUTHENTICATION_IS_LOGGED_CORRECT(){
-        return this.IsUserAuthenticated;
-    }
-    
     @Mutation
     private AUTHENTICATION_SET_TOKEN(token: string) {
         this.Token = token
@@ -46,17 +39,24 @@ class Authentication extends VuexModule implements AuthenticationState {
     @Mutation
     private AUTHENTICATION_UPDATE_LOG_PROCESS(email: string) {
         this.LogProcess = true;
+        this.LoginError = false;
         this.Email = email;
-    } 
-    
+    }
+
+    @Mutation
+    private AUTHENTICATION_SET_LOGIN_ERROR(loginError: boolean) {
+        this.LoginError = loginError;
+    }
+
     @Mutation
     private AUTHENTICATION_LOGGED_CORRECT() {
         this.LogProcess = false;
         this.IsUserAuthenticated = true;
+        this.LoginError = false;
     }
-    
-    @Mutation 
-    private AUTHENTICATION_LOGOUT(){
+
+    @Mutation
+    private AUTHENTICATION_LOGOUT() {
         this.LogProcess = false;
         this.IsUserAuthenticated = false;
         this.Email = '';
@@ -82,7 +82,8 @@ class Authentication extends VuexModule implements AuthenticationState {
                 },
             ).catch(err => {
                 AlertModule.ALERT_FAILED_LOGIN();
-                this.AUTHENTICATION_LOGOUT();
+                this.LOGOUT();
+                this.AUTHENTICATION_SET_LOGIN_ERROR(true);
                 console.error("Problem with authentication", err);
             })
     }

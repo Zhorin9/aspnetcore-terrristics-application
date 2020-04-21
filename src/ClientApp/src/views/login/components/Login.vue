@@ -4,7 +4,7 @@
             <h2>Zaloguj się</h2>
             <validation-observer ref="observer" v-slot="{ invalid }">
                 <b-form @submit.prevent="handleSubmit">
-                    <div class="text-left text-danger" v-if="submitted">
+                    <div class="text-left text-danger" v-if="loginError">
                         <div>Nie udało się zalogować</div>
                         <div>Sprawdź czy wprowadziłeś poprawne dane</div>
                     </div>
@@ -61,9 +61,11 @@
     export default class LoginPage extends Vue {
         email: string = "";
         password: string = "";
-        submitted: boolean = false;
-        error: boolean = false;
 
+        get loginError(){
+            return AuthenticationModule.LoginError;
+        }
+        
         get waitingForResponse() {
             return AuthenticationModule.LogProcess;
         }
@@ -85,11 +87,7 @@
             }
             const {email, password} = this;
             if (email && password) {
-                this.submitted = true;
-                await AuthenticationModule.LOGIN({Email: email, Password: password})
-                    .catch(() => {
-                        this.error = true;
-                    });
+                await AuthenticationModule.LOGIN({Email: email, Password: password});
             }
         };
     }
@@ -99,6 +97,9 @@
     .login-container {
         padding: 20px;
         color: #fff;
+        background-color: #204638;
+        border-radius: 100px;
+        border: 3px solid rgba(0, 0, 0, 0.125);
     }
 
     .form-label {

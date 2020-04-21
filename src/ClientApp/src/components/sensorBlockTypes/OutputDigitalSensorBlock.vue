@@ -3,7 +3,7 @@
         <b-button variant="light" size="sm" @click="refreshState">Odśwież stan</b-button>
         <b-button class="float-right" variant="light ml-1" size="sm" @click="toggleState">{{getTurnOffOnButtonDisplay}}</b-button>
         <div class="text-center">
-            <i :class="['far fa-lightbulb fa-10x', bulbColor]"></i>
+            <font-awesome-icon :icon="['fa', 'lightbulb']" :class="bulbColor" size="10x"/>
         </div>
     </div>
     <div v-else="loadingDataProcess">

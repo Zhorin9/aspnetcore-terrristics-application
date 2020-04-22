@@ -14,8 +14,6 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <!--            <b-col cols="1"/>-->
-            <!--            <b-col cols="3">-->
             <b-card class="card-green height-fix-content management-block" header-tag="header">
                 <template class="card-header-background" v-slot:header>
                     <div class="font-weight-bold">
@@ -36,7 +34,6 @@
                          class="text-black-50">
                 </b-table>
             </b-card>
-            <!--            </b-col>-->
         </b-row>
         <loading-page v-else :size="8"/>
 
@@ -66,33 +63,6 @@
         selectedWindowToEdit: TerraristicsWindowFormData = <TerraristicsWindowFormData>{};
         selectedWindowIdToDelete: number = 0;
         isDataLoading: boolean = true;
-        fieldDefinitions: any = [
-            {key: 'Name', label: 'Nazwa'},
-            {key: 'ApiKey', label: 'Klucz Api'},
-            {
-                key: 'CreationDate',
-                label: 'Data utworzenia',
-                formatter: (value: any, key: any, item: any) => {
-                    //@ts-ignore    
-                    return this.$moment(value).format('YYYY-MM-DD')
-                }
-            },
-            {
-                key: 'ModificationDate',
-                label: 'Data modyfikacji',
-                formatter: (value: any, key: any, item: any) => {
-                    //@ts-ignore    
-                    return this.$moment(value).format('YYYY-MM-DD')
-                }
-            },
-            {
-                key: 'IsPublic',
-                label: 'Czy jest publiczne',
-                formatter: (value: any, key: any, item: any) => {
-                    return value ? "Tak" : "Nie";
-                }
-            },
-        ];
 
         get terraristicsWindows() {
             return TerraristicsModule.TerraristicsWindows;
@@ -182,6 +152,34 @@
             this.selectedWindowIdToDelete = windowId;
             this.$bvModal.show("user-window-delete-modal");
         }
+
+        fieldDefinitions: any = [
+            {key: 'Name', label: 'Nazwa'},
+            {key: 'ApiKey', label: 'Klucz Api'},
+            {
+                key: 'CreationDate',
+                label: 'Data utworzenia',
+                formatter: (value: any, key: any, item: any) => {
+                    //@ts-ignore    
+                    return this.$moment(value).format('YYYY-MM-DD')
+                }
+            },
+            {
+                key: 'ModificationDate',
+                label: 'Data modyfikacji',
+                formatter: (value: any, key: any, item: any) => {
+                    //@ts-ignore    
+                    return this.$moment(value).format('YYYY-MM-DD')
+                }
+            },
+            {
+                key: 'IsPublic',
+                label: 'Czy jest publiczne',
+                formatter: (value: any, key: any, item: any) => {
+                    return value ? "Tak" : "Nie";
+                }
+            },
+        ];
     }
 </script>
 <style scoped>

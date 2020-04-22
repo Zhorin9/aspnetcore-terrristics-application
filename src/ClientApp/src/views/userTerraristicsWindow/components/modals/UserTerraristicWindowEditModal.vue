@@ -2,7 +2,7 @@
     <b-modal
             id="user-window-edit-modal"
             title="Edycja okna"
-            size="lg"
+            size="md"
             button-size="sm"
             ref="editUserTerraristicWindowModal">
         <div v-show="operationFailed" class="alert alert-danger text-center modal-alert"
@@ -13,7 +13,7 @@
         <form v-if="!operationInProgress"
               @submit.prevent="handleOk">
             
-            <b-form-group class="col-6">
+            <b-form-group>
                 <label>Nazwa okna</label>
                 <validation-provider name="name" rules="required|min:3|max:30" v-slot="{ errors }">
                     <b-form-input v-model="selectedWindow.name" :state="errors.length == 0"/>
@@ -23,7 +23,7 @@
                 </validation-provider>
             </b-form-group>
             
-            <b-form-group class="col-6">
+            <b-form-group>
                 <label>Opis</label>
                 <validation-provider name="description" rules="max:200" v-slot="{ errors }">
                     <b-form-textarea v-model="selectedWindow.description" :state="errors.length == 0"/>
@@ -33,7 +33,7 @@
                 </validation-provider>
             </b-form-group>
             
-            <b-form-group class="col-6">
+            <b-form-group>
                 <b-form-checkbox
                         id="terraristics-window-is-public"
                         v-model="selectedWindow.isPublic"

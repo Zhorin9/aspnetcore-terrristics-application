@@ -1,9 +1,8 @@
 <template>
-    <div class="m-3" v-b-tooltip.hover title="Kliknij aby zaktualizować Zarządzanie oknami">
+    <div class="m-3">
         <b-card class="text-black-50 text-left">
             <b-card-text algin="left">
                 {{data.Description}}
-
                 
                 <b-list-group>
                     <b-list-group-item href="#" active class="flex-column align-items-start">

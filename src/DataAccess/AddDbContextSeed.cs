@@ -107,7 +107,7 @@ namespace DataAccess
                     ShortDescription = "Ogrzewanie terrarium. Włącz/Wyłącz.",
                     Description = "Ogrzewanie terrarium, lampy/maty/przewody. Włącz/Wyłącz",
                     Type = SensorTypeEnum.Output,
-                    OutputType = OutputTypeEnum.Analog
+                    OutputType = OutputTypeEnum.Digital
                 },
             };
         }

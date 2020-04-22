@@ -50,7 +50,7 @@
         </template>
 
         <template v-slot:modal-footer="{ ok, cancel }">
-            <b-button size="sm" variant="success" @click="handleOk">
+            <b-button size="sm" class="bg-green" variant="success" @click="handleOk">
                 Zapisz
             </b-button>
             <b-button size="sm" variant="danger" @click="handleCancel">
@@ -100,7 +100,8 @@
                     this.successfullyAdded();
                 })
                 .catch(err => {
-                    this.operationFail(err.message);
+                    this.operationFail();
+                    console.error(err);
                 });
         };
 

@@ -31,7 +31,7 @@ namespace Web.ApiControllers
 
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Create(InputSensorBlockDataApiModel blockDataApiModel)
+        public IActionResult Create([FromBody] InputSensorBlockDataApiModel blockDataApiModel)
         {
             if (!ModelState.IsValid)
             {
@@ -56,7 +56,7 @@ namespace Web.ApiControllers
         
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateOrUpdate(OutputSensorDataApiModel blockDataApiModel)
+        public async Task<IActionResult> CreateOrUpdate([FromBody] OutputSensorDataApiModel blockDataApiModel)
         {
             if (!ModelState.IsValid)
             {
@@ -70,7 +70,7 @@ namespace Web.ApiControllers
                 Value = blockDataApiModel.Value
             };
 
-            var result = await _outputBlockDataRepository.CreateOrUpdate(outputSensorData);
+            var result = await _outputBlockDataRepository.Update(outputSensorData);
             return Ok();
         }
 

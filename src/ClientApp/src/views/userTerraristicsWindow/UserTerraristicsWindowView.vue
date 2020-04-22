@@ -14,28 +14,29 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col cols="1"/>
-            <b-col cols="3">
-                <b-card class="card-green" header-tag="header">
-                    <template class="card-header-background" v-slot:header>
-                        <div class="font-weight-bold">
-                            <h3>Zarządzanie oknami</h3>
-                            <font-awesome-icon :icon="['fa', 'sync']" class="fa-pull-right cursor-pointer"
-                                               @click="refreshData"/>
-                        </div>
-                    </template>
-                    <b-button @click="openAddWindowModal" class="btn btn-primary text-white">
-                        Dodaj nowe okno
-                    </b-button>
+            <!--            <b-col cols="1"/>-->
+            <!--            <b-col cols="3">-->
+            <b-card class="card-green height-fix-content management-block" header-tag="header">
+                <template class="card-header-background" v-slot:header>
+                    <div class="font-weight-bold">
+                        <h3>Zarządzanie oknami</h3>
+                        <font-awesome-icon v-b-tooltip.hover title="Odśwież okna" :icon="['fa', 'sync']"
+                                           class="fa-pull-right cursor-pointer"
+                                           @click="refreshData"/>
+                    </div>
+                </template>
+                <b-button @click="openAddWindowModal" class="btn btn-primary text-white">
+                    Dodaj nowe okno
+                </b-button>
 
-                    <h4 class="mt-4">Dodatkowe informacje</h4>
-                    <b-table caption-top responsive stacked
-                             :items="[selectedWindowToDisplay]"
-                             :fields="fieldDefinitions"
-                             class="text-white">
-                    </b-table>
-                </b-card>
-            </b-col>
+                <h4 class="mt-4">Dodatkowe informacje</h4>
+                <b-table caption-top responsive stacked
+                         :items="[selectedWindowToDisplay]"
+                         :fields="fieldDefinitions"
+                         class="text-black-50">
+                </b-table>
+            </b-card>
+            <!--            </b-col>-->
         </b-row>
         <loading-page v-else :size="8"/>
 
@@ -186,24 +187,22 @@
 <style scoped>
     .btn-primary {
         color: #fff;
-        background-color: #a4651c;
-        border-color: #ffac4c;
+        background-color: #85b262;
+        border-color: #85b262;
     }
 
-    .btn-primary:hover {
-        background-color: #e3be20;
-        border-color: #d5ab43;
-    }
-
+    .btn-primary:hover,
+    .btn-primary:active,
+    .btn-primary:visited,
     .btn-primary:focus {
-        background-color: #e3be20;
-        border-color: #d5ab43;
-        box-shadow: 0 0 0 0.2rem #d5ab43;
+        background-color: #bad669;
+        box-shadow: 0 0 0 0.2rem #adc75a;
+        border-color: #adc75a;
     }
 
-    .btn-primary:active {
-        background-color: #e3be20;
-        box-shadow: 0 0 0 0.2rem #d5ab43;
-        border-color: #d5ab43;
+    .management-block {
+        top: 20px;
+        position: -webkit-sticky;
+        position: sticky;
     }
 </style>

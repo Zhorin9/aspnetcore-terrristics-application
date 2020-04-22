@@ -18,7 +18,7 @@
         }
     })
     export default class App extends Vue {
-        created(){
+        created() {
             DictionaryModule.DICT_GET_ALL_SENSOR_KINDS();
         }
     }
@@ -42,7 +42,6 @@
     html,
     body {
         height: auto;
-        /*background-image: linear-gradient(80deg, #040E0D, #1E6036);*/
         background-color: #113722;
         color: white !important;
     }
@@ -62,22 +61,26 @@
     }
 
     .card-green {
-        background: #204638 !important;
+        color: rgba(0, 0, 0, 0.5);
         text-align: left;
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
 
+    .bg-green {
+        background-color: #85b262 !important;
+    }
+
     .card-header-background {
-        background: #0a281d !important;
+        background: #85b262 !important;
     }
 
     .modal-header {
-        background: #0a281d !important;
+        background: #85b262 !important;
     }
 
-    .modal-content {
-        background: #204638 !important;
+    .modal-body {
+        color: rgba(0, 0, 0, 0.5);
     }
 
     .cursor-pointer {
@@ -86,5 +89,9 @@
 
     textarea {
         resize: none;
+    }
+
+    .height-fix-content {
+        height: fit-content;
     }
 </style>

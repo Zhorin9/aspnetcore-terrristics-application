@@ -7,8 +7,8 @@
                                 :sensor-block-id="sensorBlock.Id"
                                 class="text-center"
                                 ref="inputSensorBlock"/>
-            <output-analog-sensor-block v-else-if="sensorBlock.SensorKind.OutputType === outputTypesEnum.Analog"/>
-            <output-digital-sensor-block v-else-if="sensorBlock.SensorKind.OutputType === outputTypesEnum.Digital"/>
+            <output-analog-sensor-block v-else-if="sensorBlock.SensorKind.OutputType === outputTypesEnum.Analog" :sensor-block-id="sensorBlock.Id"/>
+            <output-digital-sensor-block v-else-if="sensorBlock.SensorKind.OutputType === outputTypesEnum.Digital" :sensor-block-id="sensorBlock.Id"/>
 
             <template v-slot:header>
                 <h4 class="mb-0 text-center">#{{sensorBlock.Id}} - {{sensorBlock.Name}}</h4>

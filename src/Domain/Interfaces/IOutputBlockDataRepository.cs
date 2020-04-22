@@ -7,6 +7,6 @@ namespace Domain.Interfaces
     {
         Task<OutputSensorData> Get(int sensorBlockId);
 
-        Task<OutputSensorData> CreateOrUpdate(OutputSensorData outputSensorData);
+        Task<int> Update(OutputSensorData outputSensorData);
     }
 }

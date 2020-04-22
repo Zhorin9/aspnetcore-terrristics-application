@@ -1,66 +1,88 @@
 <template>
     <div v-if="loadingProcess">
-        <b-button variant="light" size="sm" @click="refreshState">Odśwież stan</b-button>
-        <b-button class="float-right" variant="light ml-1" size="sm" @click="toggleState">{{getTurnOffOnButtonDisplay}}</b-button>
-        <div class="text-center">
-            <font-awesome-icon :icon="['fa', 'lightbulb']" :class="bulbColor" size="10x"/>
+        <template v-if="!operationInProgress">
+            <b-button variant="primary" size="sm" @click="refreshState">Odśwież stan</b-button>
+
+            <template v-if="!operationFailed">
+                <b-button variant="primary" size="sm" class="float-right" @click="toggleState">
+                    {{getTurnOffOnButtonDisplay}}
+                </b-button>
+                <div class="text-center">
+                    <font-awesome-icon :icon="['fa', 'lightbulb']" :class="bulbColor" size="10x"/>
+                </div>
+            </template>
+            <template v-else>
+                <h4 class="text-danger mt-3 text-center">Wystąpił problem - nie udało sprawdzić się stanu czujnika</h4>
+            </template>
+
+        </template>
+        <div v-else class="text-center">
+            <loading-page :size="5"/>
         </div>
     </div>
-    <div v-else="loadingDataProcess">
+    <div v-else>
         Brak danych
     </div>
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from "vue-property-decorator";
+    import {Component, Prop} from "vue-property-decorator";
     import {sensorBlockDataApiImpl} from "@/api/sensor-block-data-api";
+    import BackendOperationMixin from "@/mixins/backend-operation-mixin";
 
     @Component
-    export default class OutputDigitalSensorBlock extends Vue {
+    export default class OutputDigitalSensorBlock extends BackendOperationMixin {
         @Prop({default: null}) sensorBlockId!: number;
-        
+
         loadingProcess: boolean = true;
         state: boolean = false;
 
-        get getTurnOffOnButtonDisplay(){
+        get getTurnOffOnButtonDisplay() {
             return this.state ? 'Wyłącz' : 'Włącz';
         }
-        
-        get bulbColor(){
+
+        get bulbColor() {
             return this.state ? 'bulb-yellow' : '';
         }
-        
-        created(){
+
+        created() {
             this.updateCurrentState();
-        }
-        
-        toggleState(){
-            let outputDataToUpdate = {
-                SensorBlockId: this.sensorBlockId,
-                State: this.state
-            };
-            
-            sensorBlockDataApiImpl.createOrUpdateSensorBlockData(outputDataToUpdate)
-                .then(response => {
-                    console.log(response);
-                })
-                .catch(err => {
-                    console.error();
-                });            
-            
-            this.state = !this.state;
         }
 
-        refreshState(){
+        toggleState() {
+            this.startOperation();
+            this.state = !this.state;
+            
+            let outputDataToUpdate = {
+                SensorBlockId: this.sensorBlockId,
+                State: this.state 
+            };
+
+            sensorBlockDataApiImpl.updateOutputData(outputDataToUpdate)
+                .then(() => {
+                    this.operationSuccess();
+                })
+                .catch(err => {
+                    this.state = !this.state;
+                    this.operationFail();
+                    console.error(err);
+                });
+        }
+
+        refreshState() {
             this.updateCurrentState();
         }
-        
-        updateCurrentState(){
+
+        updateCurrentState() {
+            this.startOperation();
+
             sensorBlockDataApiImpl.getOutputState(this.sensorBlockId)
                 .then(response => {
+                    this.operationSuccess();
                     this.state = response.data;
                 })
                 .catch(err => {
+                    this.operationFail();
                     console.error(err);
                 })
         }
@@ -68,7 +90,21 @@
 </script>
 
 <style scoped>
-    .bulb-yellow{
+    .btn-primary {
+        color: #fff;
+        background-color: #85b262;
+        border-color: #85b262;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:active,
+    .btn-primary:visited {
+        background-color: #bad669;
+        box-shadow: 0 0 0 0.2rem #adc75a;
+        border-color: #adc75a;
+    }
+
+    .bulb-yellow {
         color: #e3e35d;
     }
 </style>

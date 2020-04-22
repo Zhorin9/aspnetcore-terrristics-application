@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200418115718_Init")]
+    [Migration("20200422181902_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,7 +26,7 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2020, 4, 18, 13, 57, 18, 667, DateTimeKind.Local));
+                        .HasDefaultValue(new DateTime(2020, 4, 22, 20, 19, 1, 918, DateTimeKind.Local));
 
                     b.Property<int>("SensorBlockId");
 
@@ -47,7 +47,7 @@ namespace DataAccess.Migrations
 
                     b.Property<int>("SensorBlockId");
 
-                    b.Property<bool>("State");
+                    b.Property<int>("State");
 
                     b.Property<string>("Value");
 
@@ -85,7 +85,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("SensorKindId");
 
-                    b.ToTable("Sensor");
+                    b.ToTable("SensorBlock");
                 });
 
             modelBuilder.Entity("Domain.Entities.SensorKind", b =>
@@ -120,12 +120,12 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasConversion(new ValueConverter<string, string>(v => default(string), v => default(string), new ConverterMappingHints(size: 36)))
-                        .HasDefaultValue("f3370201-637c-45d2-8e3f-75acd7ac9132");
+                        .HasDefaultValue("f1ea4eea-86c1-49a3-b8f0-5789627b4dfa");
 
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2020, 4, 18, 13, 57, 18, 634, DateTimeKind.Local));
+                        .HasDefaultValue(new DateTime(2020, 4, 22, 20, 19, 1, 876, DateTimeKind.Local));
 
                     b.Property<string>("Description");
 
@@ -134,7 +134,7 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("ModificationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2020, 4, 18, 13, 57, 18, 636, DateTimeKind.Local));
+                        .HasDefaultValue(new DateTime(2020, 4, 22, 20, 19, 1, 878, DateTimeKind.Local));
 
                     b.Property<string>("Name")
                         .IsRequired()

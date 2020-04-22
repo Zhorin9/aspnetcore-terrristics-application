@@ -17,6 +17,14 @@ namespace DataAccess.Repositories
             _logger = logger;
         }
 
+        public async Task<int> CreateWithOutputData(SensorBlock sensorBlock)
+        {
+            await Context.SensorBlocks.AddAsync(sensorBlock);
+            int result = await Context.SaveChangesAsync();
+
+            return result;
+        }
+
         public Task<List<SensorBlock>> GetAsync(int windowId, string userId)
         {
             return Context.SensorBlocks.AsNoTracking()

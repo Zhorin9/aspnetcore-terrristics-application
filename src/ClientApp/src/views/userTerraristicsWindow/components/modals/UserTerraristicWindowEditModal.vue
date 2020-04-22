@@ -82,7 +82,8 @@
                     this.hideModal();
                 })
                 .catch(err => {
-                    this.operationFail(err);
+                    this.operationFail();
+                    console.error(err);
                 })
         }
 

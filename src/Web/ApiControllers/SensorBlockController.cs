@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Domain.Entities;
-using Domain.Interfaces;
 using AutoMapper;
+using Domain.Entities;
+using Domain.Enums;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Web.ApiModels.SensorBlocks;
 
@@ -19,7 +20,7 @@ namespace Web.ApiControllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] SensorBlockApiModel sensorToCreate)
+        public async Task<IActionResult> Create([FromBody] SensorBlockApiModel sensorToCreate)
         {
             if (!ModelState.IsValid)
             {
@@ -36,7 +37,7 @@ namespace Web.ApiControllers
                 SensorKindId = sensorToCreate.SensorKind.SensorKindId
             };
 
-            int result = _sensorBlockRepository.AddAsync(newSensorBlock).Result;
+            int result = await CreateSensorBlockDependsOnType(sensorToCreate, newSensorBlock);
 
             if (result > 0)
             {
@@ -74,6 +75,21 @@ namespace Web.ApiControllers
             List<SensorBlockApiModel> sensorBlockResponse = Mapper.Map<List<SensorBlockApiModel>>(sensorBlocks);
 
             return Ok(new JsonResult(sensorBlockResponse));
+        }
+        
+        private async Task<int> CreateSensorBlockDependsOnType(SensorBlockApiModel sensorToCreate, SensorBlock newSensorBlock)
+        {
+            if (sensorToCreate.SensorKind.Type == SensorTypeEnum.Input)
+            {
+                return await _sensorBlockRepository.AddAsync(newSensorBlock);
+            }
+
+            newSensorBlock.OutputData = new OutputSensorData
+            {
+                Value = "",
+                State = false
+            };
+            return await _sensorBlockRepository.CreateWithOutputData(newSensorBlock);
         }
     }
 }

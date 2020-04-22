@@ -20,7 +20,7 @@ namespace DataAccess.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<OutputSensorData> CreateOrUpdate(OutputSensorData outputSensorData)
+        public async Task<int> Update(OutputSensorData outputSensorData)
         {
             SensorBlock outputSensor = await Context.SensorBlocks
                 .Include(i => i.OutputData)
@@ -33,10 +33,14 @@ namespace DataAccess.Repositories
 
             if (outputSensor.OutputData == null)
             {
-                
+                throw new NotFoundException(nameof(outputSensor.OutputData), outputSensorData.SensorBlockId);
             }
+
+            outputSensor.OutputData.State = outputSensorData.State;
+            outputSensor.OutputData.Value = outputSensorData.Value;
             
-            return null;
+            int result = await Context.SaveChangesAsync();
+            return result;
         }
     }
 }

@@ -14,9 +14,8 @@ export default class BackendOperationMixin extends Vue {
         this.operationInProgress = false;
     }
 
-    operationFail(err: any = null) {
+    operationFail() {
         this.operationFailed = true;
         this.operationInProgress = false;
-        console.error(err);
     }
 }

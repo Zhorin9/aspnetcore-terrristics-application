@@ -2,7 +2,7 @@
     <b-modal
             id="terraristics-window-add-sensor-blocks-modal"
             title="Dodaj nowe sensory"
-            size="lg"
+            size="md"
             button-size="sm"
             ref="terraristicsWindowAddSensorBlocksModal">
         <div v-show="operationFailed" class="alert alert-danger text-center modal-alert"
@@ -13,7 +13,7 @@
         <validation-observer v-if="!operationInProgress" ref="observer" v-slot="{ invalid }">
             <b-form @submit.prevent="handleOk">
 
-                <b-form-group class="col-6">
+                <b-form-group>
                     <label>Nazwa bloku</label>
                     <validation-provider name="name" rules="required" v-slot="{ errors }">
                         <b-form-input v-model="name" :state="errors.length == 0" class="form-control"/>
@@ -23,7 +23,7 @@
                     </validation-provider>
                 </b-form-group>
 
-                <b-form-group class="col-6">
+                <b-form-group>
                     <label>Opis</label>
                     <validation-provider name="description" rules="max:250" v-slot="{ errors }">
                         <b-form-textarea v-model="description"
@@ -37,7 +37,7 @@
                     </validation-provider>
                 </b-form-group>
 
-                <b-form-group class="col-6">
+                <b-form-group>
                     <label>Wybierz rodzaj czujnika</label>
                     <b-form-radio v-model="selectedType" name="measure-sensor" :value=true>Czujnik pomiarowy
                     </b-form-radio>
@@ -45,7 +45,7 @@
                     </b-form-radio>
                 </b-form-group>
 
-                <b-form-group v-if="selectedType" class="col-6">
+                <b-form-group v-if="selectedType">
                     <label>Czujniki wejścia</label>
                     <input-sensors-multiselect
                             :multiple="false"
@@ -53,7 +53,7 @@
                             @selected-inputs="updateSensor"/>
                 </b-form-group>
 
-                <b-form-group v-else class="col-6">
+                <b-form-group v-else>
                     <label>Czujniki wyjścia</label>
                     <output-sensors-multiselect
                             :multiple="false"
@@ -114,7 +114,6 @@
 
         createSensorBlock() {
             this.startOperation();
-            debugger;
             let sensorToCreate = {
                 Name: this.name,
                 Description: this.description,
@@ -130,7 +129,8 @@
                     this.createdNewSensorBlock(sensorBlockId);
                 })
                 .catch(err => {
-                    this.operationFail(err.message);
+                    this.operationFail();
+                    console.error(err);
                 });
         };
 

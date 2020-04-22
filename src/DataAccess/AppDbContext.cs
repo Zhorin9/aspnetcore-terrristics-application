@@ -66,6 +66,7 @@ namespace DataAccess
 
             builder.HasKey(osd => osd.Id);
             builder.Property(osd => osd.State)
+                .HasConversion(new BoolToZeroOneConverter<int>())
                 .IsRequired();
 
             builder.HasOne(osd => osd.SensorBlock)
@@ -75,7 +76,7 @@ namespace DataAccess
 
         private void ConfigureSensorBlock(EntityTypeBuilder<SensorBlock> builder)
         {
-            builder.ToTable("Sensor");
+            builder.ToTable("SensorBlock");
 
             builder.HasKey(s => s.Id);
             builder.Property(s => s.Name)

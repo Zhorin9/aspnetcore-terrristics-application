@@ -19,7 +19,7 @@ class SensorBlockDataApiImpl implements SensorBlockDataApi {
             })
     }
 
-    async createOrUpdateSensorBlockData(request: any): Promise<any> {
+    async updateOutputData(request: any): Promise<any> {
         return await axios.post(endpoints.createOrUpdateSensorBlockData,
             request,
             {

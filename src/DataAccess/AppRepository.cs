@@ -40,6 +40,12 @@ namespace DataAccess
             Context.Set<T>().Remove(entity);
             await Context.SaveChangesAsync();
         }
+        
+        public async Task ListDeleteAsync(IEnumerable<T> entities)
+        {
+            Context.Set<T>().RemoveRange(entities);
+            await Context.SaveChangesAsync();
+        }
 
         public async Task<IEnumerable<T>> ListAllAsync()
         {

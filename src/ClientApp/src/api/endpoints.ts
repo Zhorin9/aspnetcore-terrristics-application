@@ -6,6 +6,7 @@ export const endpoints = {
     getSensorBlockData: "/api/sensorBlockData/getList",
     getSensorBlockDataOutputState: "/api/sensorBlockData/getOutputState",
     createOrUpdateSensorBlockData: "/api/sensorBlockData/createOrUpdate",
+    removeSensorBlockAllInputData: "/api/sensorBlockData/removeAllInputData",
     
     getSensorBlocks: "/api/sensorBlock/getList",
     createNewSensorBlock: "/api/sensorBlock/create",

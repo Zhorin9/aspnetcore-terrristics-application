@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -31,7 +33,7 @@ namespace Web.ApiControllers
 
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Create([FromBody] InputSensorBlockDataApiModel blockDataApiModel)
+        public IActionResult CreateInputData([FromBody] InputSensorBlockDataApiModel blockDataApiModel)
         {
             if (!ModelState.IsValid)
             {
@@ -40,16 +42,25 @@ namespace Web.ApiControllers
 
             var sensorData = new InputSensorData
             {
-                CreationDate = blockDataApiModel.CreationDate,
+                CreationDate = blockDataApiModel.CreationDate == DateTime.MinValue ? DateTime.Now : blockDataApiModel.CreationDate,
                 SensorBlockId = blockDataApiModel.SensorBlockId,
                 Value = blockDataApiModel.Value
             };
-
+            
             var result = _inputBlockDataRepository.Add(blockDataApiModel.WindowApiKey, blockDataApiModel.SensorBlockId, sensorData);
             if (result == null)
             {
                 return BadRequest();
             }
+            
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveAllInputData([FromBody] int sensorBlockId)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            int result = await _inputBlockDataRepository.RemoveAllData(userId, sensorBlockId);
 
             return Ok(result);
         }

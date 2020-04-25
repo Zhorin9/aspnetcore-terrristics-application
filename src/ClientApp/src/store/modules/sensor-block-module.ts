@@ -13,7 +13,7 @@ class SensorBlock extends VuexModule implements SensorBlockState {
     @Mutation
     UPDATE_SENSOR_BLOCKS(sensorBlocks: Array<SensorBlockModel>) {
         this.SensorBlocks = sensorBlocks;
-    }    
+    }
 
     @Action
     GET_LIST(windowId: string) {
@@ -25,6 +25,17 @@ class SensorBlock extends VuexModule implements SensorBlockState {
             .catch(err => {
                 console.error(err);
             });
+    }
+    
+    @Action
+    async REMOVE_ALL_INPUT_DATA(sensorBlockId: string) {
+        return await sensorBlockApiImpl.removeAllInputData(sensorBlockId)
+            .then(() => {
+                return true;
+            })
+            .catch(err => {
+                console.error(err);
+            })
     }
 }
 

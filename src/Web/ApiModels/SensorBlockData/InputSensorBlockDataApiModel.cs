@@ -6,7 +6,7 @@ namespace Web.ApiModels.SensorBlockData
     public class InputSensorBlockDataApiModel
     {
         [Required]
-        public Guid WindowApiKey { get; set; }
+        public string WindowApiKey { get; set; }
 
         [Required]
         public decimal Value { get; set; }

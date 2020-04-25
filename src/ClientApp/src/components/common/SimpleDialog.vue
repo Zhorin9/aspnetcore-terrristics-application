@@ -1,5 +1,8 @@
 <template>
-    <b-modal :id="id" title="Czy na chesz wykonać akcję?" >
+    <b-modal :id="id" :title="title" >
+        <p>
+            {{description}}
+        </p>
         <template v-slot:modal-footer="{ ok, cancel }">
             <b-button size="sm" variant="success" @click="handleOk">
                 Tak
@@ -17,18 +20,20 @@
     @Component
     export default class SimpleDialog extends Vue {
         @Prop() id!: string;
+        @Prop({default: "Czy na chesz wykonać akcję?"}) title!: string;
+        @Prop({default: ""}) description!: string;
         
         handleOk() {
-            this.result(true);
+            this.modalResult(true);
+            this.$bvModal.hide(this.id);
         }
 
         handleCancel() {
-            this.result(false);
             this.$bvModal.hide(this.id);
         }
 
         @Emit()
-        result(value: boolean) {
+        modalResult(value: boolean) {
             return value;
         }
     }

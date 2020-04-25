@@ -32,6 +32,8 @@ namespace Domain.Interfaces
         /// Delete data
         /// </summary>
         Task DeleteAsync(T entity);
+        
+        Task ListDeleteAsync(IEnumerable<T> entities);
 
         /// <summary>
         /// Get list of data by expression

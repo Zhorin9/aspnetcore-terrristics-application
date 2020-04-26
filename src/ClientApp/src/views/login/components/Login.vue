@@ -1,5 +1,5 @@
 <template>
-    <div class="w-25 d-block p-5 login-container m-5">
+    <b-container class="login-container">
         <div v-if="!waitingForResponse">
             <h2>Zaloguj się</h2>
             <validation-observer ref="observer" v-slot="{ invalid }">
@@ -49,7 +49,7 @@
         <div v-else>
             <loading-page/>
         </div>
-    </div>
+    </b-container>
 </template>
 
 <script lang="ts">
@@ -95,7 +95,7 @@
 
 <style scoped>
     .login-container {
-        padding: 20px;
+        padding: 40px;
         color: #fff;
         background-color: #204638;
         border-radius: 100px;

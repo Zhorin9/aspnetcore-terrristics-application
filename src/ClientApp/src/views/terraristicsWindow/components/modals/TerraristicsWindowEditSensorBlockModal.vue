@@ -1,22 +1,25 @@
 <template>
     <b-modal
-            id="terraristics-window-add-sensor-blocks-modal"
-            title="Dodaj nowe sensory"
+            id="terraristics-window-edit-sensor-blocks-modal"
+            title="Aktualizuj podstawowe dane"
             size="md"
             button-size="sm"
-            ref="terraristicsWindowAddSensorBlocksModal">
+            ref="terraristicsWindowEditSensorBlocksModal">
         <div v-show="operationFailed" class="alert alert-danger text-center modal-alert"
              :style="`padding: 0`">
-            <p class="text-danger" :style="`font-size: 16px; margin-bottom:0px;`">Nie udało się dodać nowego sensora,
-                spróbuj ponownie :(</p>
+            <p class="text-danger" :style="`font-size: 16px; margin-bottom:0px;`">Edycja się nie udała, spróbuj ponownie
+                :(</p>
         </div>
         <validation-observer v-if="!operationInProgress" ref="observer" v-slot="{ invalid }">
             <b-form @submit.prevent="handleOk">
-
+                <div>
+                    
+                    <span><font-awesome-icon :icon="['fa', 'info']"/> W przypadku zmiany typu czujnika należy usunąć sensor i założyć nowy.</span>
+                </div>
                 <b-form-group>
                     <label>Nazwa bloku</label>
                     <validation-provider name="name" rules="required" v-slot="{ errors }">
-                        <b-form-input v-model="name" :state="errors.length == 0" class="form-control"/>
+                        <b-form-input v-model="selectedSensorBlock.Name" :state="errors.length == 0" class="form-control"/>
                         <b-form-invalid-feedback :state="errors.length == 0">
                             {{ errors[0] }}
                         </b-form-invalid-feedback>
@@ -26,7 +29,7 @@
                 <b-form-group>
                     <label>Opis</label>
                     <validation-provider name="description" rules="max:250" v-slot="{ errors }">
-                        <b-form-textarea v-model="description"
+                        <b-form-textarea v-model="selectedSensorBlock.Description"
                                          :state="errors.length == 0"
                                          placeholder="Opis bloku"
                                          class="form-control">
@@ -35,30 +38,6 @@
                             {{ errors[0] }}
                         </b-form-invalid-feedback>
                     </validation-provider>
-                </b-form-group>
-
-                <b-form-group>
-                    <label>Wybierz rodzaj czujnika</label>
-                    <b-form-radio v-model="selectedType" name="measure-sensor" :value=true>Czujnik pomiarowy
-                    </b-form-radio>
-                    <b-form-radio v-model="selectedType" name="control-sensor" :value=false>Czujnik sterujący
-                    </b-form-radio>
-                </b-form-group>
-
-                <b-form-group v-if="selectedType">
-                    <label>Czujniki wejścia</label>
-                    <input-sensors-multiselect
-                            :multiple="false"
-                            :selected-sensors="selectedSensorKind"
-                            @selected-inputs="updateSensor"/>
-                </b-form-group>
-
-                <b-form-group v-else>
-                    <label>Czujniki wyjścia</label>
-                    <output-sensors-multiselect
-                            :multiple="false"
-                            :selected-sensors="selectedSensorKind"
-                            @selected-outputs="updateSensor"/>
                 </b-form-group>
 
             </b-form>
@@ -92,41 +71,21 @@
             InputSensorsMultiselect
         }
     })
-    export default class TerraristicsWindowAddSensorBlockModal extends BackendOperationMixin {
-        @Prop([Number, String]) windowId!: number | string;
-        name: string = "";
-        description: string = "";
-        selectedSensorKind: SensorKindModel = <SensorKindModel>{};
-        type: boolean = true;
-
-        public get selectedType(): boolean {
-            return this.type;
-        }
-
-        public set selectedType(selected: boolean) {
-            this.type = selected;
-            this.selectedSensorKind = <SensorKindModel>{};
-        }
+    export default class TerraristicsWindowEditSensorBlockModal extends BackendOperationMixin {
+        @Prop() selectedSensorBlock!: SensorBlockModel;
 
         created() {
             DictionaryModule.DICT_GET_ALL_SENSOR_KINDS();
         }
 
-        createSensorBlock() {
+        updateSensorBlock() {
             this.startOperation();
-            let sensorToCreate = {
-                Name: this.name,
-                Description: this.description,
-                WindowId: this.windowId,
-                SensorKind: this.selectedSensorKind
-            };
-
-            sensorBlockApiImpl.create(sensorToCreate)
+            sensorBlockApiImpl.update(this.selectedSensorBlock)
                 .then(response => {
                     let sensorBlockId = response.data;
                     this.operationSuccess();
                     this.hideAndResetModal();
-                    this.createdNewSensorBlock(sensorBlockId);
+                    this.updatedSensorBlock(sensorBlockId);
                 })
                 .catch(err => {
                     this.operationFail();
@@ -134,33 +93,22 @@
                 });
         };
 
-        updateSensor(sensor: SensorKindModel) {
-            this.selectedSensorKind = sensor;
-        }
-
         hideAndResetModal() {
-            this.resetModalData();
             // @ts-ignore
-            this.$refs.terraristicsWindowAddSensorBlocksModal.hide();
+            this.$refs.terraristicsWindowEditSensorBlocksModal.hide();
         }
 
         async handleOk(evt: any) {
             try {
                 evt.preventDefault();
-                this.createSensorBlock();
+                this.updateSensorBlock();
             } catch (e) {
                 console.error(e);
             }
         };
 
-        resetModalData(){
-            this.name = '';
-            this.description = '';
-            this.selectedSensorKind = <SensorKindModel>{};
-        }
-
         @Emit()
-        createdNewSensorBlock(sensorBlockId: number) {
+        updatedSensorBlock(sensorBlockId: number) {
             return sensorBlockId;
         }
     }

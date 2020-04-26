@@ -46,6 +46,32 @@ namespace Web.ApiControllers
 
             return BadRequest();
         }
+        
+        [HttpPost]
+        public async Task<IActionResult> Update([FromBody] SensorBlockApiModel sensorBlockApiModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Formularz został niepoprawnie wypełniony. Spróbuj ponownie");
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var sensorBlockToUpdate = new SensorBlock
+            {
+                Id = sensorBlockApiModel.Id,
+                Name = sensorBlockApiModel.Name,
+                Description = sensorBlockApiModel.Description
+            };
+
+            int result = await _sensorBlockRepository.UpdateBaseParameters(sensorBlockToUpdate, userId);
+
+            if (result > 0)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
 
         [HttpGet]
         public async Task<IActionResult> Get(int sensorBlockId)

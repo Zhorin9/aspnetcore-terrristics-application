@@ -1,9 +1,10 @@
 <script lang="ts">
-    import {Line} from 'vue-chartjs'
+    import {Line, mixins} from 'vue-chartjs'
     import {Component, Prop, Vue} from "vue-property-decorator";
 
     @Component({
         extends: Line,
+        mixins: [mixins.reactiveProp]
     })
     export default class LineChart extends Vue {
         @Prop({default: null}) chartData!: object;
@@ -11,7 +12,12 @@
         private renderChart!: (chartData: any, options: any) => void;
         private defaultChartOptions: any = {
             responsive: true,
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                    display: false
+                }],
+            }
         };
         
         get chartConfiguration(){

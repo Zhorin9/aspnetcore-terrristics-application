@@ -10,7 +10,9 @@ import {
     faSync,
     faSearch,
     faEdit,
-    faTrash
+    faTrash,
+    faInfoCircle,
+    faInfo,
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 
@@ -26,3 +28,5 @@ library.add(faSync);
 library.add(faSearch);
 library.add(faEdit);
 library.add(faTrash);
+library.add(faInfoCircle);
+library.add(faInfo);

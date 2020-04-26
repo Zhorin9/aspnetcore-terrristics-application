@@ -4,7 +4,10 @@
         <loading-page v-else-if="showLoadingPage" :size="6"/>
         <error-page v-else :size="6"/>
     </div>
-    <div v-else-if="!loadingDataProcess">
+    <div v-else-if="loadingDataProcess">
+        <loading-page :size="6"/>
+    </div>
+    <div v-else>
         Brak danych
     </div>
 </template>
@@ -63,8 +66,9 @@
                 .then(response => {
                     this.loadingDataProcess = false;
                     _.each(response.data, point => {
+                        this.chartXData.push(point.CreationDate);
                         //@ts-ignore
-                        this.chartXData.push(this.$moment(point.CreationDate).format('YYYY-MM-DD'));
+                        // this.chartXData.push(this.$moment(point.CreationDate).format('YYYY-MM-DD'));
                         this.chartYData.push(point.Value);
                     });
                 })

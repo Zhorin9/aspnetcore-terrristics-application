@@ -27,6 +27,14 @@ class SensorBlockApiImpl implements SensorBlockApi {
             })
     }
     
+    async update(request: any): Promise<any> {
+        return await axios.post(endpoints.updateSensorBlock,
+            request,
+            {
+                headers: getHeaderWithJwtToken()
+            })
+    }
+    
     async removeAllInputData(sensorBlockId: string): Promise<any> {
         return await axios.post(endpoints.removeSensorBlockAllInputData,
             sensorBlockId,

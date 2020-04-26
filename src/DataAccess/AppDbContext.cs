@@ -48,7 +48,7 @@ namespace DataAccess
         {
             builder.HasKey(isd => isd.Id);
             builder.Property(isd => isd.CreationDate)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasDefaultValue(DateTime.Now);
 
             //Decimal(5,2) is precision to 999.99

@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\ClientApp\dist\**" LinkBase="ClientApp\">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="..\ClientApp\dist\**" LinkBase="ClientApp\dist">
+<!--      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>-->
     </Content>
   </ItemGroup>
   

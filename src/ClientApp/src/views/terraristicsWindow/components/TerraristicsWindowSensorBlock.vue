@@ -20,7 +20,10 @@
                                            @click="refreshData"/>
                         <font-awesome-icon :icon="['fa', 'trash']" class="fa-pull-right cursor-pointer"
                                            v-b-tooltip.hover title="Usuń wszystkie dane"
-                                           @click="showRemoveAllInputDataModal"/>
+                                           @click="showRemoveAllInputDataModal"/>        
+                        <font-awesome-icon :icon="['fa', 'edit']" class="fa-pull-right cursor-pointer"
+                                           v-b-tooltip.hover title="Edytuj blok"
+                                           @click="editSensorBlock"/>
                     </template>
                 </template>
 
@@ -56,7 +59,7 @@
         }
     })
 
-    export default class SensorBlock extends BackendOperationMixin {
+    export default class TerraristicsWindowSensorBlock extends BackendOperationMixin {
         @Prop({default: {}}) sensorBlock: SensorBlockModel | undefined;
 
         get outputTypesEnum() {
@@ -93,6 +96,12 @@
                         this.operationFail();
                     })
             }
+        }
+        
+        @Emit()
+        editSensorBlock(){
+            //@ts-ignore
+            return this.sensorBlock;
         }
     }
 </script>

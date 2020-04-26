@@ -10,6 +10,7 @@ export const endpoints = {
     
     getSensorBlocks: "/api/sensorBlock/getList",
     createNewSensorBlock: "/api/sensorBlock/create",
+    updateSensorBlock: "/api/sensorBlock/update",
     
     getTerraristicsWindows: "api/terraristicsWindow/getList",
     createNewTerraristicsWindow: "api/terraristicsWindow/create",

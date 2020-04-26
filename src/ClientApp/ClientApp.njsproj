@@ -53,7 +53,6 @@
     <None Include="src\components\errorLog\index.vue" />
     <None Include="src\components\Footer.vue" />
     <None Include="src\components\Navbar.vue" />
-    <None Include="src\components\SensorBlock.vue" />
     <None Include="src\components\sensorBlockTypes\InputSensorBlock.vue" />
     <None Include="src\components\sensorBlockTypes\OutputAnalogSensorBlock.vue" />
     <None Include="src\components\sensorBlockTypes\OutputDigitalSensorBlock.vue" />
@@ -76,7 +75,6 @@
     <None Include="src\views\login\LoginView.vue" />
     <None Include="src\views\publicWindow\PublicWindowView.vue" />
     <None Include="src\views\terraristicsWindow\components\modals\TerraristicsWindowAddSensorBlocksModal.vue" />
-    <None Include="src\views\terraristicsWindow\components\UserTerraristicWindowTable.vue" />
     <None Include="src\views\terraristicsWindow\TerraristicsWindowView.vue" />
     <None Include="src\views\userTerraristicsWindow\components\modals\UserTerraristicWindowAddModal.vue" />
     <None Include="src\views\userTerraristicsWindow\components\modals\UserTerraristicWindowEditModal.vue" />
@@ -102,6 +100,8 @@
     <Content Include="src\router\auth-required.ts" />
     <Content Include="src\utils\enums.ts" />
     <Content Include="src\utils\header-generator.ts" />
+    <Content Include="src\views\terraristicsWindow\components\modals\TerraristicsWindowEditSensorBlockModal.vue" />
+    <Content Include="src\views\terraristicsWindow\components\SensorBlock.vue" />
     <Content Include="tsconfig.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

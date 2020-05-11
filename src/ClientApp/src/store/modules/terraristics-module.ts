@@ -19,7 +19,7 @@ class Terraristics extends VuexModule implements TerraristicsState {
     public GET_LIST() {
         return terraristicsWindowApiImpl.getList()
             .then(response => {
-                this.UPDATE_TERRARISTICS_WINDOWS(response.data.Value);
+                this.UPDATE_TERRARISTICS_WINDOWS(response.data.TerraristicsWindows);
                 return true;
             })
             .catch(err => {

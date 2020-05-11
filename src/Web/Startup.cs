@@ -1,59 +1,88 @@
 ﻿using System.Text;
+using System.Text.Json.Serialization;
+using Application;
+using Application.Common.Interfaces;
+using Auth;
+using DataAccess;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json.Serialization;
 using Web.Configurations;
+using Web.Services;
 
 namespace Web
 {
     public class Startup
     {
-        private readonly IConfiguration _config;
-
-        public Startup(IConfiguration config)
+        public Startup(IConfiguration configuration)
         {
-            _config = config;
+            Configuration = configuration;
         }
+
+        private IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            DatabaseContextsConfiguration.RegisterDbContexts(services, _config);
-            AutoMapperConfiguration.RegisterAutoMapper(services);
-            SpaConfiguration.RegisterStaticFiles(services, _config);
-            
-            services.AddAuthentication()
-                .AddCookie()
-                .AddJwtBearer(cfg =>
-                {
-                    cfg.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidIssuer = _config["Tokens:Issuer"],
-                        ValidAudience = _config["Tokens:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]))
-                    };
-                });
+            // AutoMapperConfiguration.RegisterAutoMapper(services);
+            SpaConfiguration.RegisterStaticFiles(services, Configuration);
 
+            services.AddAuth(Configuration);
+            services.AddDataAccess(Configuration);
+            services.AddApplication();
+            
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
+
+            services
+                .AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.UseMemberCasing();
+                })
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IAppDbContext>());
+
+            services.AddMvc(option => option.EnableEndpointRouting = false)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
+            
             services.AddCors(o => o.AddPolicy("AllowOrigin", builder =>
             {
                 builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader();
             }));
-
-            services.AddMvc()
-                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
-                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                .AddDataAnnotationsLocalization();
+            
+            services.AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.RequireHttpsMetadata = false;
+                    cfg.SaveToken = true;
+                    cfg.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration["Tokens:Issuer"],
+                        ValidAudience = Configuration["Tokens:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+                    };
+                });
             
             ServicesConfiguration.RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -65,7 +94,7 @@ namespace Web
             {
                 SpaConfiguration.EnableStaticFiles(app);
             }
-
+            
             app.UseAuthentication();
             app.UseCors("AllowOrigin");
             app.UseMvc(cfg =>
@@ -74,8 +103,30 @@ namespace Web
                     "{controller}/{action}/{id?}",
                     new {controller = "Home", Action = "Index"});
             });
+
+            // app.UseEndpoints(endpoints =>
+            // {
+            //     endpoints.MapControllers();
+            // });
             
-            SpaConfiguration.EnableSpa(app, env, _config);
+            // // // app.UseHttpsRedirection();
+            // app.UseMvc(routes =>
+            // {
+            //     routes.MapRoute("default", "{controller}/{action=index}/{id}");
+            // });
+            //
+            // // global cors policy
+            // app.UseCors(x => x
+            //     .AllowAnyOrigin()
+            //     .AllowAnyMethod()
+            //     .AllowAnyHeader());
+            //
+            //
+            // app.UseEndpoints(endpoints => {
+            //     endpoints.MapControllers();
+            // });
+            
+            SpaConfiguration.EnableSpa(app, env, Configuration);
         }
     }
 }

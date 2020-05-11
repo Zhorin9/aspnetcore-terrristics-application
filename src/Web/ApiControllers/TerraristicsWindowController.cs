@@ -1,123 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Domain.Entities;
-using Domain.Interfaces;
+﻿using System.Threading.Tasks;
+using Application.TerraristicWindows.Commands.CreateTerraristicsWindow;
+using Application.TerraristicWindows.Commands.DeleteTerraristicsWindow;
+using Application.TerraristicWindows.Commands.UpdateTerraristicsWindow;
+using Application.TerraristicWindows.Queries.GetTerraristicsWindowDetail;
+using Application.TerraristicWindows.Queries.GetTerraristicsWindowList;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Web.ApiModels.TerraristicsWindows;
 
 namespace Web.ApiControllers
 {
     public class TerraristicsWindowController : BaseApiController
     {
-        private readonly ITerraristicWindowRepository _terraristicWindowRepository;
+        private readonly IMediator _mediator;
 
-        public TerraristicsWindowController(IMapper mapper, ITerraristicWindowRepository terraristicWindowRepository) :
+        public TerraristicsWindowController(IMapper mapper, IMediator mediator) :
             base(mapper)
         {
-            _terraristicWindowRepository = terraristicWindowRepository;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromBody] string id)
+        public async Task<ActionResult<TerraristicsWindowDetailAm>> Get([FromBody] int id)
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                return BadRequest("Id okna jest nie poprawne");
-            }
+            TerraristicsWindowDetailAm am = await _mediator.Send(new GetTerraristicsWindowDetailQuery {Id = id});
 
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            TerraristicWindow terraristicsWindow = await _terraristicWindowRepository.GetAsync(int.Parse(id), userId);
-            if (terraristicsWindow == null)
-            {
-                return NotFound("Nie masz dostępu do tego okna.");
-            }      
-
-            TerraristicsWindowApiModel terraristicsWindowResponseApiModel = Mapper.Map<TerraristicsWindowApiModel>(terraristicsWindow);
-            return Ok(new JsonResult(terraristicsWindowResponseApiModel));
+            return Ok(new JsonResult(am));
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetList()
+        public async Task<ActionResult<TerraristicsWindowListAm>> GetList()
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            List<TerraristicWindow> terraristicWindows = await _terraristicWindowRepository.GetAsync(userId);
-            List<TerraristicsWindowApiModel> terraristicsWindowResponse = Mapper.Map<List<TerraristicsWindowApiModel>>(terraristicWindows);
+            var am = await _mediator.Send(new GetTerraristicsWindowListQuery());
 
-            return Ok(new JsonResult(terraristicsWindowResponse));
-        }
-        
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateTerraristicsWindowApiModel createTerraristicsWindowApiModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Formularz został niepoprawnie wypełniony. Spróbuj ponownie");
-            }
-
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var newTerraristicsWindow = new TerraristicWindow
-            {
-                Name = createTerraristicsWindowApiModel.Name,
-                Description = createTerraristicsWindowApiModel.Description,
-                UserId = userId,
-                ApiKey = Guid.NewGuid(),
-                CreationDate = DateTime.Now.Date,
-                ModificationDate = DateTime.Now.Date,
-                IsPublic = createTerraristicsWindowApiModel.IsPublic
-            };
-
-            int result =  await _terraristicWindowRepository.AddAsync(newTerraristicsWindow);
-            if (result > 0)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest();
+            return Ok(am);
         }
 
         [HttpPost]
-        public IActionResult Update([FromBody] UpdateTerraristicsWindowApiModel updateTerraristicsWindowApiModel)
+        public async Task<IActionResult> Create([FromBody] CreateTerraristicsWindowCommand command)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Formularz został niepoprawnie wypełniony. Spróbuj ponownie");
-            }
+            await _mediator.Send(command);
 
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var terraristicWindow = new TerraristicWindow
-            {
-                Id = updateTerraristicsWindowApiModel.Id,
-                Name = updateTerraristicsWindowApiModel.Name,
-                Description = updateTerraristicsWindowApiModel.Description,
-                IsPublic = updateTerraristicsWindowApiModel.IsPublic
-            };
-
-            int result = _terraristicWindowRepository.Update(terraristicWindow, userId);
-            if (result > 0)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest();
+            return NoContent();
         }
-        
-        [HttpPost]
-        public IActionResult Delete([FromBody] int id)
-        {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            TerraristicWindow terraristicWindow = _terraristicWindowRepository.GetAsync(id, userId).Result;
 
-            try
-            {
-                return Ok(_terraristicWindowRepository.DeleteAsync(terraristicWindow));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e);
-            }
+        [HttpPost]
+        public async Task<IActionResult> Update([FromBody] UpdateTerraristicsWindowCommand command)
+        {
+            await _mediator.Send(command);
+
+            return NoContent();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete([FromBody] int id)
+        {
+            await _mediator.Send(new DeleteTerraristicsWindowCommand {Id = id});
+
+            return NoContent();
         }
     }
 }

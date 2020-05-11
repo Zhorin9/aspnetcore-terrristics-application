@@ -4,6 +4,10 @@ namespace Domain.Entities
 {
     public class SensorBlock : BaseEntity
     {
+        public SensorBlock()
+        {
+            Inputs = new HashSet<InputSensorData>();
+        }
         public string Name { get; set; }
         public string Description { get; set; }
         
@@ -14,7 +18,7 @@ namespace Domain.Entities
         
         public int OutputDataId { get; set; }
         public TerraristicWindow ParentWindow { get; set; }
-        public ICollection<InputSensorData> Inputs { get; set; }
+        public ICollection<InputSensorData> Inputs { get; private set; }
         
         public OutputSensorData OutputData { get; set; }
     }

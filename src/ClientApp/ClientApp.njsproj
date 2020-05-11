@@ -118,6 +118,8 @@
     <Folder Include="src\components\common\Multiselects\" />
     <Folder Include="src\components\errorLog\" />
     <Folder Include="src\components\sensorBlockTypes\" />
+    <Folder Include="src\configurations\" />
+    <Folder Include="src\mixins\" />
     <Folder Include="src\router\" />
     <Folder Include="src\services\" />
     <Folder Include="src\store\" />

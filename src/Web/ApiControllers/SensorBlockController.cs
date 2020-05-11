@@ -1,121 +1,53 @@
-using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
+using Application.SensorBlocks.Commands.CreateSensorBlock;
+using Application.SensorBlocks.Commands.UpdateSensorBlock;
+using Application.SensorBlocks.Queries.GetSensorBlockDetail;
+using Application.SensorBlocks.Queries.GetSensorBlockList;
 using AutoMapper;
-using Domain.Entities;
-using Domain.Enums;
-using Domain.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Web.ApiModels.SensorBlocks;
 
 namespace Web.ApiControllers
 {
     public class SensorBlockController : BaseApiController
     {
-        private readonly ISensorBlockRepository _sensorBlockRepository;
+        private readonly IMediator _mediator;
 
-        public SensorBlockController(IMapper mapper, ISensorBlockRepository sensorBlockRepository) : base(mapper)
+        public SensorBlockController(IMediator mediator, IMapper mapper) : base(mapper)
         {
-            _sensorBlockRepository = sensorBlockRepository;
+            _mediator = mediator;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] SensorBlockApiModel sensorToCreate)
+        public async Task<IActionResult> Create([FromBody] CreateSensorBlockCommand command)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Formularz został niepoprawnie wypełniony. Spróbuj ponownie");
-            }
+            await _mediator.Send(command);
 
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var newSensorBlock = new SensorBlock
-            {
-                Name = sensorToCreate.Name,
-                Description = sensorToCreate.Description,
-                UserId = userId,
-                ParentWindowId = sensorToCreate.WindowId,
-                SensorKindId = sensorToCreate.SensorKind.SensorKindId
-            };
-
-            int result = await CreateSensorBlockDependsOnType(sensorToCreate, newSensorBlock);
-
-            if (result > 0)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest();
+            return NoContent();
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> Update([FromBody] SensorBlockApiModel sensorBlockApiModel)
+        public async Task<IActionResult> Update([FromBody] UpdateSensorBlockCommand command)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Formularz został niepoprawnie wypełniony. Spróbuj ponownie");
-            }
+            await _mediator.Send(command);
 
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var sensorBlockToUpdate = new SensorBlock
-            {
-                Id = sensorBlockApiModel.Id,
-                Name = sensorBlockApiModel.Name,
-                Description = sensorBlockApiModel.Description
-            };
-
-            int result = await _sensorBlockRepository.UpdateBaseParameters(sensorBlockToUpdate, userId);
-
-            if (result > 0)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest();
+            return NoContent();
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(int sensorBlockId)
+        public async Task<ActionResult<SensorBlockDetailAm>> Get(int sensorBlockId)
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            SensorBlock sensorBlock = await _sensorBlockRepository.GetAsync(sensorBlockId);
+            var am = await _mediator.Send(new GetSensorBlockDetailQuery {Id = sensorBlockId});
 
-            if (sensorBlock == null)
-            {
-                return NotFound("Nie znaleziono odpowiedniego sensora");
-            }
-
-            if (sensorBlock.UserId != userId)
-            {
-                return Unauthorized();
-            }
-
-            SensorBlockApiModel sensorBlockResponse = Mapper.Map<SensorBlockApiModel>(sensorBlock);
-            return Ok(sensorBlockResponse);
+            return Ok(am);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetList(int windowId)
+        public async Task<ActionResult<SensorBlockListAm>> GetList(int windowId)
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            List<SensorBlock> sensorBlocks = await _sensorBlockRepository.GetAsync(windowId, userId);
-            List<SensorBlockApiModel> sensorBlockResponse = Mapper.Map<List<SensorBlockApiModel>>(sensorBlocks);
+            var am = await _mediator.Send(new GetSensorBlockListQuery {WindowId = windowId});
 
-            return Ok(new JsonResult(sensorBlockResponse));
-        }
-        
-        private async Task<int> CreateSensorBlockDependsOnType(SensorBlockApiModel sensorToCreate, SensorBlock newSensorBlock)
-        {
-            if (sensorToCreate.SensorKind.Type == SensorTypeEnum.Input)
-            {
-                return await _sensorBlockRepository.AddAsync(newSensorBlock);
-            }
-
-            newSensorBlock.OutputData = new OutputSensorData
-            {
-                Value = "",
-                State = false
-            };
-            return await _sensorBlockRepository.CreateWithOutputData(newSensorBlock);
+            return Ok(am);
         }
     }
 }

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using VueCliMiddleware;
 
 namespace Web.Configurations
@@ -19,7 +20,7 @@ namespace Web.Configurations
             app.UseSpaStaticFiles();
         }
 
-        internal static void EnableSpa(IApplicationBuilder app, IHostingEnvironment env, IConfiguration configuration)
+        internal static void EnableSpa(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration)
         {
             app.UseSpa(spa =>
             {              

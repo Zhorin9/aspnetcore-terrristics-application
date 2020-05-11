@@ -19,7 +19,7 @@ class SensorBlock extends VuexModule implements SensorBlockState {
     GET_LIST(windowId: string) {
         return sensorBlockApiImpl.getSensorBlocks(windowId)
             .then(response => {
-                this.UPDATE_SENSOR_BLOCKS(response.data.Value);
+                this.UPDATE_SENSOR_BLOCKS(response.data.SensorBlocks);
                 return true;
             })
             .catch(err => {

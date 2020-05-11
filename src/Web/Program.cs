@@ -1,5 +1,7 @@
 ﻿using System;
 using Auth;
+using Auth.Identity;
+using Auth.Identity.Seeds;
 using DataAccess;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;

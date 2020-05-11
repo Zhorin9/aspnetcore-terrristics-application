@@ -10,11 +10,8 @@ namespace DataAccess.Repositories
 {
     public class InputBlockDataRepository : AppRepository<InputSensorData>, IInputBlockDataRepository
     {
-        private readonly IAppLogger<TerraristicWindowRepository> _logger;
-
-        public InputBlockDataRepository(AppDbContext context, IAppLogger<TerraristicWindowRepository> logger) : base(context)
+        public InputBlockDataRepository(AppDbContext context) : base(context)
         {
-            _logger = logger;
         }
 
         public async Task<int> Add(string windowApiKey, int sensorBlockId, InputSensorData inputSensorData)

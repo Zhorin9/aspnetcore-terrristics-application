@@ -1,29 +1,26 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Domain.Entities;
-using Domain.Interfaces;
+﻿using System.Threading.Tasks;
+using Application.SensorKinds.Queries.GetSensorKindList;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Web.ApiModels;
 
 namespace Web.ApiControllers.Common
 {
     public class DictionaryController : BaseApiController
     {
-        private readonly ISensorKindRepository _sensorKindRepository;
-
-        public DictionaryController(ISensorKindRepository sensorKindRepository, IMapper mapper) : base(mapper)
+        private readonly IMediator _mediator;
+        
+        public DictionaryController(IMapper mapper, IMediator mediator) : base(mapper)
         {
-            _sensorKindRepository = sensorKindRepository;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetSensorKinds()
         {
-            IEnumerable<SensorKind> sensors = await _sensorKindRepository.ListAllAsync();
-            List<SensorKindApiModel> sensorKindViewModels = Mapper.Map<IEnumerable<SensorKind>, List<SensorKindApiModel>>(sensors);
+            var ams = await _mediator.Send(new GetSensorKindListQuery());
 
-            return Ok(sensorKindViewModels);
+            return Ok(ams);
         }
     }
 }

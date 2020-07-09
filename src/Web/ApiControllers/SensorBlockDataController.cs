@@ -1,101 +1,65 @@
-using System;
-using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using Domain.Entities;
-using Domain.Interfaces;
+using Application.InputSensorDatas.Commands.CreateInputData;
+using Application.InputSensorDatas.Commands.DeleteInputAllData;
+using Application.InputSensors.Queries.GetInputSensorDataList;
+using Application.OutputSensorDatas.Commands.UpsertOutputSensorData;
+using Application.OutputSensorDatas.Queries.GetOutputSensorData;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Web.ApiModels.SensorBlockData;
 
 namespace Web.ApiControllers
 {
     public class SensorBlockDataController : BaseApiController
     {
-        private readonly IInputBlockDataRepository _inputBlockDataRepository;
-        private readonly IOutputBlockDataRepository _outputBlockDataRepository;
+        private readonly IMediator _mediator;
 
-        public SensorBlockDataController(IMapper mapper, IInputBlockDataRepository inputBlockDataRepository, IOutputBlockDataRepository outputBlockDataRepository) : base(mapper)
+        public SensorBlockDataController(IMapper mapper, IMediator mediator) : base(mapper)
         {
-            _inputBlockDataRepository = inputBlockDataRepository;
-            _outputBlockDataRepository = outputBlockDataRepository;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetList(int sensorBlockId)
+        public async Task<ActionResult<InputSensorDataListAm>> GetList(int sensorBlockId)
         {
-            List<InputSensorData> sensorBlockData = await _inputBlockDataRepository.GetData(sensorBlockId);
-            List<InputSensorBlockDataApiModel> sensorBlockDataApis = Mapper.Map<List<InputSensorBlockDataApiModel>>(sensorBlockData);
+            var am = await _mediator.Send(new GetInputSensorDataListQuery {SensorBlockId = sensorBlockId});
 
-            return Ok(sensorBlockDataApis);
+            return Ok(am);
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult CreateInputData([FromBody] InputSensorBlockDataApiModel blockDataApiModel)
+        public async Task<IActionResult> CreateInputData([FromBody] CreateInputDataCommand command)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            await _mediator.Send(command);
 
-            var sensorData = new InputSensorData
-            {
-                CreationDate = blockDataApiModel.CreationDate == DateTime.MinValue ? DateTime.Now : blockDataApiModel.CreationDate,
-                SensorBlockId = blockDataApiModel.SensorBlockId,
-                Value = blockDataApiModel.Value
-            };
-            
-            var result = _inputBlockDataRepository.Add(blockDataApiModel.WindowApiKey, blockDataApiModel.SensorBlockId, sensorData);
-            if (result == null)
-            {
-                return BadRequest();
-            }
-            
-            return Ok(result);
+            return NoContent();
         }
 
         [HttpPost]
         public async Task<IActionResult> RemoveAllInputData([FromBody] int sensorBlockId)
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            int result = await _inputBlockDataRepository.RemoveAllData(userId, sensorBlockId);
+            await _mediator.Send(new DeleteInputAllDataCommand {SensorBlockId = sensorBlockId});
 
-            return Ok(result);
+            return NoContent();
         }
-        
+
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateOrUpdate([FromBody] OutputSensorDataApiModel blockDataApiModel)
+        public async Task<IActionResult> CreateOrUpdate([FromBody] UpsertOutputSensorDataCommand blockDataApiModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            await _mediator.Send(new UpsertOutputSensorDataCommand {SensorBlockId = blockDataApiModel.SensorBlockId});
 
-            var outputSensorData = new OutputSensorData
-            {
-                SensorBlockId = blockDataApiModel.SensorBlockId,
-                State = blockDataApiModel.State,
-                Value = blockDataApiModel.Value
-            };
-
-            var result = await _outputBlockDataRepository.Update(outputSensorData);
-            return Ok();
+            return NoContent();
         }
 
         [HttpGet]
         public async Task<IActionResult> GetOutputState(int sensorBlockId)
         {
-            OutputSensorData outputSensorData = await _outputBlockDataRepository.Get(sensorBlockId);
+            var am = await _mediator.Send(new GetOutputSensorDataQuery {SensorBlockId = sensorBlockId});
 
-            if (outputSensorData == null)
-            {
-                return BadRequest("Problem with sensor status readout");
-            }
-            
-            return Ok(outputSensorData.State);
+            return Ok(am.State);
         }
     }
 }

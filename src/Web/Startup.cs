@@ -29,7 +29,6 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // AutoMapperConfiguration.RegisterAutoMapper(services);
             SpaConfiguration.RegisterStaticFiles(services, Configuration);
 
             services.AddAuth(Configuration);

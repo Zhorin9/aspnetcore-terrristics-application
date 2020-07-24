@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Application.Common.Models;
 using Application.SensorKinds.Queries.GetSensorKindList;
 using AutoMapper;
 using MediatR;
@@ -8,17 +10,14 @@ namespace Web.ApiControllers.Common
 {
     public class DictionaryController : BaseApiController
     {
-        private readonly IMediator _mediator;
-        
-        public DictionaryController(IMapper mapper, IMediator mediator) : base(mapper)
+        public DictionaryController(IMapper mapper, IMediator mediator) : base(mapper, mediator)
         {
-            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetSensorKinds()
         {
-            var ams = await _mediator.Send(new GetSensorKindListQuery());
+            List<SensorKindAm> ams = await Mediator.Send(new GetSensorKindListQuery());
 
             return Ok(ams);
         }

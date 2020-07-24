@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Application.InputSensorDatas.Commands.CreateInputData;
 using Application.InputSensorDatas.Commands.DeleteInputAllData;
-using Application.InputSensors.Queries.GetInputSensorDataList;
+using Application.InputSensorDatas.Queries.GetInputSensorDataList;
 using Application.OutputSensorDatas.Commands.UpsertOutputSensorData;
 using Application.OutputSensorDatas.Queries.GetOutputSensorData;
 using AutoMapper;
@@ -13,17 +13,14 @@ namespace Web.ApiControllers
 {
     public class SensorBlockDataController : BaseApiController
     {
-        private readonly IMediator _mediator;
-
-        public SensorBlockDataController(IMapper mapper, IMediator mediator) : base(mapper)
+        public SensorBlockDataController(IMapper mapper, IMediator mediator) : base(mapper, mediator)
         {
-            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<ActionResult<InputSensorDataListAm>> GetList(int sensorBlockId)
         {
-            var am = await _mediator.Send(new GetInputSensorDataListQuery {SensorBlockId = sensorBlockId});
+            var am = await Mediator.Send(new GetInputSensorDataListQuery {SensorBlockId = sensorBlockId});
 
             return Ok(am);
         }
@@ -32,7 +29,7 @@ namespace Web.ApiControllers
         [AllowAnonymous]
         public async Task<IActionResult> CreateInputData([FromBody] CreateInputDataCommand command)
         {
-            await _mediator.Send(command);
+            await Mediator.Send(command);
 
             return NoContent();
         }
@@ -40,7 +37,7 @@ namespace Web.ApiControllers
         [HttpPost]
         public async Task<IActionResult> RemoveAllInputData([FromBody] int sensorBlockId)
         {
-            await _mediator.Send(new DeleteInputAllDataCommand {SensorBlockId = sensorBlockId});
+            await Mediator.Send(new DeleteInputAllDataCommand {SensorBlockId = sensorBlockId});
 
             return NoContent();
         }
@@ -49,7 +46,7 @@ namespace Web.ApiControllers
         [AllowAnonymous]
         public async Task<IActionResult> CreateOrUpdate([FromBody] UpsertOutputSensorDataCommand blockDataApiModel)
         {
-            await _mediator.Send(new UpsertOutputSensorDataCommand {SensorBlockId = blockDataApiModel.SensorBlockId});
+            await Mediator.Send(new UpsertOutputSensorDataCommand {SensorBlockId = blockDataApiModel.SensorBlockId});
 
             return NoContent();
         }
@@ -57,7 +54,7 @@ namespace Web.ApiControllers
         [HttpGet]
         public async Task<IActionResult> GetOutputState(int sensorBlockId)
         {
-            var am = await _mediator.Send(new GetOutputSensorDataQuery {SensorBlockId = sensorBlockId});
+            var am = await Mediator.Send(new GetOutputSensorDataQuery {SensorBlockId = sensorBlockId});
 
             return Ok(am.State);
         }

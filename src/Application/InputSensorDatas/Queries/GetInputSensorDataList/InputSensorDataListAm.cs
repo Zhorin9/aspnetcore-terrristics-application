@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using Application.InputSensorDatas.Queries.GetInputSensorDataList;
 
-namespace Application.InputSensors.Queries.GetInputSensorDataList
+namespace Application.InputSensorDatas.Queries.GetInputSensorDataList
 {
     public class InputSensorDataListAm
     {

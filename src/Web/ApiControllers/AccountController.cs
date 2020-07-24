@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Web.ApiModels.Authentications;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Web.ApiControllers
 {
@@ -46,13 +47,13 @@ namespace Web.ApiControllers
                 return BadRequest(new {message = "Email or password is incorrect"});
             }
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+            SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
             if (!result.Succeeded)
             {
                 return BadRequest(new {message = "Email or password is incorrect"});
             }
 
-            var claims = CreateClaims(user);
+            Claim[] claims = CreateClaims(user);
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 

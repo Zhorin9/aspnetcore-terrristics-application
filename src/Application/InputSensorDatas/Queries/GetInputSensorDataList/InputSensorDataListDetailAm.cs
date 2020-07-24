@@ -3,7 +3,7 @@ using Application.Common.Mappings;
 using AutoMapper;
 using Domain.Entities;
 
-namespace Application.InputSensors.Queries.GetInputSensorDataList
+namespace Application.InputSensorDatas.Queries.GetInputSensorDataList
 {
     public class InputSensorDataListDetailAm : IMapFrom<InputSensorData>
     {

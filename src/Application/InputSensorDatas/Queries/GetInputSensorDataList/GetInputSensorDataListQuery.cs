@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Application.InputSensors.Queries.GetInputSensorDataList
+namespace Application.InputSensorDatas.Queries.GetInputSensorDataList
 {
     public class GetInputSensorDataListQuery : IRequest<InputSensorDataListAm>
     {

@@ -1,7 +1,6 @@
-using Application.InputSensorDatas.Queries.GetInputSensorDataList;
 using FluentValidation;
 
-namespace Application.InputSensors.Queries.GetInputSensorDataList
+namespace Application.InputSensorDatas.Queries.GetInputSensorDataList
 {
     public class GetInputSensorDataListQueryValidator : AbstractValidator<GetInputSensorDataListQuery>
     {

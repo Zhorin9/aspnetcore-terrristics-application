@@ -12,18 +12,14 @@ namespace Web.ApiControllers
 {
     public class TerraristicsWindowController : BaseApiController
     {
-        private readonly IMediator _mediator;
-
-        public TerraristicsWindowController(IMapper mapper, IMediator mediator) :
-            base(mapper)
+        public TerraristicsWindowController(IMapper mapper, IMediator mediator) : base(mapper, mediator)
         {
-            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<ActionResult<TerraristicsWindowDetailAm>> Get([FromBody] int id)
         {
-            TerraristicsWindowDetailAm am = await _mediator.Send(new GetTerraristicsWindowDetailQuery {Id = id});
+            TerraristicsWindowDetailAm am = await Mediator.Send(new GetTerraristicsWindowDetailQuery {Id = id});
 
             return Ok(new JsonResult(am));
         }
@@ -31,7 +27,7 @@ namespace Web.ApiControllers
         [HttpGet]
         public async Task<ActionResult<TerraristicsWindowListAm>> GetList()
         {
-            var am = await _mediator.Send(new GetTerraristicsWindowListQuery());
+            var am = await Mediator.Send(new GetTerraristicsWindowListQuery());
 
             return Ok(am);
         }
@@ -39,7 +35,7 @@ namespace Web.ApiControllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateTerraristicsWindowCommand command)
         {
-            await _mediator.Send(command);
+            await Mediator.Send(command);
 
             return NoContent();
         }
@@ -47,7 +43,7 @@ namespace Web.ApiControllers
         [HttpPost]
         public async Task<IActionResult> Update([FromBody] UpdateTerraristicsWindowCommand command)
         {
-            await _mediator.Send(command);
+            await Mediator.Send(command);
 
             return NoContent();
         }
@@ -55,7 +51,7 @@ namespace Web.ApiControllers
         [HttpPost]
         public async Task<IActionResult> Delete([FromBody] int id)
         {
-            await _mediator.Send(new DeleteTerraristicsWindowCommand {Id = id});
+            await Mediator.Send(new DeleteTerraristicsWindowCommand {Id = id});
 
             return NoContent();
         }

@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
-using Application.InputSensors.Queries.GetInputSensorDataList;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;

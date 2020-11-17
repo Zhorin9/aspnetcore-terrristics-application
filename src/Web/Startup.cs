@@ -1,8 +1,10 @@
 ﻿using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Application;
 using Application.Common.Interfaces;
 using Auth;
+using Common.Interfaces;
 using DataAccess;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -50,6 +52,7 @@ namespace Web
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 });
             
             services.AddCors(o => o.AddPolicy("AllowOrigin", builder =>
@@ -59,24 +62,7 @@ namespace Web
                     .AllowAnyHeader();
             }));
             
-            services.AddAuthentication(x =>
-                {
-                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(cfg =>
-                {
-                    cfg.RequireHttpsMetadata = false;
-                    cfg.SaveToken = true;
-                    cfg.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = Configuration["Tokens:Issuer"],
-                        ValidAudience = Configuration["Tokens:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
-                    };
-                });
-            
+            JwTAuthenticationConfiguration.RegisterJwtAuthentication(services, Configuration);           
             ServicesConfiguration.RegisterServices(services);
         }
 
@@ -125,7 +111,7 @@ namespace Web
             //     endpoints.MapControllers();
             // });
             
-            SpaConfiguration.EnableSpa(app, env, Configuration);
+            // SpaConfiguration.EnableSpa(app, env, Configuration);
         }
     }
 }

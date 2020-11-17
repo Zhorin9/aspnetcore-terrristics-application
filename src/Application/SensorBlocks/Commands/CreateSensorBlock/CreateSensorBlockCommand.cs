@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Application.Common.Models;
+using Common.Interfaces;
 using Domain.Entities;
 using Domain.Enums;
 using MediatR;

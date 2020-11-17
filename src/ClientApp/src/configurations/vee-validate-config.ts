@@ -11,10 +11,10 @@ import {localize} from 'vee-validate';
 
 const pl = require('vee-validate/dist/locale/pl.json');
 pl.names = {
-    email: 'e-mail',
-    password: 'hasło',
-    name: 'nazwa',
-    description: 'opis'
+    email: 'E-mail',
+    password: 'Hasło',
+    name: 'Nazwa',
+    description: 'Opis'
 };
 localize('pl', pl);
 

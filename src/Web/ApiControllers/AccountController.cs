@@ -58,11 +58,6 @@ namespace Web.ApiControllers
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                //Who created the token
-                _config["Tokens:Issuer"],
-                //who can use the token
-                _config["Tokens:Audience"],
-                claims,
                 expires: DateTime.Now.AddMinutes(90),
                 signingCredentials: credentials
             );

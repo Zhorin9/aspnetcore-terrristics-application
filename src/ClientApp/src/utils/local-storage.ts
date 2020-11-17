@@ -9,14 +9,14 @@ export const getUserEmail = function () {
         return "";
     }
 
-    return JSON.parse(user || "").Email;
+    return JSON.parse(user || "").email;
 };
 export const getUserToken = function () {
     let user = getUser();
     if (user === null) {
         return "";
     }
-    return JSON.parse(user).Token;
+    return JSON.parse(user).token;
 };
 
 export const isLoggedCorrect = function (): boolean {
@@ -25,7 +25,7 @@ export const isLoggedCorrect = function (): boolean {
         return false;
     }
     //@ts-ignore
-    let tokenExpiration = moment(JSON.parse(user).TokenExpiration);
+    let tokenExpiration = moment(JSON.parse(user).tokenExpiration);
     //@ts-ignore
     let currentDate = moment();
 

@@ -50,7 +50,7 @@ class User extends VuexModule implements IUserState {
         return await userServiceImpl.login(user.email, user.password)
             .then(
                 user => {
-                    let userToken = user ? user.Token : "";
+                    let userToken = user ? user.token : "";
                     setUser(user);
                     this.SET_TOKEN(userToken);
 

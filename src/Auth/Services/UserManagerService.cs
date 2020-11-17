@@ -8,6 +8,7 @@ using Auth.Identity;
 using Auth.Interfaces;
 using Common.Models;
 using Common.Options;
+using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -48,6 +49,13 @@ namespace Auth.Services
             }
 
             return Result.Success();
+        }
+
+        public async Task<ApplicationUser> GetByEmail(string email)
+        {
+            ApplicationUser user = await _userManager.FindByEmailAsync(email);
+
+            return user;
         }
 
         public async Task<Result> DeleteUserAsync(ApplicationUser user)

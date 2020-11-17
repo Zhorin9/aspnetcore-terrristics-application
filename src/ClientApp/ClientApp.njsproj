@@ -35,6 +35,8 @@
     <None Include="public\index.html" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".env.development" />
+    <Content Include=".env.production" />
     <Content Include="babel.config.js" />
     <Content Include="jsconfig.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

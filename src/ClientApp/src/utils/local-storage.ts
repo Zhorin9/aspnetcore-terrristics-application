@@ -6,15 +6,15 @@ export const getUser = () => localStorage.getItem(userKey);
 export const getUserEmail = function () {
     let user = getUser();
     if (user === null) {
-        return "";
+        return '';
     }
 
-    return JSON.parse(user || "").email;
+    return JSON.parse(user || '').email;
 };
 export const getUserToken = function () {
     let user = getUser();
-    if (user === null) {
-        return "";
+    if (user === null || user === 'undefined') {
+        return '';
     }
     return JSON.parse(user).token;
 };

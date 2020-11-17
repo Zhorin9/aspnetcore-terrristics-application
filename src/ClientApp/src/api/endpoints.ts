@@ -1,5 +1,5 @@
 export const endpoints = {
-    getJwtToken: "/account/createToken",
+    getJwtToken: "/api/Account/createToken",
 
     getSensorKinds: "/api/dictionary/getSensorKinds",
 

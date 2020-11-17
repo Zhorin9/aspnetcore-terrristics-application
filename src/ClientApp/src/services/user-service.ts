@@ -16,7 +16,10 @@ class UserServiceImpl implements UserService {
                 }
                 return null;
             })
-            .catch(this.handleError);
+            .catch(err => {
+                console.error(err);
+                this.handleError(err);
+            });
     }
 
     logout() {

@@ -1,34 +1,34 @@
 interface SensorKindModel {
-    SensorKindId: number;
-    Name: string;
-    ShortDescription: string;
-    Description: string;
-    Type: number;
-    OutputType: number;
+    sensorKindId: number;
+    name: string;
+    shortDescription: string;
+    description: string;
+    type: number;
+    outputType: number;
 }
 
 interface SensorBlockModel {
-    Id: number;
-    Name: string;
-    Description: string;
-    PositionId: number;
-    SensorKind: SensorKindModel
+    id: number;
+    name: string;
+    description: string;
+    positionId: number;
+    sensorKind: SensorKindModel
 }
 
 interface TerraristicsWindowModel {
-    Id: number;
-    Name: string;
-    Description: string;
-    CreationDate: Date;
-    ModificationDate: Date;
-    ApiKey: string;
-    IsPublic: boolean;
+    id: number;
+    name: string;
+    description: string;
+    creationDate: Date;
+    modificationDate: Date;
+    apiKey: string;
+    isPublic: boolean;
 }
 
 //User
 interface UserLoginModel {
-    Email: string;
-    Password: string;
+    email: string;
+    password: string;
 }
 
 interface TerraristicsWindowFormData {
@@ -39,15 +39,15 @@ interface TerraristicsWindowFormData {
 }
 
 interface SensorKindData {
-    SensorKindId: number;
-    Name: string;
-    ShortDescription: string;
-    Description: string;
-    Type: number;
-    OutputType: number;
+    sensorKindId: number;
+    name: string;
+    shortDescription: string;
+    description: string;
+    type: number;
+    outputType: number;
 }
 
 interface InputSensorData {
-    Value: number;
-    CreationDate: Date;
+    value: number;
+    creationDate: Date;
 }

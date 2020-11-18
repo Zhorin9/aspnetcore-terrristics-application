@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
-using Application;
+﻿using Application;
 using Application.Common.Interfaces;
 using Auth;
 using Common.Interfaces;
@@ -8,8 +6,6 @@ using DataAccess;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -36,11 +32,8 @@ namespace Web
             services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             services
-                .AddControllersWithViews()
-                .AddNewtonsoftJson()
+                .AddControllers()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IAppDbContext>());
-
-            services.AddControllersWithViews();
 
             services.AddCors(o => o.AddPolicy("AllowOrigin", builder =>
             {
@@ -70,15 +63,12 @@ namespace Web
             {
                 SpaConfiguration.EnableStaticFiles(app);
             }
-            
+
             app.UseAuthentication();
             app.UseRouting();
             app.UseCors("AllowOrigin");
             app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
             // SpaConfiguration.EnableSpa(app, env, Configuration);
         }

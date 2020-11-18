@@ -35,12 +35,16 @@
     <None Include="public\index.html" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".env" />
     <Content Include=".env.development" />
     <Content Include=".env.production" />
+    <Content Include=".eslintignore" />
+    <Content Include=".eslintrc.js" />
     <Content Include="babel.config.js" />
     <Content Include="jsconfig.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Include="package-lock.json" />
     <Content Include="package.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

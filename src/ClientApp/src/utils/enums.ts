@@ -10,8 +10,8 @@ export const outputTypes = new class OutputTypes {
 
     getOutputTypesWithName(){
         return [
-            {Id: this.Digital, Name: 'Cyfrowe'},
-            {Id: this.Analog, Name: 'Analogowe'}
+            {id: this.Digital, name: 'Cyfrowe'},
+            {id: this.Analog, name: 'Analogowe'}
         ]
     }
 };
@@ -20,8 +20,8 @@ export const outputTypes = new class OutputTypes {
 export const Input = 1;
 export const Output = 2;
 export const sensorTypes = new class SensorTypes {
-    readonly Input: number = 1;
-    readonly Output: number = 2;
+    readonly input: number = 1;
+    readonly output: number = 2;
 
     getSensorTypes() {
         return [Input, Output];
@@ -29,8 +29,8 @@ export const sensorTypes = new class SensorTypes {
 
     getSensorTypesWithName() {
         return [
-            {Id: 1, Name: "Wejście"},
-            {Id: 2, Name: "Wyjście"}
+            {id: 1, name: "Wejście"},
+            {id: 2, name: "Wyjście"}
         ]
     }
 };

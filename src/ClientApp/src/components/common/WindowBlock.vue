@@ -2,7 +2,7 @@
     <div class="m-3">
         <b-card class="text-black-50 text-left">
             <b-card-text algin="left">
-                {{data.Description}}
+                {{data.description}}
                 
                 <b-list-group>
                     <b-list-group-item href="#" active class="flex-column align-items-start">
@@ -22,10 +22,10 @@
 
             </b-card-text>
             <template v-slot:header>
-                <span class="window-block-span">{{data.Name}}</span>
+                <span class="window-block-span">{{data.name}}</span>
                 
                 <div class="row float-right">
-                    <b-button size="sm" :to="{name: 'terraristicsData', params:{id: data.Id}}" variant="info">
+                    <b-button size="sm" :to="{name: 'terraristicsData', params:{id: data.id}}" variant="info">
                         <span>Podgląd </span>
                         <font-awesome-icon :icon="['fa', 'search']">
                         </font-awesome-icon>
@@ -42,7 +42,7 @@
                 
             </template>
             <template v-slot:footer>
-                <small class="text-muted">Data utworzenia: {{data.CreationDate | moment('YYYY-MM-DD')}} </small>
+                <small class="text-muted">Data utworzenia: {{data.creationDate | moment('YYYY-MM-DD')}} </small>
             </template>
         </b-card>
     </div>
@@ -62,7 +62,7 @@
 
         get terraristicsWindowId() {
             if (this.data) {
-                return this.data.Id;
+                return this.data.id;
             }
             return null;
         }

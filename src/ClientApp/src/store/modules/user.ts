@@ -2,11 +2,10 @@ import {VuexModule, Module, Action, Mutation, getModule} from 'vuex-module-decor
 import store from '@/store'
 import {userServiceImpl} from "@/services/user-service";
 import {getUserToken, removeUser, setUser} from "@/utils/local-storage";
-import router from "@/router/router";
 
 export interface IUserState {
     token: string
-    name: string
+    email: string
     avatar: string
     introduction: string
     roles: string[]
@@ -15,7 +14,7 @@ export interface IUserState {
 @Module({dynamic: true, store, name: 'user'})
 class User extends VuexModule implements IUserState {
     public token = getUserToken() || ''
-    public name = ''
+    public email = ''
     public avatar = ''
     public introduction = ''
     public roles: string[] = []
@@ -26,8 +25,8 @@ class User extends VuexModule implements IUserState {
     }
 
     @Mutation
-    private SET_NAME(name: string) {
-        this.name = name
+    private SET_EMAIL(email: string) {
+        this.email = email
     }
 
     @Mutation
@@ -53,10 +52,7 @@ class User extends VuexModule implements IUserState {
                     let userToken = user ? user.token : "";
                     setUser(user);
                     this.SET_TOKEN(userToken);
-
-                    router.push({
-                        name: 'HomeView'
-                    });
+                    this.SET_EMAIL(user.email);
                 },
             ).catch(err => {
                 this.LogOut();
@@ -73,9 +69,9 @@ class User extends VuexModule implements IUserState {
 
     @Action
     public async GetUserInfo() {
-        if (this.token === '') {
-            throw Error('GetUserInfo: token is undefined!')
-        }
+        // if (this.token === '') {
+        //     throw Error('GetUserInfo: token is undefined!')
+        // }
         // const {data} = await getUserInfo({ /* Your params here */})
         // if (!data) {
         //     throw Error('Verification failed, please Login again.')
@@ -86,7 +82,7 @@ class User extends VuexModule implements IUserState {
         //     throw Error('GetUserInfo: roles must be a non-null array!')
         // }
         // this.SET_ROLES(roles)
-        // this.SET_NAME(name)
+        // this.SET_EMAIL(name)
         // this.SET_AVATAR(avatar)
         // this.SET_INTRODUCTION(introduction)
     }

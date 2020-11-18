@@ -12,11 +12,11 @@
           </h3>
         </div>
 
-        <el-form-item prop="email">
+        <validation-provider name="email" rules="required|email" v-slot="{ errors }">
+          <el-form-item prop="email" :error="errors[0]">
         <span class="svg-container">
           <svg-icon name="user"/>
         </span>
-          <validation-provider name="email" rules="required|email" v-slot="{ errors }">
             <el-input
                 ref="email"
                 v-model="email"
@@ -24,14 +24,14 @@
                 type="text"
                 autocomplete="on"
                 placeholder="Email"/>
-          </validation-provider>
-        </el-form-item>
+          </el-form-item>
+        </validation-provider>
 
-        <el-form-item prop="password">
+        <validation-provider name="password" rules="required|min:6" v-slot="{ errors }">
+          <el-form-item prop="password" :error="errors[0]">
         <span class="svg-container">
           <svg-icon name="password"/>
         </span>
-          <validation-provider name="password" rules="required|min:6" v-slot="{ errors }">
             <el-input
                 :key="passwordType"
                 ref="password"
@@ -41,13 +41,13 @@
                 name="password"
                 autocomplete="on"
                 @keyup.enter.native="handleLogin"/>
-          </validation-provider>
-          <span
-              class="show-pwd"
-              @click="showPwd">
+            <span
+                class="show-pwd"
+                @click="showPwd">
           <svg-icon :name="passwordType === 'password' ? 'eye-off' : 'eye-on'"/>
         </span>
-        </el-form-item>
+          </el-form-item>
+        </validation-provider>
 
         <el-button
             :loading="loading"
@@ -65,12 +65,10 @@
 import {Component, Vue, Watch} from 'vue-property-decorator'
 import {Route} from 'vue-router'
 import {Dictionary} from 'vue-router/types/router'
-import {Form as ElForm, Input} from 'element-ui'
+import {Input} from 'element-ui'
 import {UserModule} from '@/store/modules/user'
 
-@Component({
-  name: 'Login'
-})
+@Component
 export default class extends Vue {
   email: string = "";
   password: string = "";
@@ -93,13 +91,13 @@ export default class extends Vue {
 
   private showPwd() {
     if (this.passwordType === 'password') {
-      this.passwordType = ''
+      this.passwordType = '';
     } else {
-      this.passwordType = 'password'
+      this.passwordType = 'password';
     }
     this.$nextTick(() => {
       (this.$refs.password as Input).focus()
-    })
+    });
   }
 
   private async handleLogin() {
@@ -111,6 +109,12 @@ export default class extends Vue {
     const {email, password} = this;
     if (email && password) {
       await UserModule.Login({email: email, password: password});
+      
+      debugger;
+      this.$router.push({
+        path: this.redirect || '/',
+        query: this.otherQuery
+      })
     }
   }
 

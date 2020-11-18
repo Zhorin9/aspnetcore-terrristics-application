@@ -32,7 +32,7 @@
         value: SensorKindModel[] = this.selectedSensors.length > 0 ? this.selectedSensors : Array(0);
         
         get outputSensors(){
-            return DictionaryModule.OutputSensors;
+            return DictionaryModule.outputSensors;
         }
         
         emit() {

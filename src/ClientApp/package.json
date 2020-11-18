@@ -62,6 +62,7 @@
     "vue-cli-plugin-element": "^1.0.1",
     "vue-cli-plugin-style-resources-loader": "^0.1.4",
     "vue-template-compiler": "^2.6.12",
-    "webpack": "^4.0.0"
+    "vue-webpack": "^1.10.2",
+    "webpack": "^4.44.2"
   }
 }

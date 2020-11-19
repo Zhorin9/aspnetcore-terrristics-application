@@ -2,7 +2,7 @@ using Application.Common.Mappings;
 using AutoMapper;
 using Domain.Entities;
 
-namespace Application.User.Queries.GetUserWithToken
+namespace Application.Users.Queries.GetUserWithToken
 {
     public class UserWithTokenAm : IMapFrom<ApplicationUser>
     {

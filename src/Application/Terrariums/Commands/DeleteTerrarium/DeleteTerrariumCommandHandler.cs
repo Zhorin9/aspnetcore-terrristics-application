@@ -4,18 +4,18 @@ using Application.Common.Interfaces;
 using Domain.Exceptions;
 using MediatR;
 
-namespace Application.TerraristicWindows.Commands.DeleteTerraristicsWindow
+namespace Application.Terrariums.Commands.DeleteTerrarium
 {
-    public class DeleteTerraristicsWindowCommandHandler : IRequestHandler<DeleteTerraristicsWindowCommand>
+    public class DeleteTerrariumCommandHandler : IRequestHandler<DeleteTerrariumCommand>
     {
         private readonly IAppDbContext _context;
 
-        public DeleteTerraristicsWindowCommandHandler(IAppDbContext context)
+        public DeleteTerrariumCommandHandler(IAppDbContext context)
         {
             _context = context;
         }
 
-        public async Task<Unit> Handle(DeleteTerraristicsWindowCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteTerrariumCommand request, CancellationToken cancellationToken)
         {
             var entity = await _context.TerraristicWindows
                 .FindAsync(request.Id);

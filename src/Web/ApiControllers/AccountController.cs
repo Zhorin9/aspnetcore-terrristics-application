@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Application.User.Queries.GetUserWithToken;
+using Application.Users.Queries.GetUserWithToken;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

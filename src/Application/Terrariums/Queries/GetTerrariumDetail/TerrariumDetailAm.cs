@@ -3,9 +3,9 @@ using Application.Common.Mappings;
 using AutoMapper;
 using Domain.Entities;
 
-namespace Application.TerraristicWindows.Queries.GetTerraristicsWindowDetail
+namespace Application.Terrariums.Queries.GetTerrariumDetail
 {
-    public class TerraristicsWindowDetailAm : IMapFrom<TerraristicWindow>
+    public class TerrariumDetailAm : IMapFrom<TerraristicWindow>
     {
         public int Id { get; set; }
 
@@ -23,7 +23,7 @@ namespace Application.TerraristicWindows.Queries.GetTerraristicsWindowDetail
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<TerraristicWindow, TerraristicsWindowDetailAm>()
+            profile.CreateMap<TerraristicWindow, TerrariumDetailAm>()
                 .ForMember(d => d.CreationDate, o => o.MapFrom(s => s.CreationDate.Date));
         }
     }

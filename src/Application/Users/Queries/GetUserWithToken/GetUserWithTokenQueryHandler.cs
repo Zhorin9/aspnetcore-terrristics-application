@@ -7,7 +7,7 @@ using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace Application.User.Queries.GetUserWithToken
+namespace Application.Users.Queries.GetUserWithToken
 {
     public class GetUserWithTokenQueryHandler : IRequestHandler<GetUserWithTokenQuery, UserWithTokenAm>
     {

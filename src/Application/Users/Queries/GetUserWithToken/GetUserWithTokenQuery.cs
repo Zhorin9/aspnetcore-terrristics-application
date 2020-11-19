@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Application.User.Queries.GetUserWithToken
+namespace Application.Users.Queries.GetUserWithToken
 {
     public class GetUserWithTokenQuery : IRequest<UserWithTokenAm>
     {

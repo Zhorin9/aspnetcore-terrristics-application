@@ -1,9 +1,9 @@
-using Application.TerraristicWindows.Commands.UpdateTerraristicsWindow;
+using Application.Terrariums.Commands.UpdateTerrarium;
 using FluentValidation;
 
 namespace Application.SensorBlocks.Commands.UpdateSensorBlock
 {
-    public class UpdateSensorBlockCommandValidator : AbstractValidator<UpdateTerraristicsWindowCommand>
+    public class UpdateSensorBlockCommandValidator : AbstractValidator<UpdateTerrariumCommand>
     {
         public UpdateSensorBlockCommandValidator()
         {

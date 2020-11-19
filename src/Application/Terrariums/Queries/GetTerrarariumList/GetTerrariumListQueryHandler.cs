@@ -9,29 +9,29 @@ using Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.TerraristicWindows.Queries.GetTerraristicsWindowList
+namespace Application.Terrariums.Queries.GetTerrarariumList
 {
-    public class GetTerraristicsWindowListQueryHandler : IRequestHandler<GetTerraristicsWindowListQuery, TerraristicsWindowListAm>
+    public class GetTerrariumListQueryHandler : IRequestHandler<GetTerrariumListQuery, TerrariumListAm>
     {
         private readonly IAppDbContext _context;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUserService;
 
-        public GetTerraristicsWindowListQueryHandler(IMapper mapper, IAppDbContext context, ICurrentUserService currentUserService)
+        public GetTerrariumListQueryHandler(IMapper mapper, IAppDbContext context, ICurrentUserService currentUserService)
         {
             _mapper = mapper;
             _context = context;
             _currentUserService = currentUserService;
         }
         
-        public async Task<TerraristicsWindowListAm> Handle(GetTerraristicsWindowListQuery request, CancellationToken cancellationToken)
+        public async Task<TerrariumListAm> Handle(GetTerrariumListQuery request, CancellationToken cancellationToken)
         {
-            List<TerraristicsWindowListDetailAm> terraristicsWindows = await _context.TerraristicWindows
+            List<TerrariumListDetailAm> terraristicsWindows = await _context.TerraristicWindows
                 .Where(p => p.UserId == _currentUserService.UserId)
-                .ProjectTo<TerraristicsWindowListDetailAm>(_mapper.ConfigurationProvider)
+                .ProjectTo<TerrariumListDetailAm>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            var am = new TerraristicsWindowListAm
+            var am = new TerrariumListAm
             {
                 TerraristicsWindows = terraristicsWindows
             };

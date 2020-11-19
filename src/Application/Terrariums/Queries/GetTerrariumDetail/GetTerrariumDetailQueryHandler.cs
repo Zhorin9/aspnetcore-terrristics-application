@@ -8,22 +8,22 @@ using Domain.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.TerraristicWindows.Queries.GetTerraristicsWindowDetail
+namespace Application.Terrariums.Queries.GetTerrariumDetail
 {
-    public class GetTerraristicsWindowDetailQueryHandler : IRequestHandler<GetTerraristicsWindowDetailQuery, TerraristicsWindowDetailAm>
+    public class GetTerrariumDetailQueryHandler : IRequestHandler<GetTerrariumDetailQuery, TerrariumDetailAm>
     {
         private readonly IAppDbContext _context;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUserService;
 
-        public GetTerraristicsWindowDetailQueryHandler(IMapper mapper, IAppDbContext context, ICurrentUserService currentUserService)
+        public GetTerrariumDetailQueryHandler(IMapper mapper, IAppDbContext context, ICurrentUserService currentUserService)
         {
             _mapper = mapper;
             _context = context;
             _currentUserService = currentUserService;
         }
 
-        public async Task<TerraristicsWindowDetailAm> Handle(GetTerraristicsWindowDetailQuery request, CancellationToken cancellationToken)
+        public async Task<TerrariumDetailAm> Handle(GetTerrariumDetailQuery request, CancellationToken cancellationToken)
         {
             var entity = await _context.TerraristicWindows
                 .FirstOrDefaultAsync(p => p.Id == request.Id && p.UserId == _currentUserService.UserId, cancellationToken: cancellationToken);
@@ -33,7 +33,7 @@ namespace Application.TerraristicWindows.Queries.GetTerraristicsWindowDetail
                 throw new NotFoundException(nameof(TerraristicWindow), request.Id);
             }
 
-            return _mapper.Map<TerraristicsWindowDetailAm>(entity);
+            return _mapper.Map<TerrariumDetailAm>(entity);
         }
     }
 }

@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="User\Queries\GetUserWithToken" />
+      <Folder Include="Users\Queries\GetUserWithToken" />
     </ItemGroup>
 
 </Project>

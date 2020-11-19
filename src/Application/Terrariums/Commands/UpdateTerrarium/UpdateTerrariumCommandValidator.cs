@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace Application.TerraristicWindows.Commands.UpdateTerraristicsWindow
+namespace Application.Terrariums.Commands.UpdateTerrarium
 {
-    public class UpdateTerraristicsWindowCommandValidator : AbstractValidator<UpdateTerraristicsWindowCommand>
+    public class UpdateTerrariumCommandValidator : AbstractValidator<UpdateTerrariumCommand>
     {
-        public UpdateTerraristicsWindowCommandValidator()
+        public UpdateTerrariumCommandValidator()
         {
             RuleFor(x => x.Id).NotNull().GreaterThan(0);
             RuleFor(x => x.Name).NotNull().MinimumLength(3).MaximumLength(30);

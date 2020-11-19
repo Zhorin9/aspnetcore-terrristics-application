@@ -7,9 +7,9 @@ using Domain.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.TerraristicWindows.Commands.UpdateTerraristicsWindow
+namespace Application.Terrariums.Commands.UpdateTerrarium
 {
-    public class UpdateTerraristicsWindowCommand : IRequest
+    public class UpdateTerrariumCommand : IRequest
     {
         public int Id { get; set; }
         
@@ -19,7 +19,7 @@ namespace Application.TerraristicWindows.Commands.UpdateTerraristicsWindow
 
         public bool IsPublic { get; set; }
         
-        public class Handler : IRequestHandler<UpdateTerraristicsWindowCommand>
+        public class Handler : IRequestHandler<UpdateTerrariumCommand>
         {
             private readonly IAppDbContext _context;
 
@@ -28,7 +28,7 @@ namespace Application.TerraristicWindows.Commands.UpdateTerraristicsWindow
                 _context = context;
             }
 
-            public async Task<Unit> Handle(UpdateTerraristicsWindowCommand request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(UpdateTerrariumCommand request, CancellationToken cancellationToken)
             {
                 var entity = await _context.TerraristicWindows
                     .SingleOrDefaultAsync(t => t.Id == request.Id, cancellationToken);

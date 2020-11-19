@@ -6,9 +6,9 @@ using Common.Interfaces;
 using Domain.Entities;
 using MediatR;
 
-namespace Application.TerraristicWindows.Commands.CreateTerraristicsWindow
+namespace Application.Terrariums.Commands.CreateTerrarium
 {
-    public class CreateTerraristicsWindowCommand : IRequest
+    public class CreateTerrariumCommand : IRequest
     {
         public string Name { get; set; }
 
@@ -16,7 +16,7 @@ namespace Application.TerraristicWindows.Commands.CreateTerraristicsWindow
 
         public bool IsPublic { get; set; }
         
-        public class Handler : IRequestHandler<CreateTerraristicsWindowCommand>
+        public class Handler : IRequestHandler<CreateTerrariumCommand>
         {
             private readonly IAppDbContext _context;
             private readonly ICurrentUserService _currentUserService;
@@ -27,7 +27,7 @@ namespace Application.TerraristicWindows.Commands.CreateTerraristicsWindow
                 _currentUserService = currentUserService;
             }
 
-            public async Task<Unit> Handle(CreateTerraristicsWindowCommand request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(CreateTerrariumCommand request, CancellationToken cancellationToken)
             {
                 var entity = new TerraristicWindow
                 {

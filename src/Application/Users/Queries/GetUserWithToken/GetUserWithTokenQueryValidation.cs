@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Application.User.Queries.GetUserWithToken
+namespace Application.Users.Queries.GetUserWithToken
 {
     public class GetUserWithTokenQueryValidation : AbstractValidator<GetUserWithTokenQuery>
     {

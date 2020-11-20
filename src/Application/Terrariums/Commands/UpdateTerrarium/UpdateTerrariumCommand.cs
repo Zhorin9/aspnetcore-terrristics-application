@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Terrariums.Commands.UpdateTerrarium
 {
-    public class UpdateTerrariumCommand : IRequest
+    public class UpdateTerrariumCommand : IRequest<int>
     {
         public int Id { get; set; }
         
@@ -19,7 +19,7 @@ namespace Application.Terrariums.Commands.UpdateTerrarium
 
         public bool IsPublic { get; set; }
         
-        public class Handler : IRequestHandler<UpdateTerrariumCommand>
+        public class Handler : IRequestHandler<UpdateTerrariumCommand, int>
         {
             private readonly IAppDbContext _context;
 
@@ -28,7 +28,7 @@ namespace Application.Terrariums.Commands.UpdateTerrarium
                 _context = context;
             }
 
-            public async Task<Unit> Handle(UpdateTerrariumCommand request, CancellationToken cancellationToken)
+            public async Task<int> Handle(UpdateTerrariumCommand request, CancellationToken cancellationToken)
             {
                 var entity = await _context.TerraristicWindows
                     .SingleOrDefaultAsync(t => t.Id == request.Id, cancellationToken);
@@ -45,7 +45,7 @@ namespace Application.Terrariums.Commands.UpdateTerrarium
 
                 await _context.SaveChangesAsync(cancellationToken);
                 
-                return Unit.Value;
+                return entity.Id;
             }
         }
     }

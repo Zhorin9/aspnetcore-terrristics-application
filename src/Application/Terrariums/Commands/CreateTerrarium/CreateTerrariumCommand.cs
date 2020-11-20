@@ -8,7 +8,7 @@ using MediatR;
 
 namespace Application.Terrariums.Commands.CreateTerrarium
 {
-    public class CreateTerrariumCommand : IRequest
+    public class CreateTerrariumCommand : IRequest<int>
     {
         public string Name { get; set; }
 
@@ -16,7 +16,7 @@ namespace Application.Terrariums.Commands.CreateTerrarium
 
         public bool IsPublic { get; set; }
         
-        public class Handler : IRequestHandler<CreateTerrariumCommand>
+        public class Handler : IRequestHandler<CreateTerrariumCommand, int>
         {
             private readonly IAppDbContext _context;
             private readonly ICurrentUserService _currentUserService;
@@ -27,7 +27,7 @@ namespace Application.Terrariums.Commands.CreateTerrarium
                 _currentUserService = currentUserService;
             }
 
-            public async Task<Unit> Handle(CreateTerrariumCommand request, CancellationToken cancellationToken)
+            public async Task<int> Handle(CreateTerrariumCommand request, CancellationToken cancellationToken)
             {
                 var entity = new TerraristicWindow
                 {
@@ -43,7 +43,7 @@ namespace Application.Terrariums.Commands.CreateTerrarium
                 await _context.TerraristicWindows.AddAsync(entity, cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return Unit.Value;
+                return entity.Id;
             }
         }
     }

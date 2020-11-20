@@ -33,27 +33,27 @@ namespace Web.ApiControllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] CreateTerrariumCommand command)
+        public async Task<ActionResult<int>> Create([FromBody] CreateTerrariumCommand command)
         {
-            await Mediator.Send(command);
+            int terrariumId = await Mediator.Send(command);
 
-            return NoContent();
+            return Ok(terrariumId);
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> Update([FromBody] UpdateTerrariumCommand command)
+        public async Task<ActionResult<int>> Update([FromBody] UpdateTerrariumCommand command)
         {
-            await Mediator.Send(command);
+            var terrariumId = await Mediator.Send(command);
 
             return NoContent();
         }
 
         [HttpPost("delete")]
-        public async Task<IActionResult> Delete([FromBody] int id)
+        public async Task<ActionResult<int>> Delete([FromBody] int id)
         {
             await Mediator.Send(new DeleteTerrariumCommand {Id = id});
 
-            return NoContent();
+            return Ok(id);
         }
     }
 }

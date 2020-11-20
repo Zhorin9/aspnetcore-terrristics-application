@@ -53,7 +53,7 @@
 
     @Component
     export default class WindowBlock extends Vue {
-        @Prop() data: TerraristicsWindowModel | undefined;
+        @Prop() data: TerrariumModel | undefined;
 
         //TODO do webpacka
         get iconUrl() {

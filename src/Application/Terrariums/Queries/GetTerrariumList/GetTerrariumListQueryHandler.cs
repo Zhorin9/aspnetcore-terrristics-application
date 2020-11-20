@@ -9,7 +9,7 @@ using Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Terrariums.Queries.GetTerrarariumList
+namespace Application.Terrariums.Queries.GetTerrariumList
 {
     public class GetTerrariumListQueryHandler : IRequestHandler<GetTerrariumListQuery, TerrariumListAm>
     {
@@ -17,13 +17,14 @@ namespace Application.Terrariums.Queries.GetTerrarariumList
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUserService;
 
-        public GetTerrariumListQueryHandler(IMapper mapper, IAppDbContext context, ICurrentUserService currentUserService)
+        public GetTerrariumListQueryHandler(IMapper mapper, IAppDbContext context,
+            ICurrentUserService currentUserService)
         {
             _mapper = mapper;
             _context = context;
             _currentUserService = currentUserService;
         }
-        
+
         public async Task<TerrariumListAm> Handle(GetTerrariumListQuery request, CancellationToken cancellationToken)
         {
             List<TerrariumListDetailAm> terraristicsWindows = await _context.TerraristicWindows
@@ -33,7 +34,7 @@ namespace Application.Terrariums.Queries.GetTerrarariumList
 
             var am = new TerrariumListAm
             {
-                TerraristicsWindows = terraristicsWindows
+                Terrariums = terraristicsWindows
             };
 
             return am;

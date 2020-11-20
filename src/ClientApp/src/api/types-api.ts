@@ -6,10 +6,10 @@ interface DictionaryApi {
     getSensorKindsDict(): Promise<any>;
 }
 
-interface TerraristicsWindowApi {
+interface TerrariumApi {
     create(request: any): Promise<any>;
     getList(id: string): Promise<any>;
-    update(request: TerraristicsWindowFormData): Promise<any>;
+    update(request: TerraristiumFormData): Promise<any>;
     delete(windowId: number): Promise<any>;
 }
 

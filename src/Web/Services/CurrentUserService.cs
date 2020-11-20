@@ -9,7 +9,7 @@ namespace Web.Services
     {
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
         {
-            UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+            UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name);
             IsAuthenticated = UserId != null;
         }
 

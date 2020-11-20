@@ -9,6 +9,10 @@
     "svg": "vsvg -s ./src/icons/svg -t ./src/icons/components --ext ts --es6"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/vue-fontawesome": "^0.1.9",
+    "@types/vue-moment": "^4.0.2",
     "axios": "^0.21.0",
     "core-js": "^3.7.0",
     "element-ui": "^2.14.0",

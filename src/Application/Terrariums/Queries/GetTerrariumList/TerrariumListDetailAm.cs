@@ -3,7 +3,7 @@ using Application.Common.Mappings;
 using AutoMapper;
 using Domain.Entities;
 
-namespace Application.Terrariums.Queries.GetTerrarariumList
+namespace Application.Terrariums.Queries.GetTerrariumList
 {
     public class TerrariumListDetailAm : IMapFrom<TerraristicWindow>
     {

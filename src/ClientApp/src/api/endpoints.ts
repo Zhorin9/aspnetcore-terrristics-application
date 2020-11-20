@@ -12,8 +12,8 @@ export const endpoints = {
     createNewSensorBlock: "/api/sensorBlock/create",
     updateSensorBlock: "/api/sensorBlock/update",
 
-    getTerraristicsWindows: "api/terraristicsWindow/getList",
-    createNewTerraristicsWindow: "api/terraristicsWindow/create",
-    updateTerraristicsWindow: "api/terraristicsWindow/update",
-    deleteTerraristicsWindow: "api/terraristicsWindow/delete",
+    getTerrarium: "api/terrarium/getList",
+    createNewTerrarium: "api/terrarium/create",
+    updateTerrarium: "api/terrarium/update",
+    deleteTerrarium: "api/terrarium/delete",
 };

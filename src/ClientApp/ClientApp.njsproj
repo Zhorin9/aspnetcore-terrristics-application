@@ -35,6 +35,7 @@
     <None Include="public\index.html" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".editorconfig" />
     <Content Include=".env" />
     <Content Include=".env.development" />
     <Content Include=".env.production" />
@@ -144,6 +145,7 @@
     <Content Include="src\views\nested\menu1\menu1-3\index.vue" />
     <Content Include="src\views\nested\menu2\index.vue" />
     <Content Include="src\views\table\index.vue" />
+    <Content Include="src\views\terrarium\index.vue" />
     <Content Include="src\views\tree\index.vue" />
     <Content Include="tsconfig.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

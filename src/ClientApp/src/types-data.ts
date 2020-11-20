@@ -15,7 +15,7 @@ interface SensorBlockModel {
     sensorKind: SensorKindModel
 }
 
-interface TerraristicsWindowModel {
+interface TerrariumModel {
     id: number;
     name: string;
     description: string;
@@ -31,7 +31,7 @@ interface UserLoginModel {
     password: string;
 }
 
-interface TerraristicsWindowFormData {
+interface TerraristiumFormData {
     id: number;
     name: string;
     description: string;

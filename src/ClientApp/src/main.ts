@@ -12,6 +12,10 @@ import store from '@/store'
 import router from "@/router/router";
 import '@/icons/components'
 
+//Setup vue moment - used to date format https://github.com/brockpetrie/vue-moment?ref=madewithvuejs.com
+import VueMoment from 'vue-moment';
+Vue.use(VueMoment);
+
 import '@/router/permission'
 // Initialize custom global components
 
@@ -21,6 +25,9 @@ import '@/configurations/global-components';
 import '@/configurations/vee-validate-config';
 // Initialize axios https://github.com/axios/axios
 import '@/configurations/axios-config';
+
+// Initialize vue font awesome icons and global component
+import '@/configurations/font-awesome-config';
 
 Vue.use(ElementUI)
 Vue.use(SvgIcon, {

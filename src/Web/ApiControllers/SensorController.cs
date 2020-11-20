@@ -1,22 +1,22 @@
 using System.Threading.Tasks;
-using Application.SensorBlocks.Commands.CreateSensorBlock;
 using Application.SensorBlocks.Commands.UpdateSensorBlock;
 using Application.SensorBlocks.Queries.GetSensorBlockDetail;
 using Application.SensorBlocks.Queries.GetSensorBlockList;
+using Application.Sensors.Commands.CreateSensor;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.ApiControllers
 {
-    public class SensorBlockController : BaseApiController
+    public class SensorController : BaseApiController
     {
-        public SensorBlockController(IMediator mediator, IMapper mapper) : base(mapper, mediator)
+        public SensorController(IMediator mediator, IMapper mapper) : base(mapper, mediator)
         {
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateSensorBlockCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateSensorCommand command)
         {
             await Mediator.Send(command);
 
@@ -24,7 +24,7 @@ namespace Web.ApiControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update([FromBody] UpdateSensorBlockCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateSensorCommand command)
         {
             await Mediator.Send(command);
 

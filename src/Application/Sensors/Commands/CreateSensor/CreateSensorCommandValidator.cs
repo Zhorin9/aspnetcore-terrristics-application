@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace Application.SensorBlocks.Commands.CreateSensorBlock
+namespace Application.Sensors.Commands.CreateSensor
 {
-    public class CreateSensorBlockCommandValidator : AbstractValidator<CreateSensorBlockCommand>
+    public class CreateSensorCommandValidator : AbstractValidator<CreateSensorCommand>
     {
-        public CreateSensorBlockCommandValidator()
+        public CreateSensorCommandValidator()
         {
             RuleFor(x => x.Id).NotNull().GreaterThan(0);
             RuleFor(x => x.Name).NotNull().MaximumLength(250);

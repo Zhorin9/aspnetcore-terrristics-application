@@ -7,9 +7,9 @@ using Domain.Entities;
 using Domain.Enums;
 using MediatR;
 
-namespace Application.SensorBlocks.Commands.CreateSensorBlock
+namespace Application.Sensors.Commands.CreateSensor
 {
-    public class CreateSensorBlockCommand : IRequest
+    public class CreateSensorCommand : IRequest
     {
         public int Id { get; set; }
 
@@ -21,7 +21,7 @@ namespace Application.SensorBlocks.Commands.CreateSensorBlock
 
         public SensorKindAm SensorKind { get; set; }
 
-        public class Handler : IRequestHandler<CreateSensorBlockCommand>
+        public class Handler : IRequestHandler<CreateSensorCommand>
         {
             private readonly IAppDbContext _context;
             private readonly ICurrentUserService _currentUserService;
@@ -32,7 +32,7 @@ namespace Application.SensorBlocks.Commands.CreateSensorBlock
                 _currentUserService = currentUserService;
             }
 
-            public async Task<Unit> Handle(CreateSensorBlockCommand request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(CreateSensorCommand request, CancellationToken cancellationToken)
             {
                 var entity = new SensorBlock
                 {

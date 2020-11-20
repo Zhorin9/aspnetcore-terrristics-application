@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.SensorBlocks.Commands.UpdateSensorBlock
 {
-    public class UpdateSensorBlockCommand : IRequest
+    public class UpdateSensorCommand : IRequest
     {
         public int Id { get; set; }
 
@@ -15,7 +15,7 @@ namespace Application.SensorBlocks.Commands.UpdateSensorBlock
 
         public string Description { get; set; }
 
-        public class Handler : IRequestHandler<UpdateSensorBlockCommand>
+        public class Handler : IRequestHandler<UpdateSensorCommand>
         {
             private readonly IAppDbContext _context;
 
@@ -27,7 +27,7 @@ namespace Application.SensorBlocks.Commands.UpdateSensorBlock
                 _currentUserService = currentUserService;
             }
 
-            public async Task<Unit> Handle(UpdateSensorBlockCommand request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(UpdateSensorCommand request, CancellationToken cancellationToken)
             {
                 var entity = await _context.SensorBlocks
                     .FirstOrDefaultAsync(s => s.Id == request.Id && s.UserId == _currentUserService.UserId, cancellationToken: cancellationToken);

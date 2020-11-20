@@ -16,6 +16,6 @@ namespace Domain.Entities
         public Guid ApiKey { get; set; }
         public string UserId { get; set; }
         public bool IsPublic { get; set; }
-        public IEnumerable<SensorBlock> SensorBlocks { get; private set; }
+        public IEnumerable<SensorBlock> SensorBlocks { get; }
     }
 }

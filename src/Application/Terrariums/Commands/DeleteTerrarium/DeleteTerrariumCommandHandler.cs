@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
+using Domain.Entities;
 using Domain.Exceptions;
 using MediatR;
 
@@ -22,10 +23,8 @@ namespace Application.Terrariums.Commands.DeleteTerrarium
 
             if (entity == null)
             {
-                throw new NotFoundException(nameof(TerraristicWindows), request.Id);
+                throw new NotFoundException(nameof(TerraristicWindow), request.Id);
             }
-
-            //TODO should change to remove if doesn't have sensorblock
 
             _context.TerraristicWindows.Remove(entity);
             await _context.SaveChangesAsync(cancellationToken);

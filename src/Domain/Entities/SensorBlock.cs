@@ -18,7 +18,7 @@ namespace Domain.Entities
         
         public int OutputDataId { get; set; }
         public TerraristicWindow ParentWindow { get; set; }
-        public ICollection<InputSensorData> Inputs { get; private set; }
+        public ICollection<InputSensorData> Inputs { get; }
         
         public OutputSensorData OutputData { get; set; }
     }

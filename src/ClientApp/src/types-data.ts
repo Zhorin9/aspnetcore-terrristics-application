@@ -31,7 +31,7 @@ interface UserLoginModel {
     password: string;
 }
 
-interface TerraristiumFormData {
+interface TerrariumFormDialogModel {
     id: number;
     name: string;
     description: string;

@@ -10,7 +10,7 @@ class TerrariumApiImpl implements TerrariumApi {
             })
     }
 
-    create(request: any): Promise<any> {
+    create(request: TerrariumFormDialogModel): Promise<any> {
         return axios.post(endpoints.createNewTerrarium,
             request,
             {
@@ -18,14 +18,14 @@ class TerrariumApiImpl implements TerrariumApi {
             });
     }
 
-    update(request: TerraristiumFormData): Promise<any> {
+    update(request: TerrariumFormDialogModel): Promise<any> {
         return axios.post(endpoints.updateTerrarium,
             request,
             {
                 headers: getHeaderWithJwtToken()
             });
     }
-    
+
     delete(windowId: number): Promise<any> {
         return axios.post(endpoints.deleteTerrarium,
             windowId,

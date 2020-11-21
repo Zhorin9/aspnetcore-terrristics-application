@@ -9,7 +9,7 @@ interface DictionaryApi {
 interface TerrariumApi {
     create(request: any): Promise<any>;
     getList(id: string): Promise<any>;
-    update(request: TerraristiumFormData): Promise<any>;
+    update(request: TerrariumFormDialog): Promise<any>;
     delete(windowId: number): Promise<any>;
 }
 

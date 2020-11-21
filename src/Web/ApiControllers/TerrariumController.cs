@@ -27,7 +27,7 @@ namespace Web.ApiControllers
         [HttpGet("getList")]
         public async Task<ActionResult<TerrariumListAm>> GetList()
         {
-            var am = await Mediator.Send(new GetTerrariumListQuery());
+            TerrariumListAm am = await Mediator.Send(new GetTerrariumListQuery());
 
             return Ok(am);
         }
@@ -35,17 +35,17 @@ namespace Web.ApiControllers
         [HttpPost("create")]
         public async Task<ActionResult<int>> Create([FromBody] CreateTerrariumCommand command)
         {
-            int terrariumId = await Mediator.Send(command);
+            int id = await Mediator.Send(command);
 
-            return Ok(terrariumId);
+            return Ok(id);
         }
 
         [HttpPost("update")]
         public async Task<ActionResult<int>> Update([FromBody] UpdateTerrariumCommand command)
         {
-            var terrariumId = await Mediator.Send(command);
+            int id = await Mediator.Send(command);
 
-            return NoContent();
+            return Ok(id);
         }
 
         [HttpPost("delete")]

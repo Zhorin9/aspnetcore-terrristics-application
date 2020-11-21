@@ -15,13 +15,12 @@
             v-loading="operationInProgress"
             :data="terrariums"
             element-loading-text="Loading"
-            :default-sort="{prop: 'date', order: 'descending'}"
-            border
-            fit
-            highlight-current-row>
+            :default-sort="{prop: 'creationDate', order: 'descending'}"
+            border>
             <el-table-column
                 align="center"
                 label="ID"
+                prop="id"
                 width="60"
                 sortable>
                 <template slot-scope="scope">
@@ -44,6 +43,7 @@
             </el-table-column>
             <el-table-column
                 label="Creation date"
+                prop="creationDate"
                 sortable
                 width="140"
                 align="center">
@@ -53,6 +53,7 @@
             </el-table-column>
             <el-table-column
                 label="Modification date"
+                prop="modificationDate"
                 sortable
                 width="180"
                 align="center">
@@ -89,7 +90,6 @@
                         Edit row
                     </el-button>
                     <el-button
-                        v-if="row.status!=='deleted'"
                         type="danger"
                         size="mini"
                         @click="handleDelete(row, $index)">
@@ -99,7 +99,11 @@
             </el-table-column>
         </el-table>
 
-<!--        <edit-dialog />-->
+        <terrarium-form-dialog :key="`terrarium-form-dialog-key-${terrariumFormDialogKey}`"
+                               :terrarium-data="tempTerrariumFormData"
+                               :is-create-modal="isCreateDialogForm"
+                               :dialog-form-visible="dialogFormVisible"
+                               @operation-result="refreshTerrariumFormDialog"/>
     </div>
 </template>
 
@@ -107,14 +111,18 @@
 import {Component} from "vue-property-decorator";
 import {TerrariumModule} from "@/store/modules/terrarium-module";
 import BackendOperationMixin from "@/mixins/backend-operation-mixin";
-import EditDialog from "@/views/terrariums/components/EditDialog.vue";
+import TerrariumFormDialog from "@/views/terrariums/components/TerrariumFormDialog.vue";
 
 @Component({
     name: 'Terrarium',
-    components: {EditDialog}
+    components: {TerrariumFormDialog}
 })
 export default class extends BackendOperationMixin {
-    private dialogStatus = ''
+    private terrariumFormDialogKey: number = 0;
+
+    private isCreateDialogForm: boolean = true;
+    private dialogFormVisible: boolean = false;
+    private tempTerrariumFormData: TerrariumFormDialogModel = null;
 
     get terrariums() {
         return TerrariumModule.terrariums;
@@ -139,27 +147,44 @@ export default class extends BackendOperationMixin {
     }
 
     private handleRedirect(row: any) {
-        this.$router.push('terrariumDetail', {params: {id: row.id}});
+        this.$router.push({name: 'terrarium', params: {id: row.id}});
     }
 
-    private handleCreate(){
-
+    private handleCreate() {
+        this.isCreateDialogForm = true;
+        this.tempTerrariumFormData = {
+            id: -1,
+            name: '',
+            description: '',
+            isPublic: false
+        };
+        this.dialogFormVisible = true;
     }
 
-    private handleUpdate(row){
-        this.tempTerrairumData = Object.assign({}, row);
-        this.dialogStatus = 'update';
+    private handleUpdate(row: any) {
+        this.isCreateDialogForm = false;
+        this.tempTerrariumFormData = Object.assign({}, row);
         this.dialogFormVisible = true;
     }
 
     private handleDelete(row: any, index: number) {
-        this.$notify({
-            title: 'Success',
-            message: 'Delete Successfully',
-            type: 'success',
-            duration: 2000
-        })
-        this.list.splice(index, 1)
+        TerrariumModule.DeleteTerrarium(row.id)
+            .then(() => {
+                this.$notify({
+                    title: 'Success',
+                    message: 'Delete Successfully',
+                    type: 'success',
+                    duration: 2000
+                })
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
+
+    private refreshTerrariumFormDialog() {
+        this.terrariumFormDialogKey += 1;
+        this.tempTerrariumFormData = <TerrariumFormDialogModel>{};
     }
 }
 </script>

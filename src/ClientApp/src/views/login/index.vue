@@ -109,7 +109,7 @@ export default class extends Vue {
     const {email, password} = this;
     if (email && password) {
       await UserModule.Login({email: email, password: password});
-      
+
       debugger;
       this.$router.push({
         path: this.redirect || '/',

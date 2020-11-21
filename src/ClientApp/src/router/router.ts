@@ -59,7 +59,7 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "form" */ '@/views/terrariums/index.vue'),
                     meta: {
                         title: 'Terrariums',
-                        icon: 'component'
+                        icon: 'table'
                     }
                 }
             ]

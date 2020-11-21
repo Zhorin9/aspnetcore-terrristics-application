@@ -76,6 +76,7 @@
     <Content Include="src\components\sensorBlockTypes\OutputAnalogSensorBlock.vue" />
     <Content Include="src\components\sensorBlockTypes\OutputDigitalSensorBlock.vue" />
     <Content Include="src\configurations\axios-config.ts" />
+    <Content Include="src\configurations\font-awesome-config.ts" />
     <Content Include="src\configurations\global-components.ts" />
     <Content Include="src\configurations\vee-validate-config.ts" />
     <Content Include="src\icons\components\dashboard.ts" />
@@ -112,13 +113,19 @@
     <Content Include="src\layout\components\Sidebar\SidebarItemLink.vue" />
     <Content Include="src\layout\index.vue" />
     <Content Include="src\layout\mixin\resize.ts" />
+    <Content Include="src\mixins\backend-operation-mixin.ts" />
     <Content Include="src\registerServiceWorker.ts" />
     <Content Include="src\router\permission.ts" />
     <Content Include="src\router\router.ts" />
     <Content Include="src\services\user-service.ts" />
+    <Content Include="src\shims-tsx.d.ts" />
     <Content Include="src\shims-vue.d.ts" />
     <Content Include="src\store\index.ts" />
+    <Content Include="src\store\modules\alert-module.ts" />
     <Content Include="src\store\modules\app.ts" />
+    <Content Include="src\store\modules\dictionary-module.ts" />
+    <Content Include="src\store\modules\sensor-block-module.ts" />
+    <Content Include="src\store\modules\terrarium-module.ts" />
     <Content Include="src\store\modules\user.ts" />
     <Content Include="src\styles\element-variables.scss" />
     <Content Include="src\styles\index.scss" />
@@ -145,6 +152,8 @@
     <Content Include="src\views\nested\menu1\menu1-3\index.vue" />
     <Content Include="src\views\nested\menu2\index.vue" />
     <Content Include="src\views\table\index.vue" />
+    <Content Include="src\views\terrariums\components\EditDialog.vue" />
+    <Content Include="src\views\terrariums\index.vue" />
     <Content Include="src\views\terrarium\index.vue" />
     <Content Include="src\views\tree\index.vue" />
     <Content Include="tsconfig.json">

@@ -1,8 +1,14 @@
 import {VuexModule, Module, Mutation, Action, getModule} from 'vuex-module-decorators'
-import {getSidebarStatus, setSidebarStatus} from '@/utils/local-storage'
 import store from '@/store'
+import {getSidebarStatus, setSidebarStatus} from "@/utils/local-storage";
 
-export interface AppState {
+export enum DeviceType {
+    Mobile,
+    Desktop,
+}
+
+export interface IAppState {
+    device: DeviceType
     sidebar: {
         opened: boolean
         withoutAnimation: boolean
@@ -10,17 +16,18 @@ export interface AppState {
 }
 
 @Module({dynamic: true, store, name: 'app'})
-class App extends VuexModule implements AppState {
+class App extends VuexModule implements IAppState {
     public sidebar = {
         opened: getSidebarStatus() !== 'closed',
         withoutAnimation: false
-    };
-    public size = 'medium';
+    }
+
+    public device = DeviceType.Desktop
 
     @Mutation
     private TOGGLE_SIDEBAR(withoutAnimation: boolean) {
-        this.sidebar.opened = !this.sidebar.opened;
-        this.sidebar.withoutAnimation = withoutAnimation;
+        this.sidebar.opened = !this.sidebar.opened
+        this.sidebar.withoutAnimation = withoutAnimation
         if (this.sidebar.opened) {
             setSidebarStatus('opened')
         } else {
@@ -30,9 +37,14 @@ class App extends VuexModule implements AppState {
 
     @Mutation
     private CLOSE_SIDEBAR(withoutAnimation: boolean) {
-        this.sidebar.opened = false;
-        this.sidebar.withoutAnimation = withoutAnimation;
+        this.sidebar.opened = false
+        this.sidebar.withoutAnimation = withoutAnimation
         setSidebarStatus('closed')
+    }
+
+    @Mutation
+    private TOGGLE_DEVICE(device: DeviceType) {
+        this.device = device
     }
 
     @Action
@@ -44,6 +56,11 @@ class App extends VuexModule implements AppState {
     public CloseSideBar(withoutAnimation: boolean) {
         this.CLOSE_SIDEBAR(withoutAnimation)
     }
+
+    @Action
+    public ToggleDevice(device: DeviceType) {
+        this.TOGGLE_DEVICE(device)
+    }
 }
 
-export const AppModule = getModule(App);
+export const AppModule = getModule(App)

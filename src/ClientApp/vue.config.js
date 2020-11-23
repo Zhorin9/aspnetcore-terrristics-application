@@ -1,11 +1,29 @@
-const path = require('path');
-const scriptsPath = "js/";
-const resourcesPath = "css/";
+const path = require('path')
+const name = 'Vue Typescript Admin'
 
 module.exports = {
-        chainWebpack: config => {
-        // aspnet uses the other hmr so remove this one
-        // see https://github.com/webpack/webpack/issues/1583
-        //config.plugins.delete('hmr');
+  // TODO: Remember to change publicPath to fit your need
+  publicPath: process.env.NODE_ENV === 'production' ? '/vue-typescript-admin-template/' : '/',
+  lintOnSave: process.env.NODE_ENV === 'development',
+  pwa: {
+    name: name
+  },
+  pluginOptions: {
+    'style-resources-loader': {
+      preProcessor: 'scss',
+      patterns: [
+        path.resolve(__dirname, 'src/styles/_variables.scss'),
+        path.resolve(__dirname, 'src/styles/_mixins.scss')
+      ]
     }
-};
+  },
+  chainWebpack(config) {
+    // provide the app's title in html-webpack-plugin's options list so that
+    // it can be accessed in index.html to inject the correct title.
+    // https://cli.vuejs.org/guide/webpack.html#modifying-options-of-a-plugin
+    config.plugin('html').tap(args => {
+      args[0].title = name
+      return args
+    })
+  }
+}

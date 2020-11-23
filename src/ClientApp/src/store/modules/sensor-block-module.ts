@@ -3,23 +3,23 @@ import store from "@/store";
 import {sensorBlockApiImpl} from "@/api/sensor-block-api";
 
 export interface SensorBlockState {
-    SensorBlocks: SensorBlockModel[];
+    sensorBlocks: SensorBlockModel[];
 }
 
 @Module({dynamic: true, store, name: 'sensorBlockModule'})
 class SensorBlock extends VuexModule implements SensorBlockState {
-    SensorBlocks: Array<SensorBlockModel> = Array(0);
+    sensorBlocks: Array<SensorBlockModel> = Array(0);
 
     @Mutation
     UPDATE_SENSOR_BLOCKS(sensorBlocks: Array<SensorBlockModel>) {
-        this.SensorBlocks = sensorBlocks;
+        this.sensorBlocks = sensorBlocks;
     }
 
     @Action
     GET_LIST(windowId: string) {
         return sensorBlockApiImpl.getSensorBlocks(windowId)
             .then(response => {
-                this.UPDATE_SENSOR_BLOCKS(response.data.SensorBlocks);
+                this.UPDATE_SENSOR_BLOCKS(response.data.sensorBlocks);
                 return true;
             })
             .catch(err => {

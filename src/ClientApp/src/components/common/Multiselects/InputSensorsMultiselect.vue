@@ -13,8 +13,8 @@
             @input="emit">
         <template slot="option" slot-scope="props">
             <div>
-                <strong><span>{{ props.option.Name }} - </span></strong>
-                <span class="option__small">{{ props.option.ShortDescription }}</span>
+                <strong><span>{{ props.option.name }} - </span></strong>
+                <span class="option__small">{{ props.option.shortDescription }}</span>
             </div>
         </template>
     </multiselect>
@@ -33,7 +33,7 @@
         value: SensorKindModel[] = this.selectedSensors.length > 0 ? this.selectedSensors : Array(0);
 
         get inputSensors() {
-            return DictionaryModule.InputSensors;
+            return DictionaryModule.inputSensors;
         }
 
         emit() {

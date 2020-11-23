@@ -1,5 +1,7 @@
-﻿using Application.Common.Interfaces;
-using Auth.Identity;
+﻿using Auth.Identity;
+using Auth.Interfaces;
+using Auth.Services;
+using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

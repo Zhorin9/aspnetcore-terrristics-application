@@ -25,11 +25,11 @@
         
         handleOk() {
             this.modalResult(true);
-            this.$bvModal.hide(this.id);
+            // this.$bvModal.hide(this.id);
         }
 
         handleCancel() {
-            this.$bvModal.hide(this.id);
+            // this.$bvModal.hide(this.id);
         }
 
         @Emit()

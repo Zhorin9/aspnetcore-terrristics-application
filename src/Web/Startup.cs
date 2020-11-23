@@ -1,18 +1,14 @@
-﻿using System.Text;
-using System.Text.Json.Serialization;
-using Application;
+﻿using Application;
 using Application.Common.Interfaces;
 using Auth;
+using Common.Interfaces;
 using DataAccess;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 using Web.Configurations;
 using Web.Services;
 
@@ -29,54 +25,28 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            SpaConfiguration.RegisterStaticFiles(services, Configuration);
-
             services.AddAuth(Configuration);
             services.AddDataAccess(Configuration);
             services.AddApplication();
-            
+
             services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             services
-                .AddControllersWithViews()
-                .AddNewtonsoftJson(options =>
-                {
-                    options.UseMemberCasing();
-                })
+                .AddControllers()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IAppDbContext>());
 
-            services.AddMvc(option => option.EnableEndpointRouting = false)
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                });
-            
             services.AddCors(o => o.AddPolicy("AllowOrigin", builder =>
             {
-                builder.AllowAnyOrigin()
+                builder
+                    .WithOrigins("http://localhost:5000")
+                    .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader();
             }));
-            
-            services.AddAuthentication(x =>
-                {
-                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(cfg =>
-                {
-                    cfg.RequireHttpsMetadata = false;
-                    cfg.SaveToken = true;
-                    cfg.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = Configuration["Tokens:Issuer"],
-                        ValidAudience = Configuration["Tokens:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
-                    };
-                });
-            
+
+            SpaConfiguration.RegisterStaticFiles(services, Configuration);
+            OptionsConfiguration.RegisterOptions(services, Configuration);
+            JwTAuthenticationConfiguration.RegisterJwtAuthentication(services, Configuration);
             ServicesConfiguration.RegisterServices(services);
         }
 
@@ -93,39 +63,14 @@ namespace Web
             {
                 SpaConfiguration.EnableStaticFiles(app);
             }
-            
-            app.UseAuthentication();
-            app.UseCors("AllowOrigin");
-            app.UseMvc(cfg =>
-            {
-                cfg.MapRoute("Default",
-                    "{controller}/{action}/{id?}",
-                    new {controller = "Home", Action = "Index"});
-            });
 
-            // app.UseEndpoints(endpoints =>
-            // {
-            //     endpoints.MapControllers();
-            // });
-            
-            // // // app.UseHttpsRedirection();
-            // app.UseMvc(routes =>
-            // {
-            //     routes.MapRoute("default", "{controller}/{action=index}/{id}");
-            // });
-            //
-            // // global cors policy
-            // app.UseCors(x => x
-            //     .AllowAnyOrigin()
-            //     .AllowAnyMethod()
-            //     .AllowAnyHeader());
-            //
-            //
-            // app.UseEndpoints(endpoints => {
-            //     endpoints.MapControllers();
-            // });
-            
-            SpaConfiguration.EnableSpa(app, env, Configuration);
+            app.UseAuthentication();
+            app.UseRouting();
+            app.UseCors("AllowOrigin");
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+            // SpaConfiguration.EnableSpa(app, env, Configuration);
         }
     }
 }

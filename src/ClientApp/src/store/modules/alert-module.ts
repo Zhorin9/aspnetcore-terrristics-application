@@ -3,21 +3,21 @@ import store from "@/store";
 import {DictionaryState} from "@/store/modules/dictionary-module";
 
 export interface IAlertState {
-    FailedLogin: any;
+    failedLogin: any;
 }
 
 @Module({dynamic: true, store, name: 'alertModule'})
 class Alert extends VuexModule implements IAlertState {
-    public FailedLogin = {};
+    public failedLogin = {};
 
     @Mutation
     public ALERT_FAILED_LOGIN() {
-        this.FailedLogin = true;
+        this.failedLogin = true;
     }
 
     @Mutation
     public ALERT_SUCCESS_LOGIN() {
-        this.FailedLogin = false;
+        this.failedLogin = false;
     }
     
     //TODO extend alert module

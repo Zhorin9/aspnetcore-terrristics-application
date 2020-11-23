@@ -14,11 +14,13 @@
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.1" />
       <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.20" />
       <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
       <PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="3.0.68" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Application\Application.csproj" />
+      <ProjectReference Include="..\Common\Common.csproj" />
+      <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
 
 </Project>

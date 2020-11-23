@@ -5,31 +5,31 @@ import {sensorTypes} from "@/utils/enums";
 import _ from "lodash";
 
 export interface DictionaryState {
-    InputSensors: SensorKindModel[];
-    OutputSensors: SensorKindModel[];
+    inputSensors: SensorKindModel[];
+    outputSensors: SensorKindModel[];
 }
 
 @Module({dynamic: true, store, name: 'dictionaryModule'})
 class Dictionary extends VuexModule implements DictionaryState {
-    public InputSensors: SensorKindData[] = [];
-    public OutputSensors: SensorKindData[] = [];
+    public inputSensors: SensorKindData[] = [];
+    public outputSensors: SensorKindData[] = [];
 
     get DICT_GET_INPUT_SENSORS() {
-        return this.InputSensors;
+        return this.inputSensors;
     }
 
     get DICT_GET_OUTPUT_SENSORS() {
-        return this.OutputSensors;
+        return this.outputSensors;
     }
 
     @Mutation
     public DICT_SET_INPUT_SENSORS(inputSensors: SensorKindData[]) {
-        this.InputSensors = inputSensors;
+        this.inputSensors = inputSensors;
     }
 
     @Mutation
     public DICT_SET_OUTPUT_SENSORS(outputSensors: SensorKindData[]) {
-        this.OutputSensors = outputSensors;
+        this.outputSensors = outputSensors;
     }
 
     @Action
@@ -40,7 +40,7 @@ class Dictionary extends VuexModule implements DictionaryState {
         return await dictionaryApiImpl.getSensorKindsDict()
             .then(response => {
                     _.each(response.data, sensorKind => {
-                        if (sensorKind.Type === sensorTypes.Input) {
+                        if (sensorKind.type === sensorTypes.input) {
                             inputSensors.push(sensorKind);
                         } else {
                             outputSensors.push(sensorKind);

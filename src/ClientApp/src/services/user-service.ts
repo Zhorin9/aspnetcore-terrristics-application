@@ -12,11 +12,14 @@ class UserServiceImpl implements UserService {
             .then(response => {
                 let data = response.data;
                 if (data.token) {
-                    return {Email: email, Token: data.token, TokenExpiration: data.expiration};
+                    return data;
                 }
                 return null;
             })
-            .catch(this.handleError);
+            .catch(err => {
+                console.error(err);
+                this.handleError(err);
+            });
     }
 
     logout() {

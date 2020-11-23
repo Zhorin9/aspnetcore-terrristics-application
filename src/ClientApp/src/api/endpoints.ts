@@ -1,5 +1,5 @@
 export const endpoints = {
-    getJwtToken: "/account/createToken",
+    getJwtToken: "/api/Account/createToken",
 
     getSensorKinds: "/api/dictionary/getSensorKinds",
 
@@ -7,13 +7,14 @@ export const endpoints = {
     getSensorBlockDataOutputState: "/api/sensorBlockData/getOutputState",
     createOrUpdateSensorBlockData: "/api/sensorBlockData/createOrUpdate",
     removeSensorBlockAllInputData: "/api/sensorBlockData/removeAllInputData",
-    
+
     getSensorBlocks: "/api/sensorBlock/getList",
     createNewSensorBlock: "/api/sensorBlock/create",
     updateSensorBlock: "/api/sensorBlock/update",
-    
-    getTerraristicsWindows: "api/terraristicsWindow/getList",
-    createNewTerraristicsWindow: "api/terraristicsWindow/create",
-    updateTerraristicsWindow: "api/terraristicsWindow/update",
-    deleteTerraristicsWindow: "api/terraristicsWindow/delete",
+
+    getTerrarium: "api/terrarium/get",
+    getTerrariumList: "api/terrarium/getList",
+    createNewTerrarium: "api/terrarium/create",
+    updateTerrarium: "api/terrarium/update",
+    deleteTerrarium: "api/terrarium/delete",
 };

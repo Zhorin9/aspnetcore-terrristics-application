@@ -9,14 +9,14 @@ Vue.component('validation-observer', ValidationObserver);
 
 import {localize} from 'vee-validate';
 
-const pl = require('vee-validate/dist/locale/pl.json');
-pl.names = {
+const en = require('vee-validate/dist/locale/en.json');
+en.names = {
     email: 'E-mail',
-    password: 'Hasło',
-    name: 'Nazwa',
-    description: 'Opis'
+    password: 'Password',
+    name: 'Name',
+    description: 'Description'
 };
-localize('pl', pl);
+localize('en', en);
 
 // Install required rule and message
 extend("required", required);

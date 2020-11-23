@@ -4,8 +4,16 @@ import {getHeaderWithJwtToken} from "@/utils/header-generator";
 
 class TerrariumApiImpl implements TerrariumApi {
     getList(): Promise<any> {
+        return axios.get(endpoints.getTerrariumList,
+            {
+                headers: getHeaderWithJwtToken(),
+            })
+    }
+
+    get(terrariumId: number): Promise<any> {
         return axios.get(endpoints.getTerrarium,
             {
+                params: {id: terrariumId},
                 headers: getHeaderWithJwtToken(),
             })
     }

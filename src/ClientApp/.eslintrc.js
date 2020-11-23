@@ -31,7 +31,7 @@ module.exports = {
     'vue/array-bracket-spacing': 'error',
     'vue/arrow-spacing': 'error',
     'vue/block-spacing': 'error',
-    'vue/brace-style': 'error',
+    'vue/brace-style': 'off',
     'vue/camelcase': 'error',
     'vue/comma-dangle': 'error',
     'vue/component-name-in-template-casing': ['error', 'kebab-case'],

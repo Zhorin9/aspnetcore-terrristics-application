@@ -17,14 +17,34 @@ class Terrarium extends VuexModule implements TerrariumState {
     }
 
     @Mutation
+    public ADD_TERRARIUM(terrarium: TerrariumModel){
+        this.terrariums.push(terrarium);
+    }
+
+    @Mutation
     public DELETE_TERRARIUM(id: Number) {
         let index = _.findIndex(this.terrariums, {'id': id});
         this.terrariums.splice(index, 1);
     }
 
     @Action
-    public GET_LIST() {
-        return terrariumApiImpl.getList()
+    public async Get(terrariumId: number){
+
+        return await terrariumApiImpl.get(terrariumId)
+            .then(response => {
+                this.ADD_TERRARIUM(response.data);
+                return true;
+            })
+            .catch(err => {
+                debugger;
+
+                console.error(err);
+            });
+    }
+
+    @Action
+    public async GetList() {
+        return await terrariumApiImpl.getList()
             .then(response => {
                 this.UPDATE_TERRARIUM_LIST(response.data.terrariums);
                 return true;
@@ -35,10 +55,10 @@ class Terrarium extends VuexModule implements TerrariumState {
     }
 
     @Action
-    public async UpdateTerrarium(terrariumData: TerrariumFormDialogModel) {
-        return await terrariumApiImpl.update(terrariumData)
-            .then(() => {
-                return true;
+    public Create(terrariumData: TerrariumFormDialogModel) {
+        return terrariumApiImpl.create(terrariumData)
+            .then(response => {
+                return response.data;
             })
             .catch(err => {
                 console.error(err);
@@ -46,8 +66,19 @@ class Terrarium extends VuexModule implements TerrariumState {
     }
 
     @Action
-    public async DeleteTerrarium(terrariumId: number) {
-        return await terrariumApiImpl.delete(terrariumId)
+    public Update(terrariumData: TerrariumFormDialogModel) {
+        return terrariumApiImpl.update(terrariumData)
+            .then(response => {
+                return response.data;
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
+
+    @Action
+    public Delete(terrariumId: number) {
+        return terrariumApiImpl.delete(terrariumId)
             .then(response => {
                 this.DELETE_TERRARIUM(response.data);
                 return true;

@@ -12,7 +12,8 @@ export const endpoints = {
     createNewSensorBlock: "/api/sensorBlock/create",
     updateSensorBlock: "/api/sensorBlock/update",
 
-    getTerrarium: "api/terrarium/getList",
+    getTerrarium: "api/terrarium/get",
+    getTerrariumList: "api/terrarium/getList",
     createNewTerrarium: "api/terrarium/create",
     updateTerrarium: "api/terrarium/update",
     deleteTerrarium: "api/terrarium/delete",

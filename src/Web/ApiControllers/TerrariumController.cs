@@ -17,11 +17,16 @@ namespace Web.ApiControllers
         }
 
         [HttpGet("get")]
-        public async Task<ActionResult<TerrariumDetailAm>> Get([FromBody] int id)
+        public async Task<ActionResult<TerrariumDetailAm>> Get(int id)
         {
             TerrariumDetailAm am = await Mediator.Send(new GetTerrariumDetailQuery {Id = id});
+            
+            if (am == null)
+            {
+                return NotFound();
+            }
 
-            return Ok(new JsonResult(am));
+            return Ok(am);
         }
 
         [HttpGet("getList")]
@@ -29,6 +34,11 @@ namespace Web.ApiControllers
         {
             TerrariumListAm am = await Mediator.Send(new GetTerrariumListQuery());
 
+            if (am == null)
+            {
+                return NotFound();
+            }
+            
             return Ok(am);
         }
 

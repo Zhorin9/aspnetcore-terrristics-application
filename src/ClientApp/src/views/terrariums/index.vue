@@ -103,7 +103,8 @@
                                :terrarium-data="tempTerrariumFormData"
                                :is-create-modal="isCreateDialogForm"
                                :dialog-form-visible="dialogFormVisible"
-                               @operation-result="refreshTerrariumFormDialog"/>
+                               @refresh-dialog="refreshDialog"
+                               @operation-success="refreshDialogAndUpdateTerrariumList"/>
     </div>
 </template>
 
@@ -122,21 +123,21 @@ export default class extends BackendOperationMixin {
 
     private isCreateDialogForm: boolean = true;
     private dialogFormVisible: boolean = false;
-    private tempTerrariumFormData: TerrariumFormDialogModel = null;
+    private tempTerrariumFormData: TerrariumFormDialogModel | null = null;
 
     get terrariums() {
         return TerrariumModule.terrariums;
     }
 
-    created() {
+    async created() {
         if (this.terrariums) {
-            this.getTerrariums();
+            await this.getTerrariums();
         }
     }
 
-    getTerrariums() {
+    async getTerrariums() {
         this.startOperation();
-        TerrariumModule.GET_LIST()
+        await TerrariumModule.GetList()
             .then(() => {
                 this.operationSuccess();
             })
@@ -182,9 +183,15 @@ export default class extends BackendOperationMixin {
             })
     }
 
-    private refreshTerrariumFormDialog() {
+    private refreshDialog() {
+        this.dialogFormVisible = false;
         this.terrariumFormDialogKey += 1;
-        this.tempTerrariumFormData = <TerrariumFormDialogModel>{};
+        this.tempTerrariumFormData = null;
+    }
+
+    private refreshDialogAndUpdateTerrariumList() {
+        this.refreshDialog();
+        this.getTerrariums();
     }
 }
 </script>

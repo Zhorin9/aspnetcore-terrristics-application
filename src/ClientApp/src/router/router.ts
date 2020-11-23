@@ -51,15 +51,15 @@ export default new Router({
             ]
         },
         {
-          path: '/terrarium',
-          component: Layout,
+            path: '/terrarium',
+            component: Layout,
             children: [
                 {
                     path: 'index',
                     component: () => import(/* webpackChunkName: "form" */ '@/views/terrariums/index.vue'),
                     meta: {
                         title: 'Terrariums',
-                        icon: 'table'
+                        icon: 'terrarium'
                     }
                 }
             ]

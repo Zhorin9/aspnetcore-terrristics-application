@@ -17,17 +17,12 @@ import VueMoment from 'vue-moment';
 Vue.use(VueMoment);
 
 import '@/router/permission'
-// Initialize custom global components
 
-import '@/configurations/global-components';
 // Initialize vee-validate configuration with imported validators
-
 import '@/configurations/vee-validate-config';
+
 // Initialize axios https://github.com/axios/axios
 import '@/configurations/axios-config';
-
-// Initialize vue font awesome icons and global component
-import '@/configurations/font-awesome-config';
 
 Vue.use(ElementUI)
 Vue.use(SvgIcon, {

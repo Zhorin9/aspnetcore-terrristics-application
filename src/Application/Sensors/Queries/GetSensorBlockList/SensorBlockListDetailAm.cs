@@ -3,7 +3,7 @@ using Application.Common.Models;
 using AutoMapper;
 using Domain.Entities;
 
-namespace Application.SensorBlocks.Queries.GetSensorBlockList
+namespace Application.Sensors.Queries.GetSensorBlockList
 {
     public class SensorBlockListDetailAm : IMapFrom<SensorBlock>
     {

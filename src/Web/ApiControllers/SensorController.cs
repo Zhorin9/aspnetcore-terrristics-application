@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Application.SensorBlocks.Commands.UpdateSensorBlock;
 using Application.SensorBlocks.Queries.GetSensorBlockDetail;
-using Application.SensorBlocks.Queries.GetSensorBlockList;
 using Application.Sensors.Commands.CreateSensor;
+using Application.Sensors.Queries.GetSensorBlockList;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +15,7 @@ namespace Web.ApiControllers
         {
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateSensorCommand command)
         {
             await Mediator.Send(command);
@@ -23,7 +23,7 @@ namespace Web.ApiControllers
             return NoContent();
         }
 
-        [HttpPost]
+        [HttpPost("update")]
         public async Task<IActionResult> Update([FromBody] UpdateSensorCommand command)
         {
             await Mediator.Send(command);
@@ -31,15 +31,15 @@ namespace Web.ApiControllers
             return NoContent();
         }
 
-        [HttpGet]
-        public async Task<ActionResult<SensorBlockDetailAm>> Get(int sensorBlockId)
+        [HttpGet("get")]
+        public async Task<ActionResult<SensorBlockDetailAm>> Get(int id)
         {
-            SensorBlockDetailAm am = await Mediator.Send(new GetSensorBlockDetailQuery {Id = sensorBlockId});
+            SensorBlockDetailAm am = await Mediator.Send(new GetSensorBlockDetailQuery {Id = id});
 
             return Ok(am);
         }
 
-        [HttpGet]
+        [HttpGet("getList")]
         public async Task<ActionResult<SensorBlockListAm>> GetList(int windowId)
         {
             SensorBlockListAm am = await Mediator.Send(new GetSensorBlockListQuery {WindowId = windowId});

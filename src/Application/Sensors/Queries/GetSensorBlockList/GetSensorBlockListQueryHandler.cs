@@ -9,7 +9,7 @@ using Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.SensorBlocks.Queries.GetSensorBlockList
+namespace Application.Sensors.Queries.GetSensorBlockList
 {
     public class GetSensorBlockListQueryHandler : IRequestHandler<GetSensorBlockListQuery, SensorBlockListAm>
     {

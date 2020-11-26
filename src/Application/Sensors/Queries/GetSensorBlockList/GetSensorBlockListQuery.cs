@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Application.SensorBlocks.Queries.GetSensorBlockList
+namespace Application.Sensors.Queries.GetSensorBlockList
 {
     public class GetSensorBlockListQuery : IRequest<SensorBlockListAm>
     {

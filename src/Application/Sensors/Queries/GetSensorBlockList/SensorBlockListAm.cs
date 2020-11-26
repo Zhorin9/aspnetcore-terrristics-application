@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Application.SensorBlocks.Queries.GetSensorBlockList
+namespace Application.Sensors.Queries.GetSensorBlockList
 {
     public class SensorBlockListAm
     {

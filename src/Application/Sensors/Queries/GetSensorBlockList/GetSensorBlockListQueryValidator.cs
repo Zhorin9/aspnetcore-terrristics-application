@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Application.SensorBlocks.Queries.GetSensorBlockList
+namespace Application.Sensors.Queries.GetSensorBlockList
 {
     public class GetSensorBlockListQueryValidator : AbstractValidator<GetSensorBlockListQuery>
     {

@@ -81,7 +81,7 @@ class Terrarium extends VuexModule implements TerrariumState {
         return terrariumApiImpl.delete(terrariumId)
             .then(response => {
                 this.DELETE_TERRARIUM(response.data);
-                return true;
+                return response.data;
             })
             .catch(err => {
                 console.error(err);

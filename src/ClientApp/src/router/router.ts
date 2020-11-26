@@ -50,18 +50,32 @@ export default new Router({
                 }
             ]
         },
+
         {
             path: '/terrarium',
             component: Layout,
+            redirect: '/terrarium',
+            meta: {
+                title: 'Terrarium',
+                icon: 'terrarium'
+            },
             children: [
                 {
-                    path: 'index',
+                    path: '/terrarium',
                     component: () => import(/* webpackChunkName: "form" */ '@/views/terrariums/index.vue'),
-                    meta: {
-                        title: 'Terrariums',
-                        icon: 'terrarium'
-                    }
-                }
+                    meta: {title: 'My terrariums'}
+                },
+                {
+                    path: '/terrarium/public',
+                    component: () => import(/* webpackChunkName: "form" */ '@/views/terrariums/index.vue'),
+                    meta: {title: 'Public terrariums'}
+                },
+                {
+                    name: 'terrariumDetail',
+                    path: '/:id',
+                    component: () => import(/* webpackChunkName: "form" */ '@/views/terrariums/detail/index.vue'),
+                    props: true
+                },
             ]
         },
         {

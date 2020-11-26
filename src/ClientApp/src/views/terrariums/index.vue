@@ -73,6 +73,20 @@
                 </template>
             </el-table-column>
             <el-table-column
+                label="Is public"
+                class-name="status-col"
+                width="80"
+                align="center">
+                <template slot-scope="scope">
+                    <el-tag v-if="scope.row.isPublic" type="success">
+                        Yes
+                    </el-tag>
+                    <el-tag v-else type="danger">
+                        No
+                    </el-tag>
+                </template>
+            </el-table-column>
+            <el-table-column
                 label="Actions"
                 align="center"
                 width="300"
@@ -148,7 +162,7 @@ export default class extends BackendOperationMixin {
     }
 
     private handleRedirect(row: any) {
-        this.$router.push({name: 'terrarium', params: {id: row.id}});
+        this.$router.push({name: 'terrariumDetail', params: {id: row.id}});
     }
 
     private handleCreate() {
@@ -169,7 +183,7 @@ export default class extends BackendOperationMixin {
     }
 
     private handleDelete(row: any, index: number) {
-        TerrariumModule.DeleteTerrarium(row.id)
+        TerrariumModule.Delete(row.id)
             .then(() => {
                 this.$notify({
                     title: 'Success',

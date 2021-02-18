@@ -1,14 +1,14 @@
 import {Action, getModule, Module, Mutation, VuexModule} from "vuex-module-decorators";
 import store from "@/store";
-import {sensorBlockApiImpl} from "@/api/sensor-block-api";
+import {sensorApiImpl} from "@/api/sensor-api";
 
 export interface SensorState {
     sensors: SensorModel[];
 }
 
-@Module({dynamic: true, store, name: 'sensorBlockModule'})
+@Module({dynamic: true, store, name: 'sensorModule'})
 class Sensor extends VuexModule implements SensorState {
-    sensorBlocks: Array<SensorModel> = Array(0);
+    sensors: Array<SensorModel> = Array(0);
 
     @Mutation
     UPDATE_SENSOR(sensorBlocks: Array<SensorModel>) {
@@ -17,8 +17,10 @@ class Sensor extends VuexModule implements SensorState {
 
     @Action
     GET_LIST(windowId: string) {
-        return sensorBlockApiImpl.getSensorBlocks(windowId)
+        return sensorApiImpl.getSensors(windowId)
             .then(response => {
+                debugger;
+
                 this.UPDATE_SENSOR(response.data.sensorBlocks);
                 return true;
             })
@@ -29,7 +31,7 @@ class Sensor extends VuexModule implements SensorState {
 
     @Action
     async REMOVE_ALL_INPUT_DATA(sensorBlockId: string) {
-        return await sensorBlockApiImpl.removeAllInputData(sensorBlockId)
+        return await sensorApiImpl.removeAllInputData(sensorBlockId)
             .then(() => {
                 return true;
             })

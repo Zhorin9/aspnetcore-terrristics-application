@@ -21,7 +21,7 @@
 <script lang="ts">
 import {Component, Prop} from "vue-property-decorator";
 import BackendOperationMixin from "@/mixins/backend-operation-mixin";
-import {SensorBlockModule} from "@/store/modules/sensor-block-module";
+import {SensorModule} from "@/store/modules/sensor-module";
 
 @Component({
     name: 'TerrariumDetail'
@@ -30,11 +30,12 @@ export default class extends BackendOperationMixin {
     @Prop() id!: string;
 
     get sensorBlocks() {
-        return SensorBlockModule.sensorBlocks;
+        debugger;
+        return SensorModule.sensors;
     }
 
     created() {
-        SensorBlockModule.GET_LIST(this.id);
+        SensorModule.GET_LIST(this.id);
     }
 }
 </script>

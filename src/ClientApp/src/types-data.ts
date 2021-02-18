@@ -7,7 +7,7 @@ interface SensorKindModel {
     outputType: number;
 }
 
-interface SensorBlockModel {
+interface SensorModel {
     id: number;
     name: string;
     description: string;

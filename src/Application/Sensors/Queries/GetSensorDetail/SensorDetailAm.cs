@@ -3,23 +3,23 @@ using Application.Common.Models;
 using AutoMapper;
 using Domain.Entities;
 
-namespace Application.Sensors.Queries.GetSensorBlockList
+namespace Application.SensorBlocks.Queries.GetSensorBlockDetail
 {
-    public class SensorBlockListDetailAm : IMapFrom<SensorBlock>
+    public class SensorDetailAm : IMapFrom<SensorBlock>
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
 
         public string Description { get; set; }
-        
+
         public int WindowId { get; set; }
 
         public SensorKindAm SensorKind { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<SensorBlock, SensorBlockListDetailAm>()
+            profile.CreateMap<SensorBlock, SensorDetailAm>()
                 .ForMember(d => d.WindowId, o => o.MapFrom(s => s.ParentWindowId));
         }
     }

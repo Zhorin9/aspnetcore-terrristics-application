@@ -8,9 +8,10 @@ export const endpoints = {
     createOrUpdateSensorBlockData: "/api/sensorBlockData/createOrUpdate",
     removeSensorBlockAllInputData: "/api/sensorBlockData/removeAllInputData",
 
-    getSensorBlocks: "/api/sensorBlock/getList",
-    createNewSensorBlock: "/api/sensorBlock/create",
-    updateSensorBlock: "/api/sensorBlock/update",
+    getSensor: "/api/sensor/get",
+    getSensors: "/api/sensor/getList",
+    createNewSensor: "/api/sensor/create",
+    updateSensor: "/api/sensor/update",
 
     getTerrarium: "api/terrarium/get",
     getTerrariumList: "api/terrarium/getList",

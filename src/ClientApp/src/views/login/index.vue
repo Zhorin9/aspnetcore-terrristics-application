@@ -94,9 +94,6 @@ export default class extends Vue {
         } else {
             this.passwordType = 'password';
         }
-        this.$nextTick(() => {
-            (this.$refs.password as Input).focus()
-        });
     }
 
     private async handleLogin() {

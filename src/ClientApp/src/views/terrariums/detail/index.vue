@@ -1,15 +1,16 @@
 <template>
     <div :style="{padding: '20px'}">
         <el-row type="flex" class="row-bg" justify="center">
+
             <el-col :span="6" v-for="(o, index) in 3" :key="o" :offset="index > 0 ? 2 : 0">
-                <el-card :body-style="{ padding: '0px' }" shadow="never">
-                    <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
-                    <div style="padding: 14px;">
-                        <span>Yummy hamburger</span>
-                        <div class="bottom clearfix">
-                            <time class="time">{{ currentDate }}</time>
-                            <el-button type="text" class="button">Operating</el-button>
-                        </div>
+                <el-card class="box-card">
+                    <div slot="header" class="clearfix" align="left">
+                        <span>Card name</span>
+                        <el-button size="mini" type="primary" class="align-right-button" icon="el-icon-edit"></el-button>
+                        <el-button size="mini" type="danger" class="align-right-button" icon="el-icon-delete"></el-button>
+                    </div>
+                    <div v-for="o in 4" :key="o" class="text item">
+                        {{ 'List item ' + o }}
                     </div>
                 </el-card>
             </el-col>
@@ -17,40 +18,30 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: "index"
+<script lang="ts">
+import {Component, Prop} from "vue-property-decorator";
+import BackendOperationMixin from "@/mixins/backend-operation-mixin";
+import {SensorBlockModule} from "@/store/modules/sensor-block-module";
+
+@Component({
+    name: 'TerrariumDetail'
+})
+export default class extends BackendOperationMixin {
+    @Prop() id!: string;
+
+    get sensorBlocks() {
+        return SensorBlockModule.sensorBlocks;
+    }
+
+    created() {
+        SensorBlockModule.GET_LIST(this.id);
+    }
 }
 </script>
 
-<!--<style>-->
-<!--.time {-->
-<!--    font-size: 13px;-->
-<!--    color: #999;-->
-<!--}-->
-
-<!--.bottom {-->
-<!--    margin-top: 13px;-->
-<!--    line-height: 12px;-->
-<!--}-->
-
-<!--.button {-->
-<!--    padding: 0;-->
-<!--    float: right;-->
-<!--}-->
-
-<!--.image {-->
-<!--    width: 100%;-->
-<!--    display: block;-->
-<!--}-->
-
-<!--.clearfix:before,-->
-<!--.clearfix:after {-->
-<!--    display: table;-->
-<!--    content: "";-->
-<!--}-->
-
-<!--.clearfix:after {-->
-<!--    clear: both-->
-<!--}-->
-<!--</style>-->
+<style>
+.align-right-button {
+    float: right;
+    margin-right: 2px;
+}
+</style>

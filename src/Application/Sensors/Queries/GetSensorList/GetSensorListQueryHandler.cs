@@ -9,31 +9,31 @@ using Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Sensors.Queries.GetSensorBlockList
+namespace Application.Sensors.Queries.GetSensorList
 {
-    public class GetSensorBlockListQueryHandler : IRequestHandler<GetSensorBlockListQuery, SensorBlockListAm>
+    public class GetSensorListQueryHandler : IRequestHandler<GetSensorListQuery, SensorListAm>
     {
         private readonly IAppDbContext _context;
         private readonly ICurrentUserService _currentUserService;
         private readonly IMapper _mapper;
         
-        public GetSensorBlockListQueryHandler(IAppDbContext context, ICurrentUserService currentUserService, IMapper mapper)
+        public GetSensorListQueryHandler(IAppDbContext context, ICurrentUserService currentUserService, IMapper mapper)
         {
             _context = context;
             _currentUserService = currentUserService;
             _mapper = mapper;
         }
         
-        public async Task<SensorBlockListAm> Handle(GetSensorBlockListQuery request, CancellationToken cancellationToken)
+        public async Task<SensorListAm> Handle(GetSensorListQuery request, CancellationToken cancellationToken)
         {
-            List<SensorBlockListDetailAm> sensorBlocks = await _context.SensorBlocks
+            List<SensorListDetailAm> sensorBlocks = await _context.SensorBlocks
                 .AsNoTracking()
                 .Include(sb => sb.SensorKind)
                 .Where(sb => sb.ParentWindowId == request.WindowId && sb.UserId == _currentUserService.UserId)
-                .ProjectTo<SensorBlockListDetailAm>(_mapper.ConfigurationProvider)
+                .ProjectTo<SensorListDetailAm>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);
             
-            var am = new SensorBlockListAm
+            var am = new SensorListAm
             {
                 SensorBlocks = sensorBlocks
             };

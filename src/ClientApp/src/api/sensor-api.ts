@@ -2,17 +2,17 @@ import axios from 'axios';
 import {endpoints} from "@/api/endpoints";
 import {getHeaderWithJwtToken} from "@/utils/header-generator";
 
-class SensorBlockApiImpl implements SensorBlockApi {
-    getSensorBlock(sensorBlockId: number): Promise<any> {
-        return axios.get(endpoints.getSensorBlocks,
+class SensorApiImpl implements SensorApi {
+    getSensor(sensorId: number): Promise<any> {
+        return axios.get(endpoints.getSensor,
             {
-                params: {sensorBlockId: sensorBlockId},
+                params: {sensorId: sensorId},
                 headers: getHeaderWithJwtToken()
             })
-    }   
-    
-    getSensorBlocks(windowId: string): Promise<any> {
-        return axios.get(endpoints.getSensorBlocks,
+    }
+
+    getSensors(windowId: string): Promise<any> {
+        return axios.get(endpoints.getSensors,
             {
                 params: {windowId: windowId},
                 headers: getHeaderWithJwtToken()
@@ -20,21 +20,21 @@ class SensorBlockApiImpl implements SensorBlockApi {
     }
 
     async create(request: any): Promise<any> {
-        return await axios.post(endpoints.createNewSensorBlock,
+        return await axios.post(endpoints.createNewSensor,
             request,
             {
                 headers: getHeaderWithJwtToken()
             })
     }
-    
+
     async update(request: any): Promise<any> {
-        return await axios.post(endpoints.updateSensorBlock,
+        return await axios.post(endpoints.updateSensor,
             request,
             {
                 headers: getHeaderWithJwtToken()
             })
     }
-    
+
     async removeAllInputData(sensorBlockId: string): Promise<any> {
         return await axios.post(endpoints.removeSensorBlockAllInputData,
             sensorBlockId,
@@ -44,4 +44,4 @@ class SensorBlockApiImpl implements SensorBlockApi {
     }
 }
 
-export const sensorBlockApiImpl = new SensorBlockApiImpl();
+export const sensorApiImpl = new SensorApiImpl();

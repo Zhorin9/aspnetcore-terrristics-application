@@ -2,12 +2,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Common.Interfaces;
+using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.SensorBlocks.Commands.UpdateSensorBlock
+namespace Application.Sensors.Commands.UpdateSensor
 {
-    public class UpdateSensorCommand : IRequest
+    public class UpdateSensorCommand : IRequest<int>
     {
         public int Id { get; set; }
 
@@ -15,7 +16,7 @@ namespace Application.SensorBlocks.Commands.UpdateSensorBlock
 
         public string Description { get; set; }
 
-        public class Handler : IRequestHandler<UpdateSensorCommand>
+        public class Handler : IRequestHandler<UpdateSensorCommand, int>
         {
             private readonly IAppDbContext _context;
 
@@ -27,9 +28,9 @@ namespace Application.SensorBlocks.Commands.UpdateSensorBlock
                 _currentUserService = currentUserService;
             }
 
-            public async Task<Unit> Handle(UpdateSensorCommand request, CancellationToken cancellationToken)
+            public async Task<int> Handle(UpdateSensorCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.SensorBlocks
+                SensorBlock entity = await _context.SensorBlocks
                     .FirstOrDefaultAsync(s => s.Id == request.Id && s.UserId == _currentUserService.UserId, cancellationToken: cancellationToken);
 
                 entity.Name = request.Name;
@@ -37,7 +38,7 @@ namespace Application.SensorBlocks.Commands.UpdateSensorBlock
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return Unit.Value;
+                return entity.Id;
             }
         }
     }

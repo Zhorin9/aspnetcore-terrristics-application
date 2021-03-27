@@ -66,6 +66,7 @@ import {Component, Vue, Watch} from 'vue-property-decorator'
 import {Route} from 'vue-router'
 import {Dictionary} from 'vue-router/types/router'
 import {UserModule} from '@/store/modules/user'
+import {DictionaryModule} from "@/store/modules/dictionary-module";
 
 @Component
 export default class extends Vue {
@@ -106,6 +107,7 @@ export default class extends Vue {
         if (email && password) {
             await UserModule.Login({email: email, password: password})
                 .then(() => {
+                    DictionaryModule.DICT_GET_ALL_SENSOR_KINDS();
                     this.$router.push({
                         path: this.redirect || '/',
                         query: this.otherQuery

@@ -14,7 +14,7 @@ namespace Web.ApiControllers.Common
         {
         }
 
-        [HttpGet]
+        [HttpGet("getSensorKinds")]
         public async Task<IActionResult> GetSensorKinds()
         {
             List<SensorKindAm> ams = await Mediator.Send(new GetSensorKindListQuery());

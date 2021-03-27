@@ -6,7 +6,6 @@ namespace Application.Sensors.Commands.CreateSensor
     {
         public CreateSensorCommandValidator()
         {
-            RuleFor(x => x.Id).NotNull().GreaterThan(0);
             RuleFor(x => x.Name).NotNull().MaximumLength(250);
             RuleFor(x => x.Description).MaximumLength(300);
             RuleFor(x => x.WindowId).NotNull().GreaterThan(0);

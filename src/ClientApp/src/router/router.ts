@@ -69,13 +69,19 @@ export default new Router({
                     path: '/terrarium/public',
                     component: () => import(/* webpackChunkName: "form" */ '@/views/terrariums/index.vue'),
                     meta: {title: 'Public terrariums'}
-                },
+                }
+            ]
+        },
+        {
+            path: '/terrarium/sensors',
+            component: Layout,
+            children: [
                 {
-                    name: 'terrariumDetail',
-                    path: '/:id',
-                    component: () => import(/* webpackChunkName: "form" */ '@/views/terrariums/detail/index.vue'),
+                    path: '/terrarium/sensors',
+                    component: () => import(/* webpackChunkName: "form" */ '@/views/sensors/index.vue'),
+                    name: 'sensors',
                     props: true
-                },
+                }
             ]
         },
         {

@@ -29,8 +29,8 @@ export const sensorTypes = new class SensorTypes {
 
     getSensorTypesWithName() {
         return [
-            {id: 1, name: "Wejście"},
-            {id: 2, name: "Wyjście"}
+            {id: 1, name: "Input"},
+            {id: 2, name: "Output"}
         ]
     }
 };

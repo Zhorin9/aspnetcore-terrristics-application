@@ -16,7 +16,7 @@ interface TerrariumApi {
 
 interface SensorApi {
     getSensor(sensorId: number): Promise<any>;
-    getSensors(windowId: string): Promise<any>;
+    getSensors(windowId: number): Promise<any>;
 }
 
 interface SensorBlockDataApi {

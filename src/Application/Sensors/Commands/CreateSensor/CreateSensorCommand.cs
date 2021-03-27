@@ -9,19 +9,15 @@ using MediatR;
 
 namespace Application.Sensors.Commands.CreateSensor
 {
-    public class CreateSensorCommand : IRequest
+    public class CreateSensorCommand : IRequest<int>
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
-        
         public string Description { get; set; }
-        
         public int WindowId { get; set; }
 
         public SensorKindAm SensorKind { get; set; }
 
-        public class Handler : IRequestHandler<CreateSensorCommand>
+        public class Handler : IRequestHandler<CreateSensorCommand, int>
         {
             private readonly IAppDbContext _context;
             private readonly ICurrentUserService _currentUserService;
@@ -32,9 +28,19 @@ namespace Application.Sensors.Commands.CreateSensor
                 _currentUserService = currentUserService;
             }
 
-            public async Task<Unit> Handle(CreateSensorCommand request, CancellationToken cancellationToken)
+            public async Task<int> Handle(CreateSensorCommand request, CancellationToken cancellationToken)
             {
-                var entity = new SensorBlock
+                SensorBlock entity = GetNewSensorBlock(request);
+                
+                await _context.SensorBlocks.AddAsync(entity, cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
+
+                return entity.Id;
+            }
+
+            private SensorBlock GetNewSensorBlock(CreateSensorCommand request)
+            {
+                SensorBlock sensorBlock = new SensorBlock
                 {
                     Name = request.Name,
                     Description = request.Description,
@@ -43,6 +49,13 @@ namespace Application.Sensors.Commands.CreateSensor
                     SensorKindId = request.SensorKind.SensorKindId
                 };
                 
+                UpdateSensorBlockTypeDependOnKind(request, sensorBlock);
+
+                return sensorBlock;
+            }
+
+            private static void UpdateSensorBlockTypeDependOnKind(CreateSensorCommand request, SensorBlock entity)
+            {
                 if (request.SensorKind.Type == SensorTypeEnum.Output)
                 {
                     entity.OutputData = new OutputSensorData
@@ -51,11 +64,6 @@ namespace Application.Sensors.Commands.CreateSensor
                         State = false
                     };
                 }
-                
-                await _context.SensorBlocks.AddAsync(entity, cancellationToken);
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return Unit.Value;
             }
         }
     }

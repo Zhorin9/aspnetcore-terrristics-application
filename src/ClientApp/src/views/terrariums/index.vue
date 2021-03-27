@@ -162,7 +162,7 @@ export default class extends BackendOperationMixin {
     }
 
     private handleRedirect(row: any) {
-        this.$router.push({name: 'terrariumDetail', params: {id: row.id}});
+        this.$router.push({name: 'sensors', params: {windowId: row.id}});
     }
 
     private handleCreate() {

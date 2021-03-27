@@ -11,7 +11,7 @@ class SensorApiImpl implements SensorApi {
             })
     }
 
-    getSensors(windowId: string): Promise<any> {
+    getSensors(windowId: number): Promise<any> {
         return axios.get(endpoints.getSensors,
             {
                 params: {windowId: windowId},

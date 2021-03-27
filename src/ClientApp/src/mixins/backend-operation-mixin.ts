@@ -18,4 +18,27 @@ export default class BackendOperationMixin extends Vue {
         this.operationFailed = true;
         this.operationInProgress = false;
     }
+
+    showNotification(title: string, message: string) {
+        this.$notify({
+            title: title,
+            message: message
+        })
+    }
+
+    showSuccessNotification(){
+        this.$notify({
+            title: 'Success',
+            message: 'The operation was successful',
+            type: 'success'
+        });
+    }
+
+    showFailedNotification(){
+        this.$notify({
+            title: 'Error',
+            message: 'The operation failed',
+            type: 'error'
+        });
+    }
 }

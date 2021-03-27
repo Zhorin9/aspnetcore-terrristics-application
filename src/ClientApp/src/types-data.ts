@@ -38,6 +38,15 @@ interface TerrariumFormDialogModel {
     isPublic: boolean;
 }
 
+interface SensorFormDialogModel {
+    id: number;
+    name: string;
+    description: string;
+    windowId: number;
+    type: number,
+    kindId: number | null;
+}
+
 interface SensorKindData {
     sensorKindId: number;
     name: string;

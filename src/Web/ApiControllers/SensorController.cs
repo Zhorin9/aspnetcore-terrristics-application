@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using Application.SensorBlocks.Commands.UpdateSensorBlock;
 using Application.SensorBlocks.Queries.GetSensorBlockDetail;
 using Application.Sensors.Commands.CreateSensor;
+using Application.Sensors.Commands.UpdateSensor;
 using Application.Sensors.Queries.GetSensorDetail;
 using Application.Sensors.Queries.GetSensorList;
 using AutoMapper;
@@ -15,24 +15,24 @@ namespace Web.ApiControllers
         public SensorController(IMediator mediator, IMapper mapper) : base(mapper, mediator)
         {
         }
-
-        [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] CreateSensorCommand command)
+    
+        [HttpPost]
+        public async Task<ActionResult<int>> Create([FromBody] CreateSensorCommand command)
         {
-            await Mediator.Send(command);
+            int result = await Mediator.Send(command);
 
-            return NoContent();
+            return Ok(result);
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> Update([FromBody] UpdateSensorCommand command)
+        public async Task<ActionResult<int>> Update([FromBody] UpdateSensorCommand command)
         {
-            await Mediator.Send(command);
+            int result = await Mediator.Send(command);
 
-            return NoContent();
+            return Ok(result);
         }
 
-        [HttpGet("get")]
+        [HttpGet]
         public async Task<ActionResult<SensorDetailAm>> Get(int id)
         {
             SensorDetailAm am = await Mediator.Send(new GetSensorDetailQuery {Id = id});

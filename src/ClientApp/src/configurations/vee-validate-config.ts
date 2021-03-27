@@ -14,7 +14,8 @@ en.names = {
     email: 'E-mail',
     password: 'Password',
     name: 'Name',
-    description: 'Description'
+    description: 'Description',
+    sensorType: 'Type',
 };
 localize('en', en);
 

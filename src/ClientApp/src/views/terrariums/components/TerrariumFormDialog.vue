@@ -81,7 +81,7 @@ export default class TerrariumFormDialog extends BackendOperationMixin {
         this.startOperation();
         TerrariumModule.Create(this.terrariumData)
             .then(terrariumId => {
-                this.emitOperationSuccess(terrariumId);
+                this.emitOperationSuccess();
             })
             .catch(err => {
                 console.error(err);
@@ -99,7 +99,7 @@ export default class TerrariumFormDialog extends BackendOperationMixin {
         this.startOperation();
         TerrariumModule.Update(this.terrariumData)
             .then(terrariumId => {
-                this.emitOperationSuccess(terrariumId);
+                this.emitOperationSuccess();
             })
             .catch(err => {
                 console.error(err);

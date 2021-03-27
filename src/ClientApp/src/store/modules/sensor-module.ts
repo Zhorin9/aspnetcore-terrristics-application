@@ -11,22 +11,64 @@ class Sensor extends VuexModule implements SensorState {
     sensors: Array<SensorModel> = Array(0);
 
     @Mutation
-    UPDATE_SENSOR(sensorBlocks: Array<SensorModel>) {
+    ADD_SENSOR(sensorBlock: SensorModel){
+        this.sensors.push(sensorBlock);
+    }
+
+    @Mutation
+    UPDATE_SENSORS(sensorBlocks: Array<SensorModel>) {
         this.sensors = sensorBlocks;
     }
 
+    @Mutation
+    UPDATE_SENSOR(sensorBlock: SensorModel){
+        this.sensors.push(sensorBlock);
+    }
+
     @Action
-    GET_LIST(windowId: string) {
+    async Create(sensorBlock: SensorFormDialogModel) : Promise<number>{
+        return sensorApiImpl.create(sensorBlock)
+            .then(response => {
+                return response.data;
+            })
+            .catch(err => {
+                console.error(err);
+                throw err;
+            })
+    }
+
+    @Action Update(sensorBlock: SensorFormDialogModel){
+        return sensorApiImpl.update(sensorBlock)
+            .then(response => {
+                return response.data;
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
+
+    @Action
+    GET_LIST(windowId: number) {
         return sensorApiImpl.getSensors(windowId)
             .then(response => {
-                debugger;
-
-                this.UPDATE_SENSOR(response.data.sensorBlocks);
+                this.UPDATE_SENSORS(response.data.sensorBlocks);
                 return true;
             })
             .catch(err => {
                 console.error(err);
             });
+    }
+
+    @Action
+    GET(sensorId: number){
+        return sensorApiImpl.getSensor(sensorId)
+            .then(response => {
+                this.ADD_SENSOR(response.data);
+            })
+            .catch(err => {
+                console.error(err);
+            })
+
     }
 
     @Action

@@ -32,10 +32,7 @@ namespace Application.Terrariums.Queries.GetTerrariumList
                 .ProjectTo<TerrariumListDetailAm>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            var am = new TerrariumListAm
-            {
-                Terrariums = terraristicsWindows
-            };
+            var am = new TerrariumListAm {Terrariums = terraristicsWindows};
 
             return am;
         }

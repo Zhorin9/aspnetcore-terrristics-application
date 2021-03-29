@@ -24,4 +24,19 @@
       <Folder Include="Users\Queries\GetUserWithToken" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="ReadSensorDatas\**" />
+      <Compile Remove="ControlSensors\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="ReadSensorDatas\**" />
+      <EmbeddedResource Remove="ControlSensors\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="ReadSensorDatas\**" />
+      <None Remove="ControlSensors\**" />
+    </ItemGroup>
+
 </Project>

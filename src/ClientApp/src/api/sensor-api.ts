@@ -3,10 +3,10 @@ import {endpoints} from "@/api/endpoints";
 import {getHeaderWithJwtToken} from "@/utils/header-generator";
 
 class SensorApiImpl implements SensorApi {
-    getSensor(sensorId: number): Promise<any> {
+    getSensor(id: number): Promise<any> {
         return axios.get(endpoints.getSensor,
             {
-                params: {sensorId: sensorId},
+                params: {id: id},
                 headers: getHeaderWithJwtToken()
             })
     }
@@ -35,7 +35,7 @@ class SensorApiImpl implements SensorApi {
             })
     }
 
-    async removeAllInputData(sensorBlockId: string): Promise<any> {
+    async removeAllInputData(sensorBlockId: number) : Promise<any> {
         return await axios.post(endpoints.removeSensorBlockAllInputData,
             sensorBlockId,
             {

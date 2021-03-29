@@ -5,19 +5,19 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Configurations
 {
-    public class OutputSensorDataConfiguration : IEntityTypeConfiguration<OutputSensorData>
+    public class ControlSensorConfiguration : IEntityTypeConfiguration<ControlSensor>
     {
-        public void Configure(EntityTypeBuilder<OutputSensorData> builder)
+        public void Configure(EntityTypeBuilder<ControlSensor> builder)
         {
-            builder.ToTable("OutputSensorData");
+            builder.ToTable("ControlSensor");
 
             builder.Property(e => e.State)
                 .HasConversion(new BoolToZeroOneConverter<int>())
                 .IsRequired();
 
             builder.HasOne(e => e.SensorBlock)
-                .WithOne(e => e.OutputData)
-                .HasForeignKey<OutputSensorData>(e => e.SensorBlockId);
+                .WithOne(e => e.ControlSensor)
+                .HasForeignKey<ControlSensor>(e => e.SensorBlockId);
         }
     }
 }

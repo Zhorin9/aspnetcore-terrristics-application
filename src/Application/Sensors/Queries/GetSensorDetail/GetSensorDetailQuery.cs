@@ -1,4 +1,3 @@
-using Application.SensorBlocks.Queries.GetSensorBlockDetail;
 using MediatR;
 
 namespace Application.Sensors.Queries.GetSensorDetail

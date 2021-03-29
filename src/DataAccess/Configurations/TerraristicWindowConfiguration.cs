@@ -15,15 +15,9 @@ namespace DataAccess.Configurations
             builder.Property(tw => tw.ApiKey)
                 .HasConversion(new GuidToStringConverter())
                 .HasDefaultValue(Guid.NewGuid());
-            builder.Property(tw => tw.CreationDate)
-                .HasColumnType("date")
-                .HasDefaultValue(DateTime.Now);
             builder.Property(tw => tw.Name)
                 .IsRequired()
                 .HasMaxLength(200);
-            builder.Property(tw => tw.ModificationDate)
-                .HasColumnType("datetime")
-                .HasDefaultValue(DateTime.Now);
             builder.Property(tw => tw.IsPublic)
                 .HasConversion(new BoolToZeroOneConverter<int>());
 

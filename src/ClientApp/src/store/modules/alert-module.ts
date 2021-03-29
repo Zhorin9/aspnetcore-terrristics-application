@@ -1,6 +1,5 @@
-import {Action, getModule, Module, Mutation, VuexModule} from "vuex-module-decorators";
+import {getModule, Module, Mutation, VuexModule} from "vuex-module-decorators";
 import store from "@/store";
-import {DictionaryState} from "@/store/modules/dictionary-module";
 
 export interface IAlertState {
     failedLogin: any;
@@ -19,7 +18,7 @@ class Alert extends VuexModule implements IAlertState {
     public ALERT_SUCCESS_LOGIN() {
         this.failedLogin = false;
     }
-    
+
     //TODO extend alert module
     // @Action
 }

@@ -9,6 +9,7 @@ interface SensorKindModel {
 
 interface SensorModel {
     id: number;
+    createdDate: Date;
     name: string;
     description: string;
     positionId: number;
@@ -19,8 +20,8 @@ interface TerrariumModel {
     id: number;
     name: string;
     description: string;
-    creationDate: Date;
-    modificationDate: Date;
+    createdDate: Date;
+    modifiedDate: Date;
     apiKey: string;
     isPublic: boolean;
 }
@@ -44,7 +45,7 @@ interface SensorFormDialogModel {
     description: string;
     windowId: number;
     type: number,
-    kindId: number | null;
+    sensorKindId: number | null;
 }
 
 interface SensorKindData {

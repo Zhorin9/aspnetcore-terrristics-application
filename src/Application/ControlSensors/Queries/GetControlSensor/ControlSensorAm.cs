@@ -1,9 +1,9 @@
 using Application.Common.Mappings;
 using AutoMapper;
 
-namespace Application.OutputSensorDatas.Queries.GetOutputSensorData
+namespace Application.ControlSensors.Queries.GetControlSensor
 {
-    public class OutputSensorDataAm : IMapFrom<Domain.Entities.OutputSensorData>
+    public class ControlSensorAm : IMapFrom<Domain.Entities.ControlSensor>
     {
         public bool State { get; set; }
 
@@ -13,7 +13,7 @@ namespace Application.OutputSensorDatas.Queries.GetOutputSensorData
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Domain.Entities.OutputSensorData, OutputSensorDataAm>()
+            profile.CreateMap<Domain.Entities.ControlSensor, ControlSensorAm>()
                 ;
         }
     }

@@ -1,7 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
-using Application.Common.Models;
 using Common.Interfaces;
 using Domain.Entities;
 using Domain.Enums;
@@ -15,7 +14,8 @@ namespace Application.Sensors.Commands.CreateSensor
         public string Description { get; set; }
         public int WindowId { get; set; }
 
-        public SensorKindAm SensorKind { get; set; }
+        public SensorTypeEnum Type { get; set; }
+        public int SensorKindId { get; set; }
 
         public class Handler : IRequestHandler<CreateSensorCommand, int>
         {
@@ -46,7 +46,8 @@ namespace Application.Sensors.Commands.CreateSensor
                     Description = request.Description,
                     UserId = _currentUserService.UserId,
                     ParentWindowId = request.WindowId,
-                    SensorKindId = request.SensorKind.SensorKindId
+                    SensorKindId = request.SensorKindId,
+                    Type = request.Type
                 };
                 
                 UpdateSensorBlockTypeDependOnKind(request, sensorBlock);
@@ -56,9 +57,9 @@ namespace Application.Sensors.Commands.CreateSensor
 
             private static void UpdateSensorBlockTypeDependOnKind(CreateSensorCommand request, SensorBlock entity)
             {
-                if (request.SensorKind.Type == SensorTypeEnum.Output)
+                if (request.Type == SensorTypeEnum.Control)
                 {
-                    entity.OutputData = new OutputSensorData
+                    entity.ControlSensor = new ControlSensor
                     {
                         Value = "",
                         State = false

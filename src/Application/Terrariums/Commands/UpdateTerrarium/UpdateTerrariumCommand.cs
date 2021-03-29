@@ -41,7 +41,6 @@ namespace Application.Terrariums.Commands.UpdateTerrarium
                 entity.Name = request.Name;
                 entity.Description = request.Description;
                 entity.IsPublic = request.IsPublic;
-                entity.ModificationDate = DateTime.Now;
 
                 await _context.SaveChangesAsync(cancellationToken);
                 

@@ -23,7 +23,7 @@ namespace Application.InputSensorDatas.Queries.GetInputSensorDataList
 
         public async Task<InputSensorDataListAm> Handle(GetInputSensorDataListQuery request, CancellationToken cancellationToken)
         {
-            List<InputSensorDataListDetailAm> sensorBlocks = await _context.InputSensorData.Where(d => d.SensorBlockId == request.SensorBlockId)
+            List<InputSensorDataListDetailAm> sensorBlocks = await _context.ReadSensorData.Where(d => d.SensorBlockId == request.SensorBlockId)
                 .AsNoTracking()
                 .ProjectTo<InputSensorDataListDetailAm>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);

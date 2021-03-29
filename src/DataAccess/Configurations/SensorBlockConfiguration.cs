@@ -16,11 +16,11 @@ namespace DataAccess.Configurations
             builder.Property(s => s.Description)
                 .HasMaxLength(500);
 
-            builder.HasMany(s => s.Inputs)
+            builder.HasMany(s => s.ReadSensors)
                 .WithOne(s => s.SensorBlock);
-            builder.HasOne(s => s.OutputData)
+            builder.HasOne(s => s.ControlSensor)
                 .WithOne(s => s.SensorBlock)
-                .HasForeignKey<SensorBlock>(s => s.OutputDataId);
+                .HasForeignKey<SensorBlock>(s => s.ControlSensorId);
 
             builder.HasOne(s => s.ParentWindow)
                 .WithMany(s => s.SensorBlocks)

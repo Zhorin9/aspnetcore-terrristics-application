@@ -13,9 +13,8 @@ namespace Application.Terrariums.Queries.GetTerrariumDetail
 
         public string Description { get; set; }
 
-        public DateTime CreationDate { get; set; }
-
-        public DateTime ModificationDate { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
 
         public string ApiKey { get; set; }
 
@@ -24,7 +23,7 @@ namespace Application.Terrariums.Queries.GetTerrariumDetail
         public void Mapping(Profile profile)
         {
             profile.CreateMap<TerraristicWindow, TerrariumDetailAm>()
-                .ForMember(d => d.CreationDate, o => o.MapFrom(s => s.CreationDate.Date));
+                ;
         }
     }
 }

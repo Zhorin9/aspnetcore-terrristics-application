@@ -36,8 +36,6 @@ class Terrarium extends VuexModule implements TerrariumState {
                 return true;
             })
             .catch(err => {
-                debugger;
-
                 console.error(err);
             });
     }

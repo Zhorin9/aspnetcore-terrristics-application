@@ -77,7 +77,7 @@ export default new Router({
             component: Layout,
             children: [
                 {
-                    path: '/terrarium/sensors',
+                    path: '/terrarium/:windowId/sensors',
                     component: () => import(/* webpackChunkName: "form" */ '@/views/sensors/index.vue'),
                     name: 'sensors',
                     props: true

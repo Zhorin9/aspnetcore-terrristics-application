@@ -1,8 +1,9 @@
+using Application.ReadSensorData.Commands.DeleteInputAllData;
 using FluentValidation;
 
 namespace Application.InputSensorDatas.Commands.DeleteInputAllData
 {
-    public class DeleteInputAllDataCommandValidator : AbstractValidator<DeleteInputAllDataCommand>
+    public class DeleteInputAllDataCommandValidator : AbstractValidator<DeleteAllSensorReadData>
     {
         public DeleteInputAllDataCommandValidator()
         {

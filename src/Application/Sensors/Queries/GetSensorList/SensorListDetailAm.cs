@@ -1,3 +1,4 @@
+using System;
 using Application.Common.Mappings;
 using Application.Common.Models;
 using AutoMapper;
@@ -10,6 +11,7 @@ namespace Application.Sensors.Queries.GetSensorList
         public int Id { get; set; }
 
         public string Name { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public string Description { get; set; }
         

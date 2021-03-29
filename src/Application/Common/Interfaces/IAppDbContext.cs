@@ -9,9 +9,9 @@ namespace Application.Common.Interfaces
     {
         public DbSet<SensorBlock> SensorBlocks { get; set; }
         public DbSet<SensorKind> SensorKinds { get; set; }
-        public DbSet<InputSensorData> InputSensorData { get; set; }
+        public DbSet<ReadSensor> ReadSensors { get; set; }
 
-        public DbSet<OutputSensorData> OutputSensorData { get; set; }
+        public DbSet<ControlSensor> ControlSensors { get; set; }
         public DbSet<TerraristicWindow> TerraristicWindows { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);

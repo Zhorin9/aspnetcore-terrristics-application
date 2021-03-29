@@ -17,20 +17,20 @@ export const outputTypes = new class OutputTypes {
 };
 
 // Input types of sensor
-export const Input = 1;
-export const Output = 2;
+export const Read = 1;
+export const Control = 2;
 export const sensorTypes = new class SensorTypes {
-    readonly input: number = 1;
-    readonly output: number = 2;
+    readonly read: number = 1;
+    readonly control: number = 2;
 
     getSensorTypes() {
-        return [Input, Output];
+        return [Read, Control];
     }
 
     getSensorTypesWithName() {
         return [
-            {id: 1, name: "Input"},
-            {id: 2, name: "Output"}
+            {id: 1, name: "Read"},
+            {id: 2, name: "Control"}
         ]
     }
 };

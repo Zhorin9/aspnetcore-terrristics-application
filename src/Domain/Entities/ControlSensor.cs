@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities
 {
-    public class OutputSensorData : BaseEntity
+    public class ControlSensor : BaseEntity
     {
         public bool State { get; set; }
         

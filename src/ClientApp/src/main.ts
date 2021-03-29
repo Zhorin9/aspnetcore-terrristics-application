@@ -1,7 +1,11 @@
 import Vue from 'vue'
 
 import 'normalize.css'
-import ElementUI from 'element-ui'
+import ElementUI from 'element-ui';
+
+import locale from 'element-ui/lib/locale/lang/en';
+Vue.use(ElementUI, { locale })
+
 import SvgIcon from 'vue-svgicon'
 
 import '@/styles/element-variables.scss'

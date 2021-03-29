@@ -7,13 +7,13 @@ using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.InputSensorDatas.Commands.DeleteInputAllData
+namespace Application.ReadSensorData.Commands.DeleteInputAllData
 {
-    public class DeleteInputAllDataCommand : IRequest
+    public class DeleteAllSensorReadData : IRequest
     {
         public int SensorBlockId { get; set; }
         
-        public class DeleteInputBlockAllDataCommandHandler : IRequestHandler<DeleteInputAllDataCommand>
+        public class DeleteInputBlockAllDataCommandHandler : IRequestHandler<DeleteAllSensorReadData>
         {
             private readonly IAppDbContext _context;
             private readonly ICurrentUserService _currentUserService;
@@ -24,10 +24,10 @@ namespace Application.InputSensorDatas.Commands.DeleteInputAllData
                 _currentUserService = currentUserService;
             }
 
-            public async Task<Unit> Handle(DeleteInputAllDataCommand request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(DeleteAllSensorReadData request, CancellationToken cancellationToken)
             {
                 SensorBlock sensorBlock = await _context.SensorBlocks
-                    .Include(i => i.Inputs)
+                    .Include(i => i.ReadSensorData)
                     .FirstOrDefaultAsync(s => s.UserId == _currentUserService.UserId && s.Id == request.SensorBlockId, cancellationToken: cancellationToken);
                 
                 if (sensorBlock == null)
@@ -35,7 +35,7 @@ namespace Application.InputSensorDatas.Commands.DeleteInputAllData
                     throw new NotFoundException(nameof(sensorBlock), request.SensorBlockId);
                 }
 
-                _context.InputSensorData.RemoveRange(sensorBlock.Inputs);
+                _context.ReadSensorData.RemoveRange(sensorBlock.Reads);
                 await _context.SaveChangesAsync(cancellationToken);
                 
                 return Unit.Value;

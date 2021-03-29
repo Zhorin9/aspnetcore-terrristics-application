@@ -48,7 +48,7 @@
                 width="140"
                 align="center">
                 <template slot-scope="scope">
-                    {{ scope.row.creationDate | moment("YYYY-MM-DD") }}
+                    {{ scope.row.createdDate | moment("YYYY-MM-DD") }}
                 </template>
             </el-table-column>
             <el-table-column
@@ -58,7 +58,7 @@
                 width="180"
                 align="center">
                 <template slot-scope="scope">
-                    {{ scope.row.modificationDate | moment("YYYY-MM-DD") }}
+                    {{ scope.row.modifiedDate | moment("YYYY-MM-DD") }}
                 </template>
             </el-table-column>
             <el-table-column

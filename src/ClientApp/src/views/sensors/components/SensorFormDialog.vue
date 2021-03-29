@@ -8,7 +8,8 @@
                 ref="dataForm"
                 :model="sensorData"
                 label-position="left"
-                label-width="100px"
+                label-width="auto"
+                size="small"
                 style="width: 400px; margin-left:50px;">
 
                 <validation-provider name="name" rules="required|min:3|max:30" v-slot="{ errors }">
@@ -39,12 +40,12 @@
 
                 <validation-provider name="sensorKind" rules="required" v-slot="{ errors }">
                     <el-form-item label="Sensor Kind" :error="errors[0]">
-                        <el-select v-model="sensorData.kindId" placeholder="please select sensor kind">
+                        <el-select v-model="sensorData.sensorKindId" placeholder="please select sensor kind">
                             <el-tooltip v-for="sensorKind in sensorKinds"
                                         class="item" effect="dark" :content="sensorKind.description" placement="left">
                                 <el-option
                                            :key="`sensor-kind-${sensorKind.sensorKindId}`"
-                                           :label="sensorKind.name" :value="sensorKind.sensorKindId"/>
+                                           :label="`${sensorKind.name} - ${sensorKind.shortDescription}`" :value="sensorKind.sensorKindId"/>
                             </el-tooltip>
                         </el-select>
                     </el-form-item>
@@ -71,9 +72,9 @@
 import {Prop} from "vue-property-decorator";
 import Component from "vue-class-component";
 import BackendOperationMixin from "@/mixins/backend-operation-mixin";
-import {SensorModule} from "@/store/modules/sensor-module";
 import {sensorTypes} from "@/utils/enums";
 import {DictionaryModule} from "@/store/modules/dictionary-module";
+import {sensorServiceImpl} from "@/services/sensor-service";
 
 @Component({
     name: "SensorFormDialog"
@@ -93,7 +94,7 @@ export default class SensorFormDialog extends BackendOperationMixin {
     }
 
     get sensorKinds(){
-        if(this.sensorData.type == sensorTypes.input){
+        if(this.sensorData.type == sensorTypes.read){
             return DictionaryModule.DICT_GET_INPUT_SENSORS;
         }
 
@@ -105,7 +106,7 @@ export default class SensorFormDialog extends BackendOperationMixin {
     }
     set sensorType(value){
         this.sensorData.type = value;
-        this.sensorData.kindId = null;
+        this.sensorData.sensorKindId = null;
     }
 
     private handleSubmit() {
@@ -124,7 +125,7 @@ export default class SensorFormDialog extends BackendOperationMixin {
         }
 
         this.startOperation();
-        SensorModule.Create(this.sensorData)
+        sensorServiceImpl.create(this.sensorData)
             .then(sensorId => {
                 this.showSuccessNotification();
                 this.emitOperationSuccess(sensorId);
@@ -143,7 +144,7 @@ export default class SensorFormDialog extends BackendOperationMixin {
         }
 
         this.startOperation();
-        SensorModule.Update(this.sensorData)
+        sensorServiceImpl.update(this.sensorData)
             .then(response => {
                 this.emitOperationSuccess(response.data);
             })

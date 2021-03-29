@@ -2,8 +2,8 @@
 
 namespace Domain.Entities
 {
-    public class InputSensorData : BaseEntity
-    { 
+    public class ReadSensor : BaseEntity
+    {
         public decimal Value { get; set; }
         public DateTime CreationDate { get; set; }
         public int SensorBlockId { get; set; }

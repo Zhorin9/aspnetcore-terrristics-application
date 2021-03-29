@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using Application.SensorBlocks.Queries.GetSensorBlockDetail;
 using Application.Sensors.Commands.CreateSensor;
 using Application.Sensors.Commands.UpdateSensor;
 using Application.Sensors.Queries.GetSensorDetail;

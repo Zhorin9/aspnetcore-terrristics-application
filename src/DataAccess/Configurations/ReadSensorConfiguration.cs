@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataAccess.Configurations
 {
-    public class InputSensorDataConfiguration : IEntityTypeConfiguration<InputSensorData>
+    public class ReadSensorConfiguration : IEntityTypeConfiguration<ReadSensor>
     {
-        public void Configure(EntityTypeBuilder<InputSensorData> builder)
+        public void Configure(EntityTypeBuilder<ReadSensor> builder)
         {
-            builder.ToTable("InputSensorData");
+            builder.ToTable("ReadSensor");
             
             builder.Property(e => e.CreationDate)
                 .HasColumnType("datetime")
@@ -20,7 +20,7 @@ namespace DataAccess.Configurations
                 .HasColumnType("decimal(5,2)");
 
             builder.HasOne(e => e.SensorBlock)
-                .WithMany(e => e.Inputs)
+                .WithMany(e => e.ReadSensors)
                 .HasForeignKey(e => e.SensorBlockId);
         }
     }

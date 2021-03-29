@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using MySql.Data.EntityFrameworkCore.Metadata;
 
 namespace DataAccess.Migrations
 {
@@ -8,11 +9,34 @@ namespace DataAccess.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "ControlSensor",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: false),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    State = table.Column<int>(nullable: false),
+                    Value = table.Column<string>(nullable: true),
+                    SensorBlockId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ControlSensor", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SensorKind",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: false),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
                     ShortDescription = table.Column<string>(nullable: true),
                     Description = table.Column<string>(maxLength: 500, nullable: true),
@@ -29,12 +53,14 @@ namespace DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: false),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 200, nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2020, 4, 22, 20, 19, 1, 876, DateTimeKind.Local)),
-                    ModificationDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2020, 4, 22, 20, 19, 1, 878, DateTimeKind.Local)),
-                    ApiKey = table.Column<string>(nullable: false, defaultValue: "f1ea4eea-86c1-49a3-b8f0-5789627b4dfa"),
+                    ApiKey = table.Column<string>(nullable: false, defaultValue: "0e3e6c34-608c-4995-a829-a3a457890e7b"),
                     UserId = table.Column<string>(nullable: true),
                     IsPublic = table.Column<int>(nullable: false)
                 },
@@ -48,17 +74,28 @@ namespace DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: false),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 250, nullable: false),
                     Description = table.Column<string>(maxLength: 500, nullable: true),
+                    Type = table.Column<int>(nullable: false),
                     SensorKindId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
                     ParentWindowId = table.Column<int>(nullable: false),
-                    OutputDataId = table.Column<int>(nullable: false)
+                    ControlSensorId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SensorBlock", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SensorBlock_ControlSensor_ControlSensorId",
+                        column: x => x.ControlSensorId,
+                        principalTable: "ControlSensor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_SensorBlock_TerraristicWindow_ParentWindowId",
                         column: x => x.ParentWindowId,
@@ -74,41 +111,24 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InputSensorData",
+                name: "ReadSensor",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: false),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     Value = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2020, 4, 22, 20, 19, 1, 918, DateTimeKind.Local)),
+                    CreationDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 3, 29, 18, 59, 12, 326, DateTimeKind.Local).AddTicks(2685)),
                     SensorBlockId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InputSensorData", x => x.Id);
+                    table.PrimaryKey("PK_ReadSensor", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InputSensorData_SensorBlock_SensorBlockId",
-                        column: x => x.SensorBlockId,
-                        principalTable: "SensorBlock",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OutputSensorData",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    State = table.Column<int>(nullable: false),
-                    Value = table.Column<string>(nullable: true),
-                    SensorBlockId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OutputSensorData", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OutputSensorData_SensorBlock_SensorBlockId",
+                        name: "FK_ReadSensor_SensorBlock_SensorBlockId",
                         column: x => x.SensorBlockId,
                         principalTable: "SensorBlock",
                         principalColumn: "Id",
@@ -116,14 +136,14 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_InputSensorData_SensorBlockId",
-                table: "InputSensorData",
+                name: "IX_ReadSensor_SensorBlockId",
+                table: "ReadSensor",
                 column: "SensorBlockId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OutputSensorData_SensorBlockId",
-                table: "OutputSensorData",
-                column: "SensorBlockId",
+                name: "IX_SensorBlock_ControlSensorId",
+                table: "SensorBlock",
+                column: "ControlSensorId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -140,13 +160,13 @@ namespace DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "InputSensorData");
-
-            migrationBuilder.DropTable(
-                name: "OutputSensorData");
+                name: "ReadSensor");
 
             migrationBuilder.DropTable(
                 name: "SensorBlock");
+
+            migrationBuilder.DropTable(
+                name: "ControlSensor");
 
             migrationBuilder.DropTable(
                 name: "TerraristicWindow");

@@ -7,30 +7,30 @@ using Domain.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.OutputSensorDatas.Queries.GetOutputSensorData
+namespace Application.ControlSensors.Queries.GetControlSensor
 {
-    public class GetOutputSensorDataQueryHandler : IRequestHandler<GetOutputSensorDataQuery, OutputSensorDataAm>
+    public class GetControlSensorQueryHandler : IRequestHandler<GetControlSensorQuery, ControlSensorAm>
     {
         private readonly IAppDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetOutputSensorDataQueryHandler(IAppDbContext context, IMapper mapper)
+        public GetControlSensorQueryHandler(IAppDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public async Task<OutputSensorDataAm> Handle(GetOutputSensorDataQuery request, CancellationToken cancellationToken)
+        public async Task<ControlSensorAm> Handle(GetControlSensorQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _context.OutputSensorData
+            var entity = await _context.ControlSensors
                 .FirstOrDefaultAsync(o => o.SensorBlockId == request.SensorBlockId, cancellationToken: cancellationToken);
 
             if (entity == null)
             {
-                throw new NotFoundException(nameof(OutputSensorData), request.SensorBlockId);
+                throw new NotFoundException(nameof(ControlSensor), request.SensorBlockId);
             }
 
-            return _mapper.Map<OutputSensorDataAm>(entity);
+            return _mapper.Map<ControlSensorAm>(entity);
         }
     }
 }

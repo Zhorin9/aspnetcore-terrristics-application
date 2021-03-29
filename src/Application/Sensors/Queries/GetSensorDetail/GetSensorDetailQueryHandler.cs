@@ -1,8 +1,9 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
-using Application.SensorBlocks.Queries.GetSensorBlockDetail;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Common.Interfaces;
 using Domain.Entities;
 using Domain.Exceptions;
@@ -17,7 +18,8 @@ namespace Application.Sensors.Queries.GetSensorDetail
         private readonly ICurrentUserService _currentUserService;
         private readonly IMapper _mapper;
 
-        public GetSensorDetailQueryHandler(IAppDbContext context, ICurrentUserService currentUserService, IMapper mapper)
+        public GetSensorDetailQueryHandler(IAppDbContext context, ICurrentUserService currentUserService,
+            IMapper mapper)
         {
             _context = context;
             _currentUserService = currentUserService;
@@ -26,15 +28,17 @@ namespace Application.Sensors.Queries.GetSensorDetail
 
         public async Task<SensorDetailAm> Handle(GetSensorDetailQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _context.SensorBlocks
-                .FirstOrDefaultAsync(sb => sb.Id == request.Id && sb.UserId == _currentUserService.UserId, cancellationToken: cancellationToken);
+            SensorDetailAm am = await _context.SensorBlocks
+                .Where(sb => sb.Id == request.Id && sb.UserId == _currentUserService.UserId)
+                .ProjectTo<SensorDetailAm>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-            if (entity == null)
+            if (am == null)
             {
                 throw new NotFoundException(nameof(SensorBlock), request.Id);
             }
 
-            return _mapper.Map<SensorDetailAm>(entity);
+            return am;
         }
     }
 }

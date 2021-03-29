@@ -1,9 +1,10 @@
 using System.Threading.Tasks;
+using Application.ControlSensors.Commands.UpsertControlSensor;
+using Application.ControlSensors.Queries.GetControlSensor;
 using Application.InputSensorDatas.Commands.CreateInputData;
 using Application.InputSensorDatas.Commands.DeleteInputAllData;
 using Application.InputSensorDatas.Queries.GetInputSensorDataList;
-using Application.OutputSensorDatas.Commands.UpsertOutputSensorData;
-using Application.OutputSensorDatas.Queries.GetOutputSensorData;
+using Application.ReadSensorData.Commands.DeleteInputAllData;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -37,16 +38,16 @@ namespace Web.ApiControllers
         [HttpPost]
         public async Task<IActionResult> RemoveAllInputData([FromBody] int sensorBlockId)
         {
-            await Mediator.Send(new DeleteInputAllDataCommand {SensorBlockId = sensorBlockId});
+            await Mediator.Send(new DeleteAllSensorReadData {SensorBlockId = sensorBlockId});
 
             return NoContent();
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateOrUpdate([FromBody] UpsertOutputSensorDataCommand blockDataApiModel)
+        public async Task<IActionResult> CreateOrUpdate([FromBody] UpsertControlSensorCommand blockApiModel)
         {
-            await Mediator.Send(new UpsertOutputSensorDataCommand {SensorBlockId = blockDataApiModel.SensorBlockId});
+            await Mediator.Send(new UpsertControlSensorCommand {SensorBlockId = blockApiModel.SensorBlockId});
 
             return NoContent();
         }
@@ -54,7 +55,7 @@ namespace Web.ApiControllers
         [HttpGet]
         public async Task<IActionResult> GetOutputState(int sensorBlockId)
         {
-            var am = await Mediator.Send(new GetOutputSensorDataQuery {SensorBlockId = sensorBlockId});
+            var am = await Mediator.Send(new GetControlSensorQuery {SensorBlockId = sensorBlockId});
 
             return Ok(am.State);
         }

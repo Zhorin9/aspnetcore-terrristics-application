@@ -28,5 +28,9 @@
 <!--      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>-->
     </Content>
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="ApiControllers\SensorBlockDataController.cs" />
+  </ItemGroup>
   
 </Project>

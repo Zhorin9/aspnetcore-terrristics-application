@@ -36,7 +36,7 @@ namespace DataAccess
                     ShortDescription = "Czujnik temperatury.",
                     Description =
                         "Czujnik do pomiaru temperatury z interfejsem cyfrowym, jednoprzewodowym. Zakres pomiarowy: wilgotność 0-100 %RH.",
-                    Type = SensorTypeEnum.Input
+                    Type = SensorTypeEnum.Read
                 },
                 new SensorKind()
                 {
@@ -44,7 +44,7 @@ namespace DataAccess
                     ShortDescription = "Czujnik wilgotności.",
                     Description =
                         "Czujnik do wilgotności powietrza z interfejsem cyfrowym, jednoprzewodowym. Zakres pomiarowy: wilgotność 0-100 %RH.",
-                    Type = SensorTypeEnum.Input
+                    Type = SensorTypeEnum.Read
                 },
                 new SensorKind()
                 {
@@ -52,7 +52,7 @@ namespace DataAccess
                     ShortDescription = "Czujnik wilgotności.",
                     Description =
                         "Czujnik do wilgotności powietrza z interfejsem cyfrowym, jednoprzewodowym. Zakres pomiarowy: wilgotność od 5 % do 95 % RH. ",
-                    Type = SensorTypeEnum.Input
+                    Type = SensorTypeEnum.Read
                 },
                 new SensorKind()
                 {
@@ -60,7 +60,7 @@ namespace DataAccess
                     ShortDescription = "Czujnik temperatury.",
                     Description =
                         "Czujnik do pomiaru temperatury z interfejsem cyfrowym, jednoprzewodowym. Zakres pomiarowy: wilgotność od 5 % do 95 % RH. ",
-                    Type = SensorTypeEnum.Input
+                    Type = SensorTypeEnum.Read
                 },
                 new SensorKind()
                 {
@@ -68,7 +68,7 @@ namespace DataAccess
                     ShortDescription = "Czujnik temperatury.",
                     Description =
                         "Czujnik do pomiaru temperatury. Zakres pomiarowy: temperatura -40 do 85°C",
-                    Type = SensorTypeEnum.Input
+                    Type = SensorTypeEnum.Read
                 },
                 new SensorKind()
                 {
@@ -76,21 +76,21 @@ namespace DataAccess
                     ShortDescription = "Czujnik ciśnienia.",
                     Description =
                         "Czujnik do pomiaru ciśnienia. Zakres pomiarowy: ciśnienia: 300 do 1100hPa",
-                    Type = SensorTypeEnum.Input
+                    Type = SensorTypeEnum.Read
                 },
                 new SensorKind()
                 {
                     Name = "LM35",
                     ShortDescription = "Czujnik temperatury.",
                     Description = "Czujnik temperatury działający w zakresie od -40°C do 150°C",
-                    Type = SensorTypeEnum.Input
+                    Type = SensorTypeEnum.Read
                 },
                 new SensorKind()
                 {
                     Name = "Oświetlenie cyfrowe",
                     ShortDescription = "Oświetlenie terrarium. Włącz/wyłącz.",
                     Description = "Oświetlenie terrarium. Włącz/wyłącz",
-                    Type = SensorTypeEnum.Output,
+                    Type = SensorTypeEnum.Control,
                     OutputType = OutputTypeEnum.Digital
                 },
                 new SensorKind()
@@ -98,7 +98,7 @@ namespace DataAccess
                     Name = "Oświetlenie analogowe",
                     ShortDescription = "Oświetlenie terrarium RGB.",
                     Description = "Oświetlenie terrarium RGB.",
-                    Type = SensorTypeEnum.Output,
+                    Type = SensorTypeEnum.Control,
                     OutputType = OutputTypeEnum.Analog
                 },
                 new SensorKind()
@@ -106,7 +106,7 @@ namespace DataAccess
                     Name = "Grzałka",
                     ShortDescription = "Ogrzewanie terrarium. Włącz/Wyłącz.",
                     Description = "Ogrzewanie terrarium, lampy/maty/przewody. Włącz/Wyłącz",
-                    Type = SensorTypeEnum.Output,
+                    Type = SensorTypeEnum.Control,
                     OutputType = OutputTypeEnum.Digital
                 },
             };

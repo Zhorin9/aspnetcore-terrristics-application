@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Domain.Enums;
 
 namespace Domain.Entities
 {
@@ -6,20 +7,22 @@ namespace Domain.Entities
     {
         public SensorBlock()
         {
-            Inputs = new HashSet<InputSensorData>();
+            ReadSensors = new HashSet<ReadSensor>();
         }
         public string Name { get; set; }
         public string Description { get; set; }
-        
+
+        public SensorTypeEnum Type { get; set; }
         public int SensorKindId { get; set; }
         public SensorKind SensorKind { get; set; }
         public string UserId { get; set; }
         public int ParentWindowId { get; set; }
         
-        public int OutputDataId { get; set; }
-        public TerraristicWindow ParentWindow { get; set; }
-        public ICollection<InputSensorData> Inputs { get; }
+        public int? ControlSensorId { get; set; }
         
-        public OutputSensorData OutputData { get; set; }
+        public TerraristicWindow ParentWindow { get; set; }
+        public ICollection<ReadSensor> ReadSensors { get; }
+        
+        public ControlSensor ControlSensor { get; set; }
     }
 }

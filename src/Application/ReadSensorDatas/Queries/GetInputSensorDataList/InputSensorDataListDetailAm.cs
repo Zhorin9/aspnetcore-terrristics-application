@@ -5,7 +5,7 @@ using Domain.Entities;
 
 namespace Application.InputSensorDatas.Queries.GetInputSensorDataList
 {
-    public class InputSensorDataListDetailAm : IMapFrom<InputSensorData>
+    public class InputSensorDataListDetailAm : IMapFrom<ReadSensorData>
     {
         public decimal Value { get; set; }
 
@@ -15,7 +15,7 @@ namespace Application.InputSensorDatas.Queries.GetInputSensorDataList
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<InputSensorData, InputSensorDataListDetailAm>()
+            profile.CreateMap<ReadSensorData, InputSensorDataListDetailAm>()
                 ;
         }
     }

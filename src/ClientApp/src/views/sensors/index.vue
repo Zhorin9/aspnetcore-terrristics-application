@@ -10,23 +10,33 @@
             </el-button>
         </div>
 
-        <el-row type="flex" class="row-bg" justify="center">
-
-            <el-col :span="6" v-for="(o, index) in 3" :key="o" :offset="index > 0 ? 2 : 0">
-                <el-card class="box-card">
-                    <div slot="header" class="clearfix" align="left">
-                        <span>Card name</span>
-                        <el-button size="mini" type="primary" class="align-right-button"
-                                   icon="el-icon-edit"></el-button>
-                        <el-button size="mini" type="danger" class="align-right-button"
-                                   icon="el-icon-delete"></el-button>
-                    </div>
-                    <div v-for="o in 4" :key="o" class="text item">
-                        {{ 'List item ' + o }}
-                    </div>
-                </el-card>
-            </el-col>
-        </el-row>
+        <div style="margin: 50px">
+            <el-carousel type="card">
+                <el-carousel-item v-for="(sensor, index) in sensors" :key="`sensor-carousel-${index}`">
+                    <el-card class="box-card">
+                        <div slot="header" class="clearfix" align="left">
+                            <span>{{ sensor.name }}</span>
+                            <el-button size="mini" type="primary"
+                                       class="align-right-button"
+                                       icon="el-icon-edit"/>
+                            <el-button size="mini" type="danger"
+                                       class="align-right-button"
+                                       icon="el-icon-delete"/>
+                        </div>
+                        <div style="padding: 14px;">
+                            <span>{{ sensor.description }}</span>
+                            <div class="bottom clearfix">
+                                <div class="bottom clearfix">
+                                    <span>Sensor: {{ sensor.sensorKind.name }}</span>
+                                    <br/>
+                                    <time class="time">Created: {{ sensor.createdDate | moment("DD-MM-YYYY") }}</time>
+                                </div>
+                            </div>
+                        </div>
+                    </el-card>
+                </el-carousel-item>
+            </el-carousel>
+        </div>
 
         <sensor-form-dialog :key="`terrarium-form-dialog-key-${sensorFormDialogKey}`"
                             :is-create-modal="isCreateDialogForm"
@@ -41,16 +51,17 @@
 import {Component, Prop} from "vue-property-decorator";
 import BackendOperationMixin from "@/mixins/backend-operation-mixin";
 import SensorFormDialog from "@/views/sensors/components/SensorFormDialog.vue";
-import {SensorModule} from "@/store/modules/sensor-module";
 import {sensorTypes} from "@/utils/enums";
 import {DictionaryModule} from "@/store/modules/dictionary-module";
+import {sensorServiceImpl} from "@/services/sensor-service";
+import _ from "lodash";
 
 @Component({
-    name: 'Sensor',
     components: {SensorFormDialog}
 })
 export default class extends BackendOperationMixin {
-    @Prop() windowId!: number;
+    @Prop() windowId!: string;
+    private sensors: Array<SensorModel> = [];
 
     private sensorFormDialogKey: number = 0;
 
@@ -58,13 +69,20 @@ export default class extends BackendOperationMixin {
     private dialogFormVisible: boolean = false;
     private tempSensorFormData: SensorFormDialogModel | null = null;
 
-    get sensorBlocks() {
-        return SensorModule.sensors;
+    get sensorChunks() {
+        return _.chunk(Object.values(this.sensors), 3);
+    }
+
+    get parsedWindowId() {
+        return parseInt(this.windowId);
     }
 
     created() {
         DictionaryModule.DICT_GET_ALL_SENSOR_KINDS();
-        SensorModule.GET_LIST(this.windowId);
+        sensorServiceImpl.getList(this.parsedWindowId)
+            .then(sensors => {
+                this.sensors = sensors;
+            });
     }
 
     private handleCreate() {
@@ -73,9 +91,9 @@ export default class extends BackendOperationMixin {
             id: -1,
             name: '',
             description: '',
-            windowId: this.windowId,
-            type: sensorTypes.input,
-            kindId: null,
+            windowId: this.parsedWindowId,
+            type: sensorTypes.read,
+            sensorKindId: null,
         };
         this.dialogFormVisible = true;
     }
@@ -86,14 +104,16 @@ export default class extends BackendOperationMixin {
         this.dialogFormVisible = true;
     }
 
-    private updateSensors(sensorId: number){
+    private updateSensors(sensorId: number) {
         this.refreshDialog();
-
-        SensorModule.GET(sensorId);
-        this.showNotification("Updated list", "Updated sensors list");
+        sensorServiceImpl.get(sensorId)
+            .then(sensor => {
+                this.sensors.push(sensor);
+                this.showNotification("Updated list", "Updated sensors list");
+            });
     }
 
-    private refreshDialog(){
+    private refreshDialog() {
         this.dialogFormVisible = false;
         this.sensorFormDialogKey += 1;
     }
@@ -105,5 +125,35 @@ export default class extends BackendOperationMixin {
 .align-right-button {
     float: right;
     margin-right: 2px;
+}
+
+.time {
+    font-size: 13px;
+    color: #999;
+}
+
+.bottom {
+    margin-top: 13px;
+    line-height: 12px;
+}
+
+.button {
+    padding: 0;
+    float: right;
+}
+
+.image {
+    width: 100%;
+    display: block;
+}
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
+}
+
+.clearfix:after {
+    clear: both
 }
 </style>

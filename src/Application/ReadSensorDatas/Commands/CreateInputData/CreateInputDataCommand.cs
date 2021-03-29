@@ -38,14 +38,14 @@ namespace Application.InputSensorDatas.Commands.CreateInputData
                     throw new NotFoundException(nameof(sensorBlock), request.SensorBlockId);
                 }
                 
-                var inputSensorData = new InputSensorData
+                var inputSensorData = new ReadSensorData
                 {
                     CreationDate = request.CreationDate == DateTime.MinValue ? DateTime.Now : request.CreationDate,
                     SensorBlockId = request.SensorBlockId,
                     Value = request.Value
                 };
 
-                await _context.InputSensorData.AddAsync(inputSensorData, cancellationToken);
+                await _context.ReadSensorData.AddAsync(inputSensorData, cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
                 
                 return Unit.Value;

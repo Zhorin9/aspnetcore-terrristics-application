@@ -35,8 +35,6 @@ namespace Application.Terrariums.Commands.CreateTerrarium
                     Description = request.Description,
                     UserId = _currentUserService.UserId,
                     ApiKey = Guid.NewGuid(),
-                    CreationDate = DateTime.Now.Date,
-                    ModificationDate = DateTime.Now.Date,
                     IsPublic = request.IsPublic
                 };
 

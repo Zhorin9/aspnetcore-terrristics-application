@@ -6,16 +6,16 @@ using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.OutputSensorDatas.Commands.UpsertOutputSensorData
+namespace Application.ControlSensors.Commands.UpsertControlSensor
 {
-    public class UpsertOutputSensorDataCommand : IRequest
+    public class UpsertControlSensorCommand : IRequest
     {
         public int SensorBlockId { get; set; }
 
         public bool State { get; set; }
         public string Value { get; set; }
 
-        public class Handler : IRequestHandler<UpsertOutputSensorDataCommand>
+        public class Handler : IRequestHandler<UpsertControlSensorCommand>
         {
             private readonly IAppDbContext _context;
 
@@ -24,10 +24,10 @@ namespace Application.OutputSensorDatas.Commands.UpsertOutputSensorData
                 _context = context;
             }
 
-            public async Task<Unit> Handle(UpsertOutputSensorDataCommand request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(UpsertControlSensorCommand request, CancellationToken cancellationToken)
             {
                 SensorBlock sensorBlock = await _context.SensorBlocks
-                    .Include(i => i.OutputData)
+                    .Include(i => i.ControlSensor)
                     .FirstOrDefaultAsync(sb => sb.Id == request.SensorBlockId, cancellationToken: cancellationToken);
 
                 if (sensorBlock == null)
@@ -35,9 +35,9 @@ namespace Application.OutputSensorDatas.Commands.UpsertOutputSensorData
                     throw new NotFoundException(nameof(sensorBlock), request.SensorBlockId);
                 }
 
-                if (sensorBlock.OutputData == null)
+                if (sensorBlock.ControlSensor == null)
                 {
-                    sensorBlock.OutputData = new OutputSensorData
+                    sensorBlock.ControlSensor = new ControlSensor
                     {
                         SensorBlockId = request.SensorBlockId,
                         State = request.State,
@@ -46,8 +46,8 @@ namespace Application.OutputSensorDatas.Commands.UpsertOutputSensorData
                 }
                 else
                 {
-                    sensorBlock.OutputData.State = request.State;
-                    sensorBlock.OutputData.Value = request.Value;
+                    sensorBlock.ControlSensor.State = request.State;
+                    sensorBlock.ControlSensor.Value = request.Value;
                 }
 
                 await _context.SaveChangesAsync(cancellationToken);

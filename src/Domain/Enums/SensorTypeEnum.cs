@@ -2,8 +2,8 @@
 {
     public enum SensorTypeEnum
     {
-        Input = 1,
+        Read = 1,
 
-        Output = 2,
+        Control = 2,
     }
 }

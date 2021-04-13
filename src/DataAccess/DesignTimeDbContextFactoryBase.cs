@@ -46,8 +46,7 @@ namespace DataAccess
             Console.WriteLine($"DesignTimeDbContextFactoryBase.Create(string): Connection string: '{connectionString}'.");
 
             var optionsBuilder = new DbContextOptionsBuilder<TContext>();
-
-            optionsBuilder.UseMySQL(connectionString);
+            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 
             return CreateNewInstance(optionsBuilder.Options);
         }

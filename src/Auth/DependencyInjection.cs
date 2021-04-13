@@ -13,10 +13,11 @@ namespace Auth
     {
         public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
         {
+            string connectionString = configuration.GetConnectionString("AppIdentityDbContext");
             services.AddScoped<IUserManager, UserManagerService>();
 
             services.AddDbContext<AppIdentityDbContext>(options =>
-                options.UseMySQL(configuration.GetConnectionString("AppIdentityDbContext")));
+                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
             services.AddAuthentication();
             
             services.AddIdentity<ApplicationUser, IdentityRole>(cfg => { cfg.User.RequireUniqueEmail = true; })

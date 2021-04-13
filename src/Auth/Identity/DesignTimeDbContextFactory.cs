@@ -19,7 +19,7 @@ namespace Auth.Identity
             
             var builder = new DbContextOptionsBuilder<AppIdentityDbContext>();
             var connectionString = configuration.GetConnectionString("AppIdentityDbContext");
-            builder.UseMySQL(connectionString);
+            builder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
             return new AppIdentityDbContext(builder.Options);
         }
     }
